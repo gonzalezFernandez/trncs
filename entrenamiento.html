@@ -73,7 +73,7 @@
   #screen-player .center{ justify-content:flex-start; padding-top:10px; }
 
   /* ---- start screen ---- */
-  .start h1{ font-size:clamp(2.1rem,9vw,2.9rem); line-height:0.95; }
+  .start h1{ font-size:clamp(1.7rem,7vw,2.1rem); line-height:1; }
   .start .eyebrow{ font-family:"IBM Plex Mono",monospace; font-size:0.76rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent); font-weight:600; margin-bottom:8px; }
   .start p.sub{ color:var(--ink-soft); margin:10px 0 22px; max-width:46ch; }
   .day-grid{ display:flex; flex-direction:column; gap:12px; }
@@ -89,8 +89,8 @@
   .day-card.b .letter{ color:var(--accent2); }
   .day-card.c .letter{ color:var(--good); }
   .day-card .body{ flex:1; }
-  .day-card .title{ font-weight:700; font-size:0.98rem; }
-  .day-card .meta{ font-family:"IBM Plex Mono",monospace; font-size:0.72rem; color:var(--ink-soft); margin-top:4px; }
+  .day-card .title{ display:block; font-weight:700; font-size:0.98rem; }
+  .day-card .meta{ display:block; font-family:"IBM Plex Mono",monospace; font-size:0.72rem; color:var(--ink-soft); margin-top:4px; }
   .day-card .badge{
     font-family:"IBM Plex Mono",monospace; font-size:0.65rem; text-transform:uppercase; letter-spacing:0.04em;
     background:var(--accent-soft); color:var(--accent); padding:2px 7px; border-radius:6px; margin-top:6px; display:inline-block;
@@ -187,7 +187,7 @@
       <a class="back" href="protocolo-12kg.html">← Volver al plan</a>
     </div>
     <div class="eyebrow">Sesión guiada</div>
-    <h1>Cronómetro<br>12KG</h1>
+    <h1>Cronómetro 12KG</h1>
     <p class="sub">Elige el día y te voy guiando ejercicio a ejercicio con temporizador de descanso. Tú decides cuándo pasar al siguiente.</p>
     <div class="day-grid" id="day-grid"></div>
     <p class="rest-note" id="rest-note" hidden>Hoy toca descanso completo según tu plan — pero si quieres entrenar igual, elige un día arriba.</p>
