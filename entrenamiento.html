@@ -180,10 +180,21 @@
   .stage-stack{ display:flex; flex-direction:column; align-items:center; gap:14px; width:100%; }
 
   /* ---- done screen ---- */
-  .done .check{
-    width:68px; height:68px; border-radius:50%; background:var(--good-soft); color:var(--good);
-    display:flex; align-items:center; justify-content:center; font-size:2rem; margin-bottom:14px;
+  .done-card{
+    width:100%; max-width:380px; background:var(--surface); border:1px solid var(--line); border-radius:22px;
+    padding:28px 22px 22px; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center;
+    animation:pop 0.45s cubic-bezier(.2,1.4,.4,1) both;
   }
+  .done-eyebrow{ font-family:"IBM Plex Mono",monospace; font-size:0.78rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-soft); }
+  .done-title{ font-size:clamp(2rem, 10vw, 2.6rem); line-height:1; margin-top:6px; }
+  .gg{
+    font-family:"Big Shoulders Display","Arial Narrow",sans-serif; font-weight:900; line-height:0.9;
+    font-size:clamp(6rem, 36vw, 9rem); letter-spacing:0.02em; margin:10px 0 4px;
+    animation:ggPulse 1.6s ease-in-out 0.45s infinite;
+  }
+  @keyframes pop{ from{ transform:scale(0.7); opacity:0; } to{ transform:scale(1); opacity:1; } }
+  @keyframes ggPulse{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.06); } }
+  @media (prefers-reduced-motion: reduce){ .done-card, .gg{ animation:none; } }
   .stat-row{ display:flex; gap:10px; margin:16px 0 8px; }
   .stat{ background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:12px 18px; text-align:center; }
   .stat .n{ font-family:"IBM Plex Mono",monospace; font-size:1.3rem; font-weight:700; font-variant-numeric:tabular-nums; }
@@ -298,15 +309,17 @@
   <!-- DONE SCREEN -->
   <section id="screen-done" class="screen done" hidden>
     <div class="center">
-      <div class="check">✓</div>
-      <h1 style="font-size:2rem;">Sesión completa</h1>
-      <p class="sub" style="margin:8px 0 0;">Buen trabajo con el <span id="done-day"></span>.</p>
-      <div class="stat-row">
-        <div class="stat"><div class="n" id="done-time">00:00</div><div class="l">tiempo total</div></div>
-        <div class="stat"><div class="n" id="done-count">0</div><div class="l">ejercicios</div></div>
+      <div class="done-card">
+        <span class="done-eyebrow" id="done-day"></span>
+        <h1 class="done-title">Fin del entrenamiento</h1>
+        <div class="gg" id="done-gg">GG</div>
+        <div class="stat-row">
+          <div class="stat"><div class="n" id="done-time">00:00</div><div class="l">tiempo total</div></div>
+          <div class="stat"><div class="n" id="done-count">0</div><div class="l">ejercicios</div></div>
+        </div>
+        <button class="cta" id="btn-done-restart" style="margin-top:10px;">Repetir este día</button>
+        <a class="link-btn" href="protocolo-12kg.html" style="display:inline-block;">Volver al plan</a>
       </div>
-      <button class="cta" id="btn-done-restart" style="margin-top:10px;">Repetir este día</button>
-      <a class="link-btn" href="protocolo-12kg.html" style="display:inline-block;">Volver al plan</a>
     </div>
   </section>
 
@@ -854,6 +867,8 @@
     $("done-time").textContent = fmtClock(sec);
     $("done-count").textContent = state.sequence.length;
     $("done-day").textContent = DAYS[state.dayKey].label;
+    $("done-gg").style.color = accentVar();
+    beep(660, 0.15); setTimeout(function(){ beep(880, 0.15); }, 180); setTimeout(function(){ beep(1175, 0.3); }, 360);
     try{
       var log = JSON.parse(localStorage.getItem("cronometro12kg_log") || "[]");
       log.push({day: state.dayKey, date: new Date().toISOString(), seconds: sec});
