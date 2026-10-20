@@ -1,0 +1,765 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cronómetro 12kg</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #EDF0F2; --surface: #FFFFFF; --surface-2: #E3E8EB;
+    --ink: #16202A; --ink-soft: #4B5A66; --line: #D7DCE1;
+    --accent: #2A5DA8; --accent-ink: #FFFFFF; --accent-soft: #DCE6F3;
+    --accent2: #B2622E; --accent2-ink: #FFFFFF; --accent2-soft: #F3E2D1;
+    --good: #2F7A54; --good-soft: #DCEFE2;
+    --shadow: 0 1px 2px rgba(22,32,42,0.06), 0 8px 24px -12px rgba(22,32,42,0.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#10151B; --surface:#171D24; --surface-2:#1E2630;
+      --ink:#E7ECEF; --ink-soft:#9FB0BC; --line:#2A333C;
+      --accent:#6AA3EE; --accent-ink:#0B1520; --accent-soft:#1E3250;
+      --accent2:#E08A4E; --accent2-ink:#1A1006; --accent2-soft:#3A2A1A;
+      --good:#5FBE8D; --good-soft:#163227;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 28px -14px rgba(0,0,0,0.55);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#10151B; --surface:#171D24; --surface-2:#1E2630;
+    --ink:#E7ECEF; --ink-soft:#9FB0BC; --line:#2A333C;
+    --accent:#6AA3EE; --accent-ink:#0B1520; --accent-soft:#1E3250;
+    --accent2:#E08A4E; --accent2-ink:#1A1006; --accent2-soft:#3A2A1A;
+    --good:#5FBE8D; --good-soft:#163227;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 28px -14px rgba(0,0,0,0.55);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:"IBM Plex Sans", system-ui, -apple-system, Segoe UI, sans-serif;
+    line-height:1.4; -webkit-font-smoothing:antialiased;
+    padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  h1,h2{ font-family:"Big Shoulders Display","Arial Narrow",sans-serif; text-transform:uppercase; letter-spacing:0.02em; text-wrap:balance; margin:0; }
+  [hidden]{ display:none !important; }
+  button{ font-family:inherit; }
+  a{ color:var(--accent); }
+
+  .app{ max-width:480px; margin:0 auto; min-height:100vh; display:flex; flex-direction:column; padding:16px 18px 28px; }
+
+  /* ---- top bar ---- */
+  .topbar{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:14px; }
+  .topbar .back{ font-family:"IBM Plex Mono",monospace; font-size:0.78rem; color:var(--ink-soft); text-decoration:none; }
+  .topbar .mid{ display:flex; align-items:center; gap:8px; }
+  .daytag{ font-family:"IBM Plex Mono",monospace; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.05em; padding:3px 9px; border-radius:7px; font-weight:700; }
+  .daytag.a{ background:var(--accent-soft); color:var(--accent); }
+  .daytag.b{ background:var(--accent2-soft); color:var(--accent2); }
+  .daytag.c{ background:var(--good-soft); color:var(--good); }
+  .clock{ font-family:"IBM Plex Mono",monospace; font-size:2.2rem; font-weight:700; line-height:1; letter-spacing:-0.02em; font-variant-numeric:tabular-nums; color:var(--ink); }
+
+  /* ---- progress ---- */
+  .progress-label{ font-family:"IBM Plex Mono",monospace; font-size:0.72rem; color:var(--ink-soft); display:flex; justify-content:space-between; margin-bottom:6px; }
+  .progress-track{ height:6px; background:var(--surface-2); border-radius:999px; overflow:hidden; margin-bottom:8px; }
+  .progress-fill{ height:100%; border-radius:999px; transition:width 0.25s ease; background:var(--accent); }
+
+  /* ---- screens ---- */
+  .screen{ flex:1; display:flex; flex-direction:column; }
+  .center{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:10px; }
+  #screen-player .center{ justify-content:flex-start; padding-top:10px; }
+
+  /* ---- start screen ---- */
+  .start h1{ font-size:clamp(2.1rem,9vw,2.9rem); line-height:0.95; }
+  .start .eyebrow{ font-family:"IBM Plex Mono",monospace; font-size:0.76rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent); font-weight:600; margin-bottom:8px; }
+  .start p.sub{ color:var(--ink-soft); margin:10px 0 22px; max-width:46ch; }
+  .day-grid{ display:flex; flex-direction:column; gap:12px; }
+  .day-card{
+    background:var(--surface); border:1.5px solid var(--line); border-radius:16px;
+    padding:14px 16px; text-align:left; cursor:pointer; display:flex; align-items:center; gap:14px;
+    width:100%; font-family:inherit; color:inherit;
+  }
+  .day-card:hover{ border-color:var(--ink-soft); }
+  .day-card.suggested{ border-color:var(--accent); box-shadow:0 0 0 1.5px var(--accent) inset; }
+  .day-card .letter{ font-family:"Big Shoulders Display",sans-serif; font-size:2.1rem; font-weight:900; width:40px; text-align:center; flex:0 0 auto; }
+  .day-card.a .letter{ color:var(--accent); }
+  .day-card.b .letter{ color:var(--accent2); }
+  .day-card.c .letter{ color:var(--good); }
+  .day-card .body{ flex:1; }
+  .day-card .title{ font-weight:700; font-size:0.98rem; }
+  .day-card .meta{ font-family:"IBM Plex Mono",monospace; font-size:0.72rem; color:var(--ink-soft); margin-top:4px; }
+  .day-card .badge{
+    font-family:"IBM Plex Mono",monospace; font-size:0.65rem; text-transform:uppercase; letter-spacing:0.04em;
+    background:var(--accent-soft); color:var(--accent); padding:2px 7px; border-radius:6px; margin-top:6px; display:inline-block;
+  }
+  .rest-note{ margin-top:18px; font-size:0.82rem; color:var(--ink-soft); text-align:center; }
+
+  /* ---- player stage ---- */
+  .block-tag{ font-family:"IBM Plex Mono",monospace; font-size:0.74rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-soft); }
+  .round-pill{
+    font-family:"IBM Plex Mono",monospace; font-size:0.72rem; font-weight:600; color:var(--ink-soft);
+    background:var(--surface-2); padding:3px 10px; border-radius:999px; margin-top:4px;
+  }
+  .big-icon{ width:104px; height:104px; margin:6px 0; }
+  .big-icon svg{ overflow:visible; }
+  .big-photo{
+    max-width:220px; max-height:220px; width:auto; height:auto; object-fit:contain;
+    background:#fff; border-radius:12px; padding:6px; border:1px solid var(--line); margin:6px 0;
+  }
+
+  /* ---- icon motion ---- */
+  @keyframes sway        { 0%,100%{ transform: rotate(-16deg); } 50%{ transform: rotate(16deg); } }
+  @keyframes swayWide    { 0%,100%{ transform: rotate(-28deg); } 50%{ transform: rotate(28deg); } }
+  @keyframes spin        { from{ transform: rotate(0deg); } to{ transform: rotate(360deg); } }
+  @keyframes bobY        { 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(9px); } }
+  @keyframes bobYup      { 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-11px); } }
+  @keyframes pulse       { 0%,100%{ transform: scale(1); } 50%{ transform: scale(1.08); } }
+  @keyframes curl        { 0%,100%{ transform: rotate(0deg); } 50%{ transform: rotate(-60deg); } }
+  @keyframes extend      { 0%,100%{ transform: rotate(0deg); } 50%{ transform: rotate(45deg); } }
+  @keyframes reach       { 0%,100%{ transform: scale(.7); opacity:.55; } 50%{ transform: scale(1); opacity:1; } }
+  @keyframes shiftX      { 0%,100%{ transform: translateX(0); } 50%{ transform: translateX(9px); } }
+  @keyframes stepY       { 0%,100%{ transform: translateY(0) rotate(0deg); } 50%{ transform: translateY(-3px) rotate(-7deg); } }
+  @keyframes thrusterLegs{ 0%{ transform: translateY(0); } 35%{ transform: translateY(9px); } 55%{ transform: translateY(9px); } 100%{ transform: translateY(0); } }
+  @keyframes thrusterArm { 0%{ transform: translateY(0); } 45%{ transform: translateY(0); } 70%{ transform: translateY(-14px); } 100%{ transform: translateY(0); } }
+  @media (prefers-reduced-motion: reduce){
+    .big-icon svg *{ animation: none !important; }
+  }
+  .ex-name{ font-size:clamp(1.5rem,7vw,2.1rem); font-weight:800; line-height:1.05; padding:0 6px; }
+  .side-tag{
+    font-size:1.6rem; font-weight:800; text-transform:uppercase; letter-spacing:0.04em;
+    background:var(--surface-2); padding:6px 18px; border-radius:999px;
+  }
+  .ex-target{ font-family:"IBM Plex Mono",monospace; font-size:0.95rem; color:var(--ink-soft); font-variant-numeric:tabular-nums; }
+  .phase-note{ font-size:0.86rem; color:var(--ink-soft); max-width:36ch; }
+
+  .ring-wrap{ position:relative; width:min(340px, 88vw); aspect-ratio:1; margin:6px 0; }
+  .ring-wrap svg{ width:100%; height:100%; transform:rotate(-90deg); }
+  .ring-bg{ fill:none; stroke:var(--surface-2); stroke-width:13; }
+  .ring-fg{ fill:none; stroke-width:13; stroke-linecap:round; transition:stroke-dashoffset 0.2s linear; }
+  .ring-num{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    font-family:"IBM Plex Mono",monospace; font-size:clamp(5rem, 26vw, 7.2rem); font-weight:700; font-variant-numeric:tabular-nums; letter-spacing:-0.04em;
+  }
+
+  .cta{
+    width:100%; max-width:340px; padding:16px 20px; border-radius:16px; border:none; cursor:pointer;
+    font-weight:700; font-size:1.02rem; background:var(--accent); color:var(--accent-ink);
+  }
+  .cta:active{ transform:scale(0.98); }
+  .cta.secondary{ background:var(--surface-2); color:var(--ink); }
+  .cta.ghost{ background:none; border:1px solid var(--line); color:var(--ink-soft); }
+  .control-row{ display:flex; gap:10px; width:100%; max-width:340px; }
+  .control-row .cta{ flex:1; }
+  .link-btn{ background:none; border:none; color:var(--ink-soft); font-size:0.82rem; text-decoration:underline; cursor:pointer; margin-top:10px; padding:4px; }
+  .nav-row{ display:flex; justify-content:space-between; width:100%; max-width:340px; margin-top:14px; }
+  .nav-row button{ background:none; border:none; color:var(--ink-soft); font-family:"IBM Plex Mono",monospace; font-size:0.78rem; cursor:pointer; padding:8px 10px; }
+  .nav-row button:hover{ color:var(--ink); }
+  .stage-stack{ display:flex; flex-direction:column; align-items:center; gap:14px; width:100%; }
+
+  /* ---- done screen ---- */
+  .done .check{
+    width:68px; height:68px; border-radius:50%; background:var(--good-soft); color:var(--good);
+    display:flex; align-items:center; justify-content:center; font-size:2rem; margin-bottom:14px;
+  }
+  .stat-row{ display:flex; gap:10px; margin:16px 0 8px; }
+  .stat{ background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:12px 18px; text-align:center; }
+  .stat .n{ font-family:"IBM Plex Mono",monospace; font-size:1.3rem; font-weight:700; font-variant-numeric:tabular-nums; }
+  .stat .l{ font-size:0.68rem; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.03em; }
+
+  @media (max-width:360px){
+    .ring-wrap{ width:min(280px, 88vw); }
+    .ring-num{ font-size:4.6rem; }
+    .clock{ font-size:1.8rem; }
+    .big-icon{ width:88px; height:88px; }
+    .big-photo{ max-width:170px; max-height:170px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- START SCREEN -->
+  <section id="screen-start" class="screen start">
+    <div class="topbar">
+      <a class="back" href="protocolo-12kg.html">← Volver al plan</a>
+    </div>
+    <div class="eyebrow">Sesión guiada</div>
+    <h1>Cronómetro<br>12KG</h1>
+    <p class="sub">Elige el día y te voy guiando ejercicio a ejercicio con temporizador de descanso. Tú decides cuándo pasar al siguiente.</p>
+    <div class="day-grid" id="day-grid"></div>
+    <p class="rest-note" id="rest-note" hidden>Hoy toca descanso completo según tu plan — pero si quieres entrenar igual, elige un día arriba.</p>
+  </section>
+
+  <!-- PLAYER SCREEN -->
+  <section id="screen-player" class="screen" hidden>
+    <div class="topbar">
+      <button class="back" id="btn-exit" style="background:none;border:none;cursor:pointer;font-family:'IBM Plex Mono',monospace;">← Salir</button>
+      <div class="mid">
+        <span class="daytag" id="player-daytag"></span>
+        <span class="clock" id="player-clock">00:00</span>
+      </div>
+    </div>
+    <div class="progress-label"><span id="progress-text">Paso 1 / 1</span><span id="progress-pct">0%</span></div>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+
+    <div class="center">
+      <div class="stage-stack">
+        <span class="block-tag" id="st-block">Bloque</span>
+        <span class="round-pill" id="st-round" hidden>Ronda 1/3</span>
+        <span class="big-icon" id="st-icon"></span>
+        <img class="big-photo" id="st-photo" hidden alt="">
+        <h2 class="ex-name" id="st-name">Ejercicio</h2>
+        <span class="side-tag" id="st-side" hidden></span>
+        <span class="ex-target" id="st-target"></span>
+
+        <div class="ring-wrap" id="ring-wrap" hidden>
+          <svg viewBox="0 0 100 100">
+            <circle class="ring-bg" cx="50" cy="50" r="42"></circle>
+            <circle class="ring-fg" id="ring-fg" cx="50" cy="50" r="42"></circle>
+          </svg>
+          <div class="ring-num" id="ring-num">0</div>
+        </div>
+
+        <p class="phase-note" id="phase-note" hidden></p>
+
+        <button class="cta" id="btn-main"></button>
+        <div class="control-row" id="control-row" hidden>
+          <button class="cta secondary" id="btn-pause">Pausar</button>
+          <button class="cta ghost" id="btn-skip-rest">Saltar</button>
+        </div>
+        <button class="link-btn" id="btn-skip-ex">Saltar este ejercicio ›</button>
+        <button class="cta ghost" id="btn-skip-warmup" hidden style="margin-top:8px;">⏭ Saltar calentamiento completo</button>
+
+        <div class="nav-row">
+          <button id="btn-prev">‹ Anterior</button>
+          <button id="btn-restart">Reiniciar sesión</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DONE SCREEN -->
+  <section id="screen-done" class="screen done" hidden>
+    <div class="center">
+      <div class="check">✓</div>
+      <h1 style="font-size:2rem;">Sesión completa</h1>
+      <p class="sub" style="margin:8px 0 0;">Buen trabajo con el <span id="done-day"></span>.</p>
+      <div class="stat-row">
+        <div class="stat"><div class="n" id="done-time">00:00</div><div class="l">tiempo total</div></div>
+        <div class="stat"><div class="n" id="done-count">0</div><div class="l">ejercicios</div></div>
+      </div>
+      <button class="cta" id="btn-done-restart" style="margin-top:10px;">Repetir este día</button>
+      <a class="link-btn" href="protocolo-12kg.html" style="display:inline-block;">Volver al plan</a>
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ================= ICONS ================= */
+  var ICONS = {
+    "hip-circles": '<circle cx="20" cy="26" r="13" fill="currentColor" stroke="none"/><polyline points="25,33 55,54"/><g style="transform-origin:55px 54px; animation: sway 1.6s ease-in-out infinite;"><polyline points="55,54 62,78 80,80"/></g><polyline points="27,37 22,78"/><line x1="8" y1="86" x2="92" y2="86" stroke-width="3" opacity="0.35"/>',
+    "cat-cow": '<circle cx="18" cy="30" r="13" fill="currentColor" stroke="none"/><g style="transform-origin:40px 38px; animation: pulse 1.8s ease-in-out infinite;"><path d="M24,36 Q42,26 58,52"/></g><polyline points="26,40 22,78"/><polyline points="58,52 64,76 80,78"/><line x1="8" y1="86" x2="92" y2="86" stroke-width="3" opacity="0.35"/>',
+    "glute-bridge": '<circle cx="16" cy="66" r="13" fill="currentColor" stroke="none"/><g style="transform-origin:55px 70px; animation: bobYup 1.6s ease-in-out infinite;"><polyline points="22,68 55,52"/><polyline points="55,52 72,70 85,72"/></g><polyline points="22,68 14,80"/><line x1="8" y1="86" x2="92" y2="86" stroke-width="3" opacity="0.35"/>',
+    "band-pull-apart": '<circle cx="50" cy="20" r="13" fill="currentColor" stroke="none"/><polyline points="50,27 50,60"/><polyline points="50,60 40,85"/><polyline points="50,60 60,85"/><g style="transform-origin:50px 35px; animation: shiftX 1.4s ease-in-out infinite reverse;"><polyline points="50,35 20,35"/></g><g style="transform-origin:50px 35px; animation: shiftX 1.4s ease-in-out infinite;"><polyline points="50,35 80,35"/></g><path d="M20,35 l6,-6 l6,6 l6,-6 l6,6 l6,-6 l6,6 l6,-6 l6,6 l6,-6" stroke-width="3"/>',
+    "goblet-squat": '<circle cx="50" cy="22" r="13" fill="currentColor" stroke="none"/><g style="transform-origin:50px 34px; animation: bobY 1.6s ease-in-out infinite;"><polyline points="50,29 50,55"/><polyline points="50,34 38,48 50,52"/><polyline points="50,34 62,48 50,52"/><circle cx="50" cy="54" r="6" fill="currentColor" stroke="none"/><path d="M45,48 q5,-8 10,0"/><polyline points="50,55 35,72 28,86"/><polyline points="50,55 65,72 72,86"/></g><line x1="8" y1="90" x2="92" y2="90" stroke-width="3" opacity="0.35"/>',
+    "clean-press": '<circle cx="48" cy="18" r="13" fill="currentColor" stroke="none"/><polyline points="50,25 50,58"/><g style="transform-origin:55px 30px; animation: bobYup 1.5s ease-in-out infinite;"><polyline points="55,30 68,12"/><circle cx="70" cy="9" r="6" fill="currentColor" stroke="none"/><path d="M65,4 q5,-6 10,0"/></g><polyline points="45,30 36,42 41,52"/><polyline points="50,58 42,86"/><polyline points="50,58 58,86"/><line x1="8" y1="90" x2="92" y2="90" stroke-width="3" opacity="0.35"/>',
+    "kb-row": '<circle cx="22" cy="30" r="12" fill="currentColor" stroke="none"/><polyline points="28,35 58,58"/><polyline points="58,58 66,80 80,82"/><polyline points="58,58 48,78 40,82"/><g style="transform-origin:30px 38px; animation: sway 1.3s ease-in-out infinite;"><polyline points="30,38 34,55 28,62"/><circle cx="26" cy="67" r="6" fill="currentColor" stroke="none"/><path d="M21,61 q5,-7 10,0"/></g><line x1="8" y1="90" x2="92" y2="90" stroke-width="3" opacity="0.35"/>',
+    "kb-swing": '<circle cx="26" cy="34" r="12" fill="currentColor" stroke="none"/><polyline points="30,38 55,60"/><polyline points="55,60 50,80"/><polyline points="55,60 68,82"/><g style="transform-origin:32px 42px; animation: swayWide 1.1s ease-in-out infinite;"><polyline points="32,42 40,66"/><circle cx="42" cy="72" r="7" fill="currentColor" stroke="none"/><path d="M36,66 q6,-8 12,0"/></g><line x1="8" y1="90" x2="92" y2="90" stroke-width="3" opacity="0.35"/>',
+    "thruster": '<circle cx="50" cy="20" r="13" fill="currentColor" stroke="none"/><g style="transform-origin:50px 32px; animation: thrusterLegs 1.8s ease-in-out infinite;"><polyline points="50,27 50,56"/><polyline points="50,56 38,74 32,86"/><polyline points="50,56 62,74 68,86"/></g><g style="transform-origin:50px 32px; animation: thrusterArm 1.8s ease-in-out infinite;"><polyline points="50,32 50,10"/><circle cx="50" cy="8" r="6" fill="currentColor" stroke="none"/><path d="M45,3 q5,-6 10,0"/></g><line x1="8" y1="90" x2="92" y2="90" stroke-width="3" opacity="0.35"/>',
+    "floor-press": '<circle cx="18" cy="70" r="13" fill="currentColor" stroke="none"/><polyline points="24,70 55,70"/><polyline points="55,70 85,74"/><polyline points="55,70 50,50 42,52"/><polyline points="28,70 6,65"/><g style="transform-origin:28px 70px; animation: bobYup 1.4s ease-in-out infinite;"><polyline points="28,70 28,32"/><circle cx="28" cy="28" r="6" fill="currentColor" stroke="none"/><path d="M23,23 q5,-6 10,0"/></g>',
+    "band-row": '<circle cx="65" cy="22" r="13" fill="currentColor" stroke="none"/><polyline points="65,29 65,58"/><polyline points="65,58 58,82"/><polyline points="65,58 75,84"/><rect x="2" y="30" width="6" height="16" fill="currentColor" stroke="none"/><g style="transform-origin:38px 38px; animation: shiftX 1.3s ease-in-out infinite reverse;"><polyline points="62,34 48,40 38,38"/><path d="M38,38 l-6,-6 l-6,6 l-6,-6 l-6,6 l-6,-6" stroke-width="3"/></g><line x1="8" y1="90" x2="92" y2="90" stroke-width="3" opacity="0.35"/>',
+    "suitcase-carry": '<g style="transform-origin:50px 58px; animation: stepY 1s ease-in-out infinite;"><circle cx="50" cy="20" r="13" fill="currentColor" stroke="none"/><polyline points="50,27 50,58"/><polyline points="40,32 40,55"/><circle cx="40" cy="60" r="6" fill="currentColor" stroke="none"/><path d="M35,54 q5,-7 10,0"/><polyline points="60,32 66,50"/><polyline points="50,58 40,80"/><polyline points="50,58 60,84"/></g><line x1="8" y1="90" x2="92" y2="90" stroke-width="3" opacity="0.35"/>',
+    "dead-bug": '<circle cx="16" cy="55" r="12" fill="currentColor" stroke="none"/><polyline points="22,55 50,55"/><polyline points="50,55 50,35 60,35"/><polyline points="28,55 28,30"/><g style="transform-origin:50px 55px; animation: reach 1.5s ease-in-out infinite;"><polyline points="50,55 80,62" stroke-dasharray="3 5"/></g><g style="transform-origin:28px 55px; animation: reach 1.5s ease-in-out infinite;"><polyline points="28,55 5,62" stroke-dasharray="3 5"/></g>',
+    "side-plank": '<g style="transform-origin:50px 65px; animation: pulse 2s ease-in-out infinite;"><circle cx="18" cy="62" r="12" fill="currentColor" stroke="none"/><polyline points="22,68 52,60 85,53"/><polyline points="22,68 20,80"/><polyline points="20,80 18,82"/><polyline points="85,53 88,55"/></g>',
+    "pallof-press": '<circle cx="50" cy="20" r="13" fill="currentColor" stroke="none"/><polyline points="50,27 50,58"/><polyline points="50,58 42,84"/><polyline points="50,58 58,84"/><rect x="90" y="32" width="6" height="14" fill="currentColor" stroke="none"/><g style="transform-origin:50px 38px; animation: shiftX 1.3s ease-in-out infinite;"><polyline points="40,34 50,38"/><polyline points="60,34 50,38"/><path d="M50,38 l8,-2 l8,2 l8,-2 l8,2 l8,-2" stroke-width="3"/></g><line x1="8" y1="90" x2="92" y2="90" stroke-width="3" opacity="0.35"/>',
+    "russian-twist": '<polyline points="40,70 60,78 75,72"/><g style="transform-origin:40px 70px; animation: sway 1.2s ease-in-out infinite;"><circle cx="58" cy="38" r="12" fill="currentColor" stroke="none"/><polyline points="55,44 40,70"/><polyline points="50,50 70,55"/><circle cx="74" cy="56" r="6" fill="currentColor" stroke="none"/><path d="M69,51 q5,-6 10,0"/></g>',
+    "mountain-climbers": '<circle cx="18" cy="60" r="12" fill="currentColor" stroke="none"/><polyline points="24,62 55,60 85,56"/><polyline points="24,62 20,80"/><polyline points="55,60 80,80"/><g style="transform-origin:55px 60px; animation: reach 0.9s ease-in-out infinite;"><polyline points="55,60 40,70 35,62"/></g>',
+    "reverse-lunge": '<circle cx="50" cy="20" r="13" fill="currentColor" stroke="none"/><polyline points="50,27 50,55"/><polyline points="50,32 40,44 48,48"/><polyline points="50,32 60,44 52,48"/><circle cx="50" cy="50" r="6" fill="currentColor" stroke="none"/><path d="M45,44 q5,-8 10,0"/><g style="transform-origin:50px 55px; animation: bobY 1.6s ease-in-out infinite;"><polyline points="50,55 42,72 38,86"/><polyline points="50,55 65,78 78,84"/></g><line x1="8" y1="90" x2="92" y2="90" stroke-width="3" opacity="0.35"/>',
+    "kb-halo": '<circle cx="50" cy="30" r="13" fill="currentColor" stroke="none"/><polyline points="50,37 50,60"/><polyline points="50,60 42,86"/><polyline points="50,60 58,86"/><g style="transform-origin:50px 30px; animation: spin 2.2s linear infinite;"><polyline points="54,34 64,28"/><polyline points="46,34 60,32"/><circle cx="68" cy="26" r="6" fill="currentColor" stroke="none"/><path d="M63,21 q5,-6 10,0"/></g><line x1="8" y1="90" x2="92" y2="90" stroke-width="3" opacity="0.35"/>',
+    "single-leg-deadlift": '<polyline points="55,56 60,82"/><polyline points="55,56 85,48" stroke-dasharray="3 5"/><g style="transform-origin:55px 56px; animation: sway 1.6s ease-in-out infinite;"><circle cx="26" cy="32" r="12" fill="currentColor" stroke="none"/><polyline points="30,36 55,56"/><polyline points="32,40 30,64"/><circle cx="28" cy="70" r="6" fill="currentColor" stroke="none"/><path d="M23,64 q5,-7 10,0"/></g>',
+    "band-woodchopper": '<circle cx="50" cy="20" r="13" fill="currentColor" stroke="none"/><polyline points="50,27 50,58"/><polyline points="50,58 40,84"/><polyline points="50,58 62,84"/><rect x="2" y="68" width="6" height="16" fill="currentColor" stroke="none"/><g style="transform-origin:50px 32px; animation: sway 1.3s ease-in-out infinite;"><polyline points="50,32 68,22"/><path d="M68,22 l-6,-6 l6,-6 l-6,-6 l6,-6 l-6,-6" stroke-width="3"/><path d="M30,70 Q45,45 65,25" stroke-dasharray="3 5"/></g><line x1="8" y1="90" x2="92" y2="90" stroke-width="3" opacity="0.35"/>',
+    "renegade-row": '<polyline points="24,66 52,62 85,58"/><polyline points="24,66 30,82"/><circle cx="18" cy="62" r="12" fill="currentColor" stroke="none"/><g style="transform-origin:24px 66px; animation: bobYup 1.2s ease-in-out infinite;"><polyline points="24,66 34,55 42,50"/><circle cx="44" cy="82" r="6" fill="currentColor" stroke="none"/><path d="M39,76 q5,-7 10,0"/></g>',
+    "shoulder-taps": '<circle cx="18" cy="60" r="12" fill="currentColor" stroke="none"/><polyline points="24,64 55,60 85,56"/><polyline points="24,64 22,80"/><g style="transform-origin:55px 60px; animation: reach 1s ease-in-out infinite;"><polyline points="55,60 35,48" stroke-dasharray="3 5"/></g>',
+    "push-up": '<circle cx="18" cy="58" r="12" fill="currentColor" stroke="none"/><polyline points="24,62 52,58 85,54"/><polyline points="24,62 18,72 26,78"/><path d="M24,62 l-2,14" stroke-dasharray="2 4"/>',
+    "band-curl": '<circle cx="50" cy="20" r="13" fill="currentColor" stroke="none"/><polyline points="50,27 50,58"/><polyline points="50,58 42,86"/><polyline points="50,58 58,86"/><rect x="55" y="82" width="8" height="6" fill="currentColor" stroke="none"/><polyline points="44,34 42,50 48,40"/><path d="M58,82 Q50,60 46,42" stroke-dasharray="3 5" stroke-width="3"/>',
+    "band-chest-press": '<circle cx="50" cy="20" r="13" fill="currentColor" stroke="none"/><polyline points="50,27 50,58"/><polyline points="50,58 42,86"/><polyline points="50,58 58,86"/><rect x="6" y="26" width="8" height="8" fill="currentColor" stroke="none"/><g style="transform-origin:50px 36px; animation: shiftX 1.3s ease-in-out infinite;"><polyline points="46,34 72,36"/><polyline points="54,34 72,40"/><path d="M72,38 Q50,8 15,32" stroke-dasharray="3 5" stroke-width="3"/></g><line x1="8" y1="90" x2="92" y2="90" stroke-width="3" opacity="0.35"/>',
+    "band-triceps-extension": '<circle cx="50" cy="20" r="13" fill="currentColor" stroke="none"/><polyline points="50,27 50,58"/><polyline points="50,58 42,86"/><polyline points="50,58 58,86"/><rect x="36" y="82" width="8" height="6" fill="currentColor" stroke="none"/><polyline points="56,30 62,18"/><g style="transform-origin:62px 18px; animation: extend 1.3s ease-in-out infinite;"><polyline points="62,18 66,30"/><path d="M40,82 Q55,55 62,32" stroke-dasharray="3 5" stroke-width="3"/></g>',
+    "hip-flexor-stretch": '<g style="transform-origin:50px 55px; animation: pulse 2.2s ease-in-out infinite;"><circle cx="46" cy="20" r="13" fill="currentColor" stroke="none"/><polyline points="48,27 50,55"/><polyline points="50,55 38,78 30,82"/><polyline points="50,55 65,80 78,82"/><polyline points="48,30 42,50"/></g>',
+    "hamstring-stretch": '<g style="transform-origin:45px 55px; animation: pulse 2.2s ease-in-out infinite;"><circle cx="34" cy="34" r="13" fill="currentColor" stroke="none"/><polyline points="38,38 55,58"/><polyline points="55,58 60,84"/><polyline points="55,58 30,66 18,68"/><polyline points="40,40 22,60"/></g>',
+    "thoracic-rotation": '<circle cx="26" cy="44" r="13" fill="currentColor" stroke="none"/><polyline points="30,50 45,65"/><polyline points="45,65 65,70 78,66"/><g style="transform-origin:32px 52px; animation: sway 1.4s ease-in-out infinite;"><polyline points="32,52 15,58"/><path d="M32,52 Q45,35 50,25" stroke-dasharray="3 5"/></g>'
+  };
+
+  function iconSvg(id){
+    return '<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round">' + (ICONS[id] || '') + '</svg>';
+  }
+
+  var PHOTOS = {
+    "hip-circles": "hip-circles.png",
+    "cat-cow": "cat-cow.png",
+    "glute-bridge": "glute-bridge.png",
+    "band-pull-apart": "band-pull-apart.png",
+    "goblet-squat": "goblet-squat.png",
+    "clean-press": "clean-press.png",
+    "kb-row": "kb-row.png",
+    "kb-swing": "kb-swing.png",
+    "thruster": "thruster.png",
+    "push-up": "push-up.png",
+    "band-curl": "band-curl.png",
+    "floor-press": "floor-press.png",
+    "band-row": "band-row.png",
+    "suitcase-carry": "suitcase-carry.png",
+    "dead-bug": "dead-bug.png",
+    "side-plank": "side-plank.png",
+    "pallof-press": "pallof-press.png",
+    "russian-twist": "russian-twist.png",
+    "mountain-climbers": "mountain-climbers.png",
+    "band-chest-press": "band-chest-press.png",
+    "band-triceps-extension": "band-triceps-extension.png",
+    "reverse-lunge": "reverse-lunge.png",
+    "kb-halo": "kb-halo.png",
+    "single-leg-deadlift": "single-leg-deadlift.png",
+    "band-woodchopper": "band-woodchopper.png",
+    "renegade-row": "renegade-row.png",
+    "shoulder-taps": "shoulder-taps.png",
+    "hip-flexor-stretch": "hip-flexor-stretch.png",
+    "hamstring-stretch": "hamstring-stretch.png",
+    "thoracic-rotation": "thoracic-rotation.png"
+  };
+
+  /* ================= WORKOUT DATA ================= */
+  var WARMUP = { label:"Calentamiento", rounds:1, exercises:[
+    {id:"hip-circles", name:"Círculos de cadera a cuatro patas", kind:"reps", target:"8 por lado", perSide:true, rest:15},
+    {id:"cat-cow", name:"Gato-camello", kind:"reps", target:"8 repeticiones", rest:15},
+    {id:"glute-bridge", name:"Puente de glúteo", kind:"reps", target:"12 repeticiones", rest:15},
+    {id:"band-pull-apart", name:"Band pull-apart", kind:"reps", target:"15 repeticiones", rest:20}
+  ]};
+
+  var COOLDOWN = { label:"Enfriamiento", rounds:1, exercises:[
+    {id:"hip-flexor-stretch", name:"Estiramiento de flexor de cadera", kind:"time", duration:30, target:"30 s por lado", perSide:true, rest:10},
+    {id:"hamstring-stretch", name:"Estiramiento de isquiotibiales", kind:"time", duration:30, target:"30 s por lado", perSide:true, rest:10},
+    {id:"thoracic-rotation", name:"Rotaciones torácicas", kind:"reps", target:"8 por lado", perSide:true, rest:0}
+  ]};
+
+  var DAYS = {
+    A: {
+      label:"Día A — Fuerza con kettlebell", short:"Día A", colorClass:"a",
+      blocks:[
+        { label:"Bloque 1", rounds:3, exercises:[
+          {id:"goblet-squat", name:"Goblet squat", kind:"reps", target:"8–12 reps", rest:60},
+          {id:"clean-press", name:"Clean and press", kind:"reps", target:"6–12 reps", perSide:true, rest:60},
+          {id:"kb-row", name:"Remo a una mano", kind:"reps", target:"10–15 reps", perSide:true, rest:90}
+        ]},
+        { label:"Bloque 2 — Finisher EMOM", rounds:6, exercises:[
+          {id:"kb-swing", name:"Swing", kind:"time", duration:60, target:"15–20 reps en el minuto", rest:0},
+          {id:"thruster", name:"Thruster", kind:"time", duration:60, target:"5–8 reps en el minuto", rest:0}
+        ]},
+        { label:"Bloque 3 — Pecho y brazos", rounds:3, exercises:[
+          {id:"push-up", name:"Flexión de brazos (push-up)", kind:"reps", target:"8–15 reps", rest:60},
+          {id:"band-curl", name:"Band curl de bíceps", kind:"reps", target:"12–15 reps", rest:45}
+        ]}
+      ]
+    },
+    B: {
+      label:"Día B — Core y banda", short:"Día B", colorClass:"b",
+      blocks:[
+        { label:"Bloque 1", rounds:3, exercises:[
+          {id:"floor-press", name:"Press de suelo a una mano", kind:"reps", target:"8–10 reps", perSide:true, rest:60},
+          {id:"band-row", name:"Remo de pie con banda", kind:"reps", target:"12–15 reps", rest:60},
+          {id:"kb-halo", name:"Kettlebell halo", kind:"reps", target:"8–10 vueltas", rest:60}
+        ]},
+        { label:"Bloque 2 — Circuito de core", rounds:3, exercises:[
+          {id:"dead-bug", name:"Dead bug", kind:"reps", target:"8–10 reps", perSide:true, rest:30},
+          {id:"side-plank", name:"Plancha lateral", kind:"time", duration:25, target:"20–30 s", perSide:true, rest:30},
+          {id:"pallof-press", name:"Pallof press con banda", kind:"reps", target:"10–12 reps", perSide:true, rest:30},
+          {id:"russian-twist", name:"Russian twist con kettlebell", kind:"reps", target:"10–12 reps", perSide:true, rest:30},
+          {id:"mountain-climbers", name:"Mountain climbers", kind:"reps", target:"20 totales", rest:90}
+        ]},
+        { label:"Bloque 3 — Pecho y brazos", rounds:3, exercises:[
+          {id:"band-chest-press", name:"Band chest press", kind:"reps", target:"12–15 reps", rest:45},
+          {id:"band-triceps-extension", name:"Band triceps extension", kind:"reps", target:"12–15 reps", rest:45}
+        ]}
+      ]
+    },
+    C: {
+      label:"Día C — Una pierna y rotación", short:"Día C", colorClass:"c",
+      blocks:[
+        { label:"Bloque 1", rounds:3, exercises:[
+          {id:"reverse-lunge", name:"Reverse lunge con kettlebell", kind:"reps", target:"8–10 reps", perSide:true, rest:60},
+          {id:"kb-halo", name:"Kettlebell halo", kind:"reps", target:"8–10 vueltas", rest:60},
+          {id:"single-leg-deadlift", name:"Peso muerto a una pierna", kind:"reps", target:"8–10 reps", perSide:true, rest:90}
+        ]},
+        { label:"Bloque 2 — Core rotacional", rounds:3, exercises:[
+          {id:"band-woodchopper", name:"Band woodchopper", kind:"reps", target:"10–12 reps", perSide:true, rest:30},
+          {id:"renegade-row", name:"Renegade row", kind:"reps", target:"8–10 reps", perSide:true, rest:30},
+          {id:"shoulder-taps", name:"Plancha con toque de hombro", kind:"reps", target:"16 totales", rest:90}
+        ]}
+      ]
+    }
+  };
+
+  /* ================= BUILD SEQUENCE ================= */
+  function buildSequence(dayKey){
+    var day = DAYS[dayKey];
+    var blocks = [WARMUP].concat(day.blocks).concat([COOLDOWN]);
+    var seq = [];
+    blocks.forEach(function(block){
+      for(var r=1; r<=block.rounds; r++){
+        block.exercises.forEach(function(ex){
+          if(ex.perSide){
+            seq.push(makeStep(ex, block, r, "Lado derecho", 0));
+            seq.push(makeStep(ex, block, r, "Lado izquierdo", ex.rest));
+          } else {
+            seq.push(makeStep(ex, block, r, null, ex.rest));
+          }
+        });
+      }
+    });
+    if(seq.length) seq[seq.length-1].rest = 0;
+    return seq;
+  }
+
+  function makeStep(ex, block, round, side, rest){
+    return {
+      icon: ex.id, name: ex.name, kind: ex.kind, duration: ex.duration || 0,
+      target: ex.target, blockLabel: block.label, round: round, totalRounds: block.rounds,
+      side: side, rest: rest
+    };
+  }
+
+  /* ================= STATE ================= */
+  var state = {
+    dayKey: null,
+    sequence: [],
+    index: 0,
+    phase: "ready",      // ready | work | rest | rest-done | work-done
+    remaining: 0,
+    paused: false,
+    tickTimer: null,
+    sessionStart: null,
+    clockTimer: null,
+    completedCount: 0
+  };
+
+  /* ================= AUDIO / HAPTICS ================= */
+  var audioCtx = null;
+  function beep(freq, dur){
+    try{
+      if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      var o = audioCtx.createOscillator();
+      var g = audioCtx.createGain();
+      o.frequency.value = freq;
+      o.type = "sine";
+      g.gain.value = 0.15;
+      o.connect(g); g.connect(audioCtx.destination);
+      o.start();
+      g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + dur);
+      o.stop(audioCtx.currentTime + dur + 0.02);
+    }catch(e){}
+    try{ if(navigator.vibrate) navigator.vibrate(120); }catch(e){}
+  }
+
+  /* ================= DOM REFS ================= */
+  var $ = function(id){ return document.getElementById(id); };
+  var screenStart = $("screen-start"), screenPlayer = $("screen-player"), screenDone = $("screen-done");
+  var dayGrid = $("day-grid"), restNote = $("rest-note");
+  var elPlayerDaytag = $("player-daytag"), elPlayerClock = $("player-clock");
+  var elProgressText = $("progress-text"), elProgressPct = $("progress-pct"), elProgressFill = $("progress-fill");
+  var elBlock = $("st-block"), elRound = $("st-round"), elIcon = $("st-icon"), elPhoto = $("st-photo"), elName = $("st-name"),
+      elSide = $("st-side"), elTarget = $("st-target"), elPhaseNote = $("phase-note");
+  var ringWrap = $("ring-wrap"), ringFg = $("ring-fg"), ringNum = $("ring-num");
+  var btnMain = $("btn-main"), controlRow = $("control-row"), btnPause = $("btn-pause"), btnSkipRest = $("btn-skip-rest");
+  var btnSkipEx = $("btn-skip-ex"), btnPrev = $("btn-prev"), btnRestart = $("btn-restart"), btnExit = $("btn-exit");
+  var btnSkipWarmup = $("btn-skip-warmup");
+
+  var RING_CIRC = 2 * Math.PI * 42;
+  ringFg.style.strokeDasharray = RING_CIRC.toFixed(1);
+
+  /* ================= START SCREEN ================= */
+  var DAY_ORDER = ["A","B","C","A","B","C",null]; // Mon..Sun, index 0=Mon
+  function todaySuggestion(){
+    var jsDay = new Date().getDay(); // 0 Sun .. 6 Sat
+    var idx = (jsDay + 6) % 7; // shift so Monday=0
+    return DAY_ORDER[idx];
+  }
+
+  function estimateSeconds(dayKey){
+    var seq = buildSequence(dayKey);
+    var total = 0;
+    seq.forEach(function(s){
+      total += (s.kind === "time" ? s.duration : 20) + s.rest;
+    });
+    return total;
+  }
+
+  function fmtMin(totalSec){
+    return Math.max(1, Math.round(totalSec/60)) + " min aprox.";
+  }
+
+  function renderStart(){
+    var suggested = todaySuggestion();
+    dayGrid.innerHTML = "";
+    ["A","B","C"].forEach(function(key){
+      var day = DAYS[key];
+      var card = document.createElement("button");
+      card.className = "day-card " + day.colorClass + (key === suggested ? " suggested" : "");
+      var blocksCount = day.blocks.length;
+      card.innerHTML =
+        '<span class="letter">' + key + '</span>' +
+        '<span class="body">' +
+          '<span class="title">' + day.label + '</span>' +
+          '<span class="meta">' + fmtMin(estimateSeconds(key)) + ' · ' + blocksCount + ' bloques + calentamiento</span>' +
+          (key === suggested ? '<span class="badge">Sugerido para hoy</span>' : '') +
+        '</span>';
+      card.addEventListener("click", function(){ startDay(key); });
+      dayGrid.appendChild(card);
+    });
+    if(!suggested){ restNote.hidden = false; } else { restNote.hidden = true; }
+  }
+
+  /* ================= PLAYER ================= */
+  function startDay(dayKey){
+    state.dayKey = dayKey;
+    state.sequence = buildSequence(dayKey);
+    state.index = 0;
+    state.completedCount = 0;
+    state.sessionStart = Date.now();
+    screenStart.hidden = true; screenDone.hidden = true; screenPlayer.hidden = false;
+    elPlayerDaytag.textContent = DAYS[dayKey].short;
+    elPlayerDaytag.className = "daytag " + DAYS[dayKey].colorClass;
+    startClock();
+    renderStep();
+  }
+
+  function startClock(){
+    stopClock();
+    state.clockTimer = setInterval(function(){
+      var sec = Math.floor((Date.now() - state.sessionStart) / 1000);
+      elPlayerClock.textContent = fmtClock(sec);
+    }, 500);
+  }
+  function stopClock(){
+    if(state.clockTimer){ clearInterval(state.clockTimer); state.clockTimer = null; }
+  }
+  function fmtClock(sec){
+    var m = Math.floor(sec/60), s = sec%60;
+    return (m<10?"0":"")+m+":"+(s<10?"0":"")+s;
+  }
+
+  function currentStep(){ return state.sequence[state.index]; }
+
+  function accentVar(){
+    var cls = DAYS[state.dayKey].colorClass;
+    return cls === "a" ? "var(--accent)" : cls === "b" ? "var(--accent2)" : "var(--good)";
+  }
+
+  function renderStep(){
+    clearTick();
+    var step = currentStep();
+    if(!step){ finishSession(); return; }
+
+    state.phase = "ready";
+    state.paused = false;
+
+    elBlock.textContent = step.blockLabel;
+    if(step.totalRounds > 1){
+      elRound.hidden = false;
+      elRound.textContent = "Ronda " + step.round + " / " + step.totalRounds;
+    } else { elRound.hidden = true; }
+
+    if(PHOTOS[step.icon]){
+      elIcon.hidden = true;
+      elPhoto.hidden = false;
+      elPhoto.src = "images/" + PHOTOS[step.icon];
+      elPhoto.alt = step.name;
+    } else {
+      elPhoto.hidden = true;
+      elIcon.hidden = false;
+      elIcon.style.color = accentVar();
+      elIcon.innerHTML = iconSvg(step.icon);
+    }
+    elName.textContent = step.name;
+    if(step.side){ elSide.hidden = false; elSide.textContent = step.side; elSide.style.color = accentVar(); }
+    else { elSide.hidden = true; }
+    elTarget.textContent = step.target;
+
+    ringFg.style.stroke = accentVar();
+    ringWrap.hidden = true;
+    elPhaseNote.hidden = true;
+    controlRow.hidden = true;
+    btnSkipEx.hidden = false;
+    btnSkipWarmup.hidden = step.blockLabel !== "Calentamiento";
+
+    if(step.kind === "time"){
+      btnMain.textContent = "▶ Empezar (" + step.duration + "s)";
+      btnMain.onclick = function(){ beginWork(step); };
+    } else {
+      btnMain.textContent = step.rest > 0 ? "✓ Completado — descansar " + step.rest + "s" : "✓ Completado";
+      btnMain.onclick = function(){ afterExercise(step); };
+    }
+
+    updateProgress();
+    btnPrev.disabled = state.index === 0;
+  }
+
+  function updateProgress(){
+    var total = state.sequence.length;
+    elProgressText.textContent = "Paso " + (state.index+1) + " / " + total;
+    var pct = Math.round((state.index) / total * 100);
+    elProgressPct.textContent = pct + "%";
+    elProgressFill.style.width = pct + "%";
+    elProgressFill.style.background = accentVar();
+  }
+
+  function setRing(remaining, duration){
+    ringWrap.hidden = false;
+    ringNum.textContent = remaining;
+    var frac = duration > 0 ? remaining/duration : 0;
+    ringFg.style.strokeDashoffset = (RING_CIRC * (1 - frac)).toFixed(1);
+  }
+
+  function clearTick(){
+    if(state.tickTimer){ clearInterval(state.tickTimer); state.tickTimer = null; }
+  }
+
+  function beginWork(step){
+    state.phase = "work";
+    state.remaining = step.duration;
+    btnMain.hidden = true;
+    controlRow.hidden = false;
+    btnPause.textContent = "Pausar";
+    btnSkipRest.textContent = "Saltar";
+    btnSkipEx.hidden = true;
+    setRing(state.remaining, step.duration);
+    runTick(step, function(){
+      beep(880, 0.18); setTimeout(function(){ beep(880,0.18); }, 220);
+      state.phase = "work-done";
+      controlRow.hidden = true;
+      ringWrap.hidden = true;
+      btnMain.hidden = false;
+      btnMain.textContent = step.rest > 0 ? "Descansar " + step.rest + "s ▶" : "Siguiente ejercicio ▶";
+      btnMain.onclick = function(){ afterExercise(step); };
+    });
+  }
+
+  function afterExercise(step){
+    if(step.rest > 0){
+      beginRest(step);
+    } else {
+      advance();
+    }
+  }
+
+  function beginRest(step){
+    state.phase = "rest";
+    state.remaining = step.rest;
+    btnMain.hidden = true;
+    controlRow.hidden = false;
+    btnPause.textContent = "Pausar";
+    btnSkipRest.textContent = "Saltar descanso";
+    btnSkipEx.hidden = true;
+    elPhaseNote.hidden = false;
+    elPhaseNote.textContent = "Descanso — prepárate para el siguiente ejercicio.";
+    setRing(state.remaining, step.rest);
+    runTick(step, function(){ restDone(step); });
+  }
+
+  function restDone(step){
+    beep(660, 0.15);
+    clearTick();
+    state.phase = "rest-done";
+    controlRow.hidden = true;
+    ringWrap.hidden = true;
+    elPhaseNote.hidden = true;
+    btnMain.hidden = false;
+    btnMain.textContent = "Siguiente ejercicio ▶";
+    btnMain.onclick = advance;
+  }
+
+  function runTick(step, onDone){
+    clearTick();
+    state.tickTimer = setInterval(function(){
+      if(state.paused) return;
+      state.remaining--;
+      if(state.remaining <= 0){
+        clearTick();
+        setRing(0, (state.phase === "work" ? step.duration : step.rest));
+        onDone();
+      } else {
+        setRing(state.remaining, (state.phase === "work" ? step.duration : step.rest));
+      }
+    }, 1000);
+  }
+
+  function advance(){
+    clearTick();
+    state.index++;
+    renderStep();
+  }
+
+  function goPrev(){
+    if(state.index === 0) return;
+    clearTick();
+    state.index--;
+    renderStep();
+  }
+
+  function finishSession(){
+    stopClock();
+    screenPlayer.hidden = true; screenDone.hidden = false;
+    var sec = Math.floor((Date.now() - state.sessionStart)/1000);
+    $("done-time").textContent = fmtClock(sec);
+    $("done-count").textContent = state.sequence.length;
+    $("done-day").textContent = DAYS[state.dayKey].label;
+    try{
+      var log = JSON.parse(localStorage.getItem("cronometro12kg_log") || "[]");
+      log.push({day: state.dayKey, date: new Date().toISOString(), seconds: sec});
+      localStorage.setItem("cronometro12kg_log", JSON.stringify(log.slice(-50)));
+    }catch(e){}
+  }
+
+  /* ================= EVENTS ================= */
+  btnPause.addEventListener("click", function(){
+    state.paused = !state.paused;
+    btnPause.textContent = state.paused ? "Reanudar" : "Pausar";
+  });
+  btnSkipRest.addEventListener("click", function(){
+    var step = currentStep();
+    clearTick();
+    if(state.phase === "work"){
+      beep(880,0.18);
+      state.phase = "work-done";
+      controlRow.hidden = true;
+      ringWrap.hidden = true;
+      btnMain.hidden = false;
+      btnMain.textContent = step.rest > 0 ? "Descansar " + step.rest + "s ▶" : "Siguiente ejercicio ▶";
+      btnMain.onclick = function(){ afterExercise(step); };
+    } else {
+      restDone(step);
+    }
+  });
+  btnSkipEx.addEventListener("click", advance);
+  btnSkipWarmup.addEventListener("click", function(){
+    clearTick();
+    var i = state.index;
+    while(i < state.sequence.length && state.sequence[i].blockLabel === "Calentamiento") i++;
+    state.index = i;
+    renderStep();
+  });
+  btnPrev.addEventListener("click", goPrev);
+  btnRestart.addEventListener("click", function(){ startDay(state.dayKey); });
+  $("btn-done-restart").addEventListener("click", function(){ startDay(state.dayKey); });
+  btnExit.addEventListener("click", function(){
+    clearTick(); stopClock();
+    screenPlayer.hidden = true; screenDone.hidden = true; screenStart.hidden = false;
+    renderStart();
+  });
+
+  renderStart();
+})();
+</script>
+</body>
+</html>
