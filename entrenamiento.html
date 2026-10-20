@@ -170,6 +170,9 @@
   }
   .cta:active{ transform:scale(0.98); }
   .cta.secondary{ background:var(--surface-2); color:var(--ink); }
+  /* primary buttons take the colour of the day being trained */
+  .app[data-day="b"] .cta:not(.secondary):not(.ghost){ background:var(--accent2); color:var(--accent2-ink); }
+  .app[data-day="c"] .cta:not(.secondary):not(.ghost){ background:var(--good); color:var(--accent-ink); }
   .cta.ghost{ background:none; border:1px solid var(--line); color:var(--ink-soft); }
   .control-row{ display:flex; gap:10px; width:100%; max-width:340px; }
   .control-row .cta{ flex:1; }
@@ -655,6 +658,7 @@
     screenStart.hidden = true; screenDone.hidden = true; screenPlayer.hidden = false;
     elPlayerDaytag.textContent = DAYS[dayKey].short;
     elPlayerDaytag.className = "daytag " + DAYS[dayKey].colorClass;
+    document.querySelector(".app").setAttribute("data-day", DAYS[dayKey].colorClass);
     buildRail();
     startClock();
     renderStep();
