@@ -198,7 +198,12 @@
   }
 
   /* ---- player fits one screen without scrolling; the ring absorbs the leftover height ---- */
-  .app:has(#screen-player:not([hidden])){ height:100vh; height:100dvh; padding-top:10px; padding-bottom:12px; }
+  /* 100vh on Android Chrome ignores the address bar, so it must not act as a floor here: use the dynamic viewport */
+  .app:has(#screen-player:not([hidden])){
+    height:100vh; height:100dvh; min-height:0; overflow:hidden;
+    padding-top:max(10px, env(safe-area-inset-top)); padding-bottom:max(12px, env(safe-area-inset-bottom));
+  }
+  body:has(#screen-player:not([hidden])){ padding-top:0; padding-bottom:0; overflow:hidden; }
   #screen-player{ min-height:0; }
   #screen-player .topbar{ margin-bottom:6px; }
   #screen-player .clock{ font-size:clamp(2.2rem, 11vw, 3rem); }
