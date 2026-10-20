@@ -679,6 +679,7 @@
     state.completedCount = 0;
     state.sessionStart = null;
     state.introsSeen = {};
+    ringBox = null;
     stopClock();
     elPlayerClock.textContent = "00:00";
     screenStart.hidden = true; screenDone.hidden = true; screenPlayer.hidden = false;
@@ -857,29 +858,42 @@
     btnPrev.disabled = state.index === 0;
   }
 
-  // Tapping the gate: the full ring glides into its timer position, then the rest of the page fades in
+  // Tapping the gate: the ring glides into its timer position (see watchRing), then the rest of the page fades in
   function startFromIntro(){
     var step = currentStep();
-    var from = ringWrap.getBoundingClientRect();
     state.introsSeen[step.blockIdx] = true;
     // the session clock only starts once the first gate is tapped
     if(!state.sessionStart){ state.sessionStart = Date.now(); startClock(); }
     renderStep();
-    var to = ringWrap.getBoundingClientRect();
     var stack = ringWrap.parentNode;
     stack.classList.remove("revealing");
     void stack.offsetWidth;
     stack.classList.add("revealing");
     setTimeout(function(){ stack.classList.remove("revealing"); }, 900);
-    if(!to.width) return;
-    var dx = (from.left + from.width / 2) - (to.left + to.width / 2);
-    var dy = (from.top + from.height / 2) - (to.top + to.height / 2);
-    ringWrap.style.transition = "none";
-    ringWrap.style.transform = "translate(" + dx + "px," + dy + "px) scale(" + (from.width / to.width) + ")";
-    void ringWrap.offsetWidth;
-    ringWrap.style.transition = "transform 0.5s cubic-bezier(.2,.8,.2,1)";
-    ringWrap.style.transform = "";
   }
+
+  // Whenever the ring's layout box moves or resizes, it glides from its previous place (FLIP).
+  // Layout is read from offset* so the running transform never feeds back into the measurement.
+  var ringBox = null, ringAnim = null;
+  function watchRing(){
+    requestAnimationFrame(watchRing);
+    if(screenPlayer.hidden || ringWrap.hidden) return; // keep the last visible box so it re-appears from there
+    var box = { x: ringWrap.offsetLeft + ringWrap.offsetWidth / 2, y: ringWrap.offsetTop + ringWrap.offsetHeight / 2, w: ringWrap.offsetWidth };
+    var prev = ringBox;
+    ringBox = box;
+    if(!prev || !box.w) return;
+    var dx = prev.x - box.x, dy = prev.y - box.y, s = prev.w / box.w;
+    if(Math.abs(dx) < 1 && Math.abs(dy) < 1 && Math.abs(s - 1) < 0.01) return;
+    if(ringAnim) ringAnim.cancel();
+    if(!ringWrap.animate) return;
+    ringAnim = ringWrap.animate(
+      [{ transform: "translate(" + dx + "px," + dy + "px) scale(" + s + ")" }, { transform: "none" }],
+      { duration: 500, easing: "cubic-bezier(.2,.8,.2,1)" }
+    );
+  }
+  requestAnimationFrame(watchRing);
+  // viewport changes (rotation, address bar) resize the ring without animating
+  window.addEventListener("resize", function(){ ringBox = null; });
 
   function updateProgress(){
     var total = state.sequence.length;
