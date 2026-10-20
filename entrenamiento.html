@@ -136,15 +136,15 @@
   }
   .ex-target{ font-family:"IBM Plex Mono",monospace; font-size:0.95rem; color:var(--ink-soft); font-variant-numeric:tabular-nums; }
   .phase-note{ font-size:0.86rem; color:var(--ink-soft); max-width:36ch; }
-  /* start gate shown before the warm-up, each block and the cool-down */
-  .intro-btn{
-    width:min(240px, 62vw); aspect-ratio:1; border-radius:50%; border:none; cursor:pointer; margin:12px 0;
-    display:flex; align-items:center; justify-content:center; text-align:center; padding:28px;
-    background:var(--day-color, var(--accent)); color:var(--line);
+  /* start gate: the timer ring, full, with the call to action inside */
+  .ring-wrap.intro{ border-radius:50%; }
+  #screen-player .ring-wrap.intro .ring-val{
     font-family:"Big Shoulders Display","Arial Narrow",sans-serif; font-weight:800; text-transform:uppercase;
-    font-size:clamp(1.6rem, 7vw, 2.1rem); line-height:1.05; letter-spacing:0.02em; white-space:pre-line;
+    font-size:12cqmin; line-height:1.05; letter-spacing:0.02em; white-space:pre-line; text-align:center;
   }
-  .intro-btn:active{ transform:scale(0.97); }
+  /* after the gate, everything but the ring fades in once the ring has moved into place */
+  .stage-stack.revealing > *:not(.ring-wrap){ animation:revealUp 0.45s ease 0.35s both; }
+  @keyframes revealUp{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:none; } }
   .photo-btn{ position:relative; background:none; border:none; padding:0; cursor:pointer; -webkit-tap-highlight-color:transparent; }
   .photo-btn .info-badge{
     position:absolute; right:12px; bottom:12px; width:24px; height:24px; border-radius:50%;
@@ -186,7 +186,7 @@
   .app{ --day-color:var(--accent); }
   .app[data-day="b"]{ --day-color:var(--accent2); }
   .app[data-day="c"]{ --day-color:var(--good); }
-  .cta.nudge, .intro-btn.nudge{ animation:nudge 1.4s ease-out infinite; }
+  .cta.nudge, .ring-wrap.intro{ animation:nudge 1.4s ease-out infinite; }
   @keyframes nudge{
     0%  { transform:scale(1);    box-shadow:0 0 0 0 color-mix(in srgb, var(--day-color) 60%, transparent); }
     35% { transform:scale(1.03); }
@@ -317,7 +317,6 @@
           <div class="ring-num"><span class="ring-val" id="ring-num">0</span><span class="ring-label" id="ring-label"></span></div>
         </div>
 
-        <button class="intro-btn nudge" id="intro-btn" type="button" hidden><span id="intro-label"></span></button>
 
         <p class="phase-note" id="phase-note" hidden></p>
 
@@ -626,7 +625,6 @@
   var btnMain = $("btn-main"), controlRow = $("control-row"), btnPause = $("btn-pause"), btnSkipRest = $("btn-skip-rest");
   var btnSkipEx = $("btn-skip-ex"), btnPrev = $("btn-prev"), btnExit = $("btn-exit");
   var btnSkipWarmup = $("btn-skip-warmup");
-  var elIntro = $("intro-btn"), elIntroLabel = $("intro-label");
 
   var RING_CIRC = 2 * Math.PI * 42;
   ringFg.style.strokeDasharray = RING_CIRC.toFixed(1);
@@ -786,7 +784,7 @@
     state.paused = false;
 
     // the first step of each warm-up / block / cool-down is preceded by a start gate
-    elIntro.hidden = true;
+    ringWrap.classList.remove("intro");
     var firstOfBlock = state.index === 0 || state.sequence[state.index-1].blockIdx !== step.blockIdx;
     if(firstOfBlock && !state.introsSeen[step.blockIdx]){ renderIntro(step); return; }
 
@@ -827,6 +825,7 @@
     if(step.kind === "time"){
       btnMain.textContent = "▶ Empezar (" + step.duration + "s)";
       btnMain.onclick = function(){ beginWork(step); };
+      drawRing(step.duration, 1, "segundos");
     } else {
       btnMain.textContent = step.rest > 0 ? "✓ Completado — descansar " + step.rest + "s" : "✓ Completado";
       btnMain.onclick = function(){ afterExercise(step); };
@@ -841,26 +840,45 @@
     state.phase = "intro";
     elBlock.hidden = true; elRound.hidden = true; elIcon.hidden = true; elPhotoBtn.hidden = true;
     elHowtoBody.hidden = true; elSide.hidden = true; elTarget.hidden = true;
-    ringWrap.hidden = true; controlRow.hidden = true; btnMain.hidden = true; btnSkipEx.hidden = true;
+    controlRow.hidden = true; btnMain.hidden = true; btnSkipEx.hidden = true;
     btnSkipWarmup.hidden = step.blockLabel !== WARMUP.label;
 
     elName.textContent = step.blockLabel;
-    elIntroLabel.textContent =
+    var label =
       step.blockLabel === WARMUP.label ? "Iniciar\ncalentamiento" :
       step.blockLabel === COOLDOWN.label ? "Iniciar\nestiramientos" :
       "Iniciar\nbloque";
+    ringWrap.classList.add("intro", "tappable");
+    drawRing(label, 1, "");
     elPhaseNote.hidden = false;
     elPhaseNote.textContent = "Primer ejercicio: " + step.name + (step.side ? " · " + step.side : "");
-    elIntro.hidden = false;
-    elIntro.onclick = function(){
-      state.introsSeen[step.blockIdx] = true;
-      // the session clock only starts once the first gate is tapped
-      if(!state.sessionStart){ state.sessionStart = Date.now(); startClock(); }
-      renderStep();
-    };
 
     updateProgress();
     btnPrev.disabled = state.index === 0;
+  }
+
+  // Tapping the gate: the full ring glides into its timer position, then the rest of the page fades in
+  function startFromIntro(){
+    var step = currentStep();
+    var from = ringWrap.getBoundingClientRect();
+    state.introsSeen[step.blockIdx] = true;
+    // the session clock only starts once the first gate is tapped
+    if(!state.sessionStart){ state.sessionStart = Date.now(); startClock(); }
+    renderStep();
+    var to = ringWrap.getBoundingClientRect();
+    var stack = ringWrap.parentNode;
+    stack.classList.remove("revealing");
+    void stack.offsetWidth;
+    stack.classList.add("revealing");
+    setTimeout(function(){ stack.classList.remove("revealing"); }, 900);
+    if(!to.width) return;
+    var dx = (from.left + from.width / 2) - (to.left + to.width / 2);
+    var dy = (from.top + from.height / 2) - (to.top + to.height / 2);
+    ringWrap.style.transition = "none";
+    ringWrap.style.transform = "translate(" + dx + "px," + dy + "px) scale(" + (from.width / to.width) + ")";
+    void ringWrap.offsetWidth;
+    ringWrap.style.transition = "transform 0.5s cubic-bezier(.2,.8,.2,1)";
+    ringWrap.style.transform = "";
   }
 
   function updateProgress(){
@@ -1048,7 +1066,8 @@
   });
   ringWrap.addEventListener("click", function(){
     var step = currentStep();
-    if(state.phase === "ready" && step && step.kind === "reps") startReps(step);
+    if(state.phase === "intro") startFromIntro();
+    else if(state.phase === "ready" && step && step.kind === "reps") startReps(step);
   });
   btnSkipWarmup.addEventListener("click", function(){
     clearTick();
