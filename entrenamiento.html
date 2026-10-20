@@ -134,6 +134,22 @@
   }
   .ex-target{ font-family:"IBM Plex Mono",monospace; font-size:0.95rem; color:var(--ink-soft); font-variant-numeric:tabular-nums; }
   .phase-note{ font-size:0.86rem; color:var(--ink-soft); max-width:36ch; }
+  .howto{
+    width:100%; max-width:340px; text-align:left;
+    background:var(--surface); border:1px solid var(--line); border-radius:12px;
+  }
+  .howto summary{
+    cursor:pointer; list-style:none; padding:10px 14px; font-size:0.86rem; font-weight:600; color:var(--ink-soft);
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .howto summary::-webkit-details-marker{ display:none; }
+  .howto summary::after{ content:"▾"; transition:transform 0.2s ease; }
+  .howto[open] summary::after{ transform:rotate(180deg); }
+  .howto-body{ padding:0 14px 12px; font-size:0.88rem; color:var(--ink-soft); }
+  .howto-body p{ margin:0 0 8px; }
+  .howto-body strong{ color:var(--ink); }
+  .howto-body .mistake{ border-left:3px solid var(--accent2); padding-left:10px; margin-top:10px; }
+  .howto-body .mistake b{ color:var(--accent2); }
 
   .ring-wrap{ position:relative; width:min(340px, 88vw); aspect-ratio:1; margin:6px 0; }
   .ring-wrap svg{ width:100%; height:100%; transform:rotate(-90deg); }
@@ -215,6 +231,10 @@
         <h2 class="ex-name" id="st-name">Ejercicio</h2>
         <span class="side-tag" id="st-side" hidden></span>
         <span class="ex-target" id="st-target"></span>
+        <details class="howto" id="st-howto">
+          <summary>Cómo se hace</summary>
+          <div class="howto-body" id="st-howto-body"></div>
+        </details>
 
         <div class="ring-wrap" id="ring-wrap" hidden>
           <svg viewBox="0 0 100 100">
@@ -332,6 +352,39 @@
     "hip-flexor-stretch": "hip-flexor-stretch.png",
     "hamstring-stretch": "hamstring-stretch.png",
     "thoracic-rotation": "thoracic-rotation.png"
+  };
+
+  // How-to text per exercise (same copy as protocolo-12kg.html)
+  var HOWTO = {
+    "hip-circles": "<p>A cuatro patas, dibuja círculos amplios con una rodilla sin mover la zona lumbar. Despierta la movilidad de cadera que necesitas para la bisagra del swing y la sentadilla.</p>",
+    "cat-cow": "<p>A cuatro patas, alterna arquear y redondear la columna con el movimiento, no de golpe. Moviliza toda la espalda antes de cargarla.</p>",
+    "glute-bridge": "<p>Tumbado, pies apoyados cerca de los glúteos, empuja caderas hacia el techo apretando glúteos arriba. Activa la cadena que más vas a usar en el swing.</p>",
+    "band-pull-apart": "<p>Banda estirada a la altura del pecho con los brazos extendidos, separa los brazos llevando los omóplatos hacia atrás y vuelve controlado. Enciende la espalda alta antes del remo y el press.</p>",
+    "goblet-squat": "<p>Sujeta el kettlebell por los \"cuernos\" (los lados del asa) contra el pecho. Pies algo más anchos que la cadera, puntas algo hacia afuera. Baja llevando las caderas atrás y abajo, pecho alto, hasta que los codos rocen la parte interna de las rodillas. Empuja por los talones para subir.</p><p><strong>Respiración:</strong> inhala al bajar, exhala al empujar hacia arriba.</p><div class=\"mistake\"><b>Error típico:</b> las rodillas colapsan hacia dentro o los talones se levantan. Si pasa, abre un poco más los pies y pon más peso en los talones.</div>",
+    "clean-press": "<p>El kettlebell empieza en el suelo entre los pies. Con un tirón corto desde la cadera —no desde el brazo— súbelo pegado al cuerpo y deja que gire sobre la muñeca hasta \"aterrizar\" en el antebrazo (posición de rack), sin golpearte. Eso es el <em>clean</em>. Desde el rack, empuja el kettlebell sobre la cabeza sin arquear la zona lumbar, terminando con el bíceps cerca de la oreja. Baja controlado.</p><p><strong>Para principiantes:</strong> es normal tardar 2–4 semanas en pulir el clean. Practícalo despacio y sin prisa antes de buscar fluidez; si se siente brusco en la muñeca, deja que el kettlebell vuelva al suelo entre repeticiones en vez de encadenarlas.</p>",
+    "kb-row": "<p>Pies al ancho de cadera, rodillas algo flexionadas, inclina el tronco hacia delante en bisagra de cadera manteniendo la espalda plana (sin redondear la zona lumbar). El kettlebell cuelga de un brazo. Tira del codo hacia atrás, pegado a las costillas, hasta que el asa toque el costado; aprieta el omóplato arriba y baja controlado.</p><div class=\"mistake\"><b>Error típico:</b> rotar el tronco para \"ayudar\" al tirón. Mantén las caderas y los hombros cuadrados; si necesitas rotar para subir el peso, es que pesa demasiado para tu técnica actual.</div>",
+    "kb-swing": "<p>Kettlebell unos 30 cm por delante de los pies. Con bisagra de cadera, agárralo y \"hikealo\" hacia atrás entre las piernas como un pase de rugby por debajo. Desde ahí, explota extendiendo caderas y apretando glúteos para proyectar el kettlebell hasta la altura del pecho — los brazos solo guían, no levantan el peso con los hombros. Deja que baje por gravedad e inicia la siguiente bisagra sin pausa.</p><div class=\"mistake\"><b>Error típico:</b> hacer sentadilla en vez de bisagra, o redondear la espalda al recoger el kettlebell. Es un movimiento de cadera, no de piernas ni de brazos.</div>",
+    "thruster": "<p>Sostén el kettlebell en posición goblet contra el pecho. Baja a una sentadilla completa y, sin pausa en el fondo, aprovecha el impulso de la subida para lanzar el peso en press por encima de la cabeza en un solo movimiento continuo.</p><p><strong>Nota:</strong> es exigente para el ritmo cardíaco. Al principio prioriza completar el movimiento con buena técnica sobre hacerlo rápido.</p>",
+    "push-up": "<p>Manos un poco más anchas que los hombros, cuerpo en línea recta de cabeza a talones. Baja el pecho casi hasta tocar el suelo con los codos a unos 45° del cuerpo (ni pegados ni en cruz) y empuja de vuelta arriba sin que la cadera se hunda ni se eleve.</p><div class=\"mistake\"><b>Si 8 reps completas es demasiado:</b> apoya las rodillas en el suelo, o pon las manos sobre algo firme y elevado (banco, escalón) — misma técnica, menos carga.</div>",
+    "band-curl": "<p>De pie, pisa el centro de la banda con ambos pies y sujeta un extremo en cada mano. Codos pegados al cuerpo, flexiona solo el antebrazo llevando la mano hacia el hombro, sin que el codo se adelante ni uses el impulso de la espalda. Baja controlado hasta extender el brazo del todo.</p>",
+    "floor-press": "<p>Tumbado en la esterilla, rodilla del lado del kettlebell flexionada con el pie apoyado para estabilizar; el otro brazo extendido en cruz como ancla. Desde el pecho, empuja el kettlebell directo hacia el techo sin que se incline hacia delante o atrás. Baja controlado.</p><p>El suelo limita el rango de movimiento y protege el hombro — por eso es una buena entrada al press para alguien nuevo en kettlebell.</p>",
+    "band-row": "<p>Ancla la banda a una puerta o algo fijo a la altura del pecho (o pisa el centro de la banda si no tienes dónde anclarla y rema hacia el pecho). Da un paso atrás para generar tensión, codos pegados al cuerpo, tira juntando los omóplatos y vuelve controlado sin dejar que la banda te arrastre de golpe.</p>",
+    "kb-halo": "<p>De pie, sujeta el kettlebell boca abajo por los cuernos cerca de la barbilla y llévalo en un círculo completo alrededor de la cabeza, manteniéndolo cerca del cráneo durante todo el recorrido. Cambia de dirección cada pocas repeticiones.</p><p>Trabaja la movilidad de hombro y el core de forma anti-rotación, con poco riesgo al ser un movimiento lento y controlado.</p>",
+    "dead-bug": "<p>Tumbado boca arriba, rodillas y caderas a 90°, brazos apuntando al techo. Baja brazo y pierna opuestos a la vez, casi hasta tocar el suelo, manteniendo la zona lumbar pegada a la esterilla todo el tiempo (sin que se arquee). Vuelve al centro y alterna.</p><p>Es el ejercicio base para aprender a <em>estabilizar</em> el core antes de moverlo — la habilidad detrás de todos los demás ejercicios de este bloque.</p>",
+    "side-plank": "<p>Apóyate sobre el antebrazo y el borde del pie, cuerpo en línea recta de cabeza a talones, cadera elevada sin caer ni subir en exceso. Respira con normalidad mientras aguantas.</p><div class=\"mistake\"><b>Más fácil:</b> apoya la rodilla inferior en el suelo en vez del pie si 20 segundos es demasiado al principio.</div>",
+    "pallof-press": "<p>Ancla la banda a un lateral, a la altura del pecho. Ponte de perfil al anclaje, brazos extendidos sujetando la banda contra el esternón. Empuja los brazos hacia delante y vuelve, resistiendo que la banda te gire el torso.</p><p><strong>Importante:</strong> el lado que trabaja lo decide el anclaje, no hacia dónde miras. Para el \"lado derecho\" ancla la banda a tu derecha; para el \"lado izquierdo\", cambia el anclaje al lado contrario antes de la segunda serie. Si no mueves el anclaje, estás entrenando el mismo lado dos veces.</p><p>Es puramente <em>anti-rotación</em>: el objetivo es que el torso no gire, por raro que suene para un ejercicio de core.</p>",
+    "russian-twist": "<p>Sentado con rodillas flexionadas, talones apoyados (o ligeramente elevados para más reto), inclina el torso hacia atrás unos 45° manteniendo la espalda recta, no redondeada. Sujeta el kettlebell con ambas manos y gíralo de un lado al otro de la cadera, tocando el suelo si llegas, sin perder la postura del torso.</p><p>Es un giro continuo, no un bloque de reps solo hacia un lado: cada toque a un lado cuenta como una repetición, así que automáticamente reparte el mismo trabajo en ambos lados.</p>",
+    "mountain-climbers": "<p>En plancha alta, lleva una rodilla al pecho y luego la otra, alternando a ritmo controlado, cadera baja y estable (no la subas como un techo). Es el componente cardiovascular del circuito.</p>",
+    "band-chest-press": "<p>Ancla la banda detrás de ti a la altura del pecho (una puerta, una barra, o alguien sujetándola). De pie, un paso por delante del anclaje para generar tensión, empuja ambas manos hacia delante como en un press de banca, extendiendo los brazos sin bloquear los codos de golpe. Vuelve controlado sin dejar que la banda te arrastre hacia atrás.</p>",
+    "band-triceps-extension": "<p>Ancla la banda baja, detrás o bajo un pie. Sujeta el extremo con ambas manos por detrás de la cabeza, codos apuntando al techo y pegados a las orejas. Extiende los brazos hacia arriba hasta casi estirarlos del todo, sin que los codos se abran hacia los lados, y vuelve controlado flexionando de nuevo.</p>",
+    "reverse-lunge": "<p>Sostén el kettlebell en posición goblet contra el pecho. Da un paso atrás largo y baja la rodilla trasera casi hasta rozar el suelo, manteniendo el torso vertical. Empuja con el talón delantero para volver a la posición inicial.</p><div class=\"mistake\"><b>Error típico:</b> que la rodilla delantera se adelante mucho sobre la punta del pie. Si pasa, da un paso atrás más largo.</div>",
+    "single-leg-deadlift": "<p>En apoyo sobre una pierna, inclina el torso hacia delante mientras la pierna libre se extiende hacia atrás, manteniendo caderas y hombros cuadrados — como una \"T\" horizontal. El kettlebell cuelga del brazo contrario a la pierna de apoyo y baja hacia el suelo sin que el tronco rote.</p><p><strong>Para principiantes:</strong> es el ejercicio del plan que más pide equilibrio. Apóyate con la mano libre en una pared o silla las primeras semanas si lo necesitas — no resta nada al trabajo real del ejercicio.</p>",
+    "band-woodchopper": "<p>Ancla la banda arriba a un lado (o pisa un extremo y sujeta tensión por encima del hombro contrario). Tira en diagonal cruzando el cuerpo de arriba-afuera hacia abajo-adentro, rotando desde el core y las caderas — no solo desde los brazos. Vuelve controlado, resistiendo que la banda te regrese de golpe.</p><p><strong>Importante:</strong> ancla a tu derecha para entrenar el \"lado derecho\" y a tu izquierda para el \"lado izquierdo\" — cambia el anclaje de sitio entre una serie y otra, no te quedes en el mismo lado para las dos.</p>",
+    "renegade-row": "<p>En posición de plancha alta, con una mano apoyada en el suelo y la otra sujetando el kettlebell, rema el kettlebell hacia la cadera manteniéndote lo más quieto posible. El reto real es que las caderas no giren hacia el lado que rema. Baja controlado y repite; cambia de mano a mitad de serie.</p>",
+    "shoulder-taps": "<p>En plancha alta con los pies algo más separados de lo habitual para más estabilidad, lleva una mano a tocar el hombro contrario y vuelve a apoyarla en el suelo, alternando lados sin que la cadera se balancee de un lado a otro.</p><p>Es anti-rotación, igual que el Pallof press del Día B, pero en posición de plancha — y sin ningún equipo.</p>",
+    "hip-flexor-stretch": "<p>Postura de zancada baja (una rodilla en el suelo), empuja la cadera hacia delante sin arquear la espalda. Libera la tensión que acumula la cadera tras swings y squats.</p>",
+    "hamstring-stretch": "<p>Sentado o de pie, pierna extendida, inclínate hacia delante desde la cadera sin redondear en exceso la espalda baja.</p>",
+    "thoracic-rotation": "<p>Tumbado de lado, rodillas flexionadas al frente, abre el brazo de arriba rotando el pecho hacia el techo siguiendo la mano con la mirada.</p>"
   };
 
   // Seconds per rep, used only for the orientative rep countdown ring
@@ -488,7 +541,8 @@
   var elPlayerDaytag = $("player-daytag"), elPlayerClock = $("player-clock");
   var elProgressText = $("progress-text"), elProgressPct = $("progress-pct"), elProgressFill = $("progress-fill");
   var elBlock = $("st-block"), elRound = $("st-round"), elIcon = $("st-icon"), elPhoto = $("st-photo"), elName = $("st-name"),
-      elSide = $("st-side"), elTarget = $("st-target"), elPhaseNote = $("phase-note");
+      elSide = $("st-side"), elTarget = $("st-target"), elPhaseNote = $("phase-note"),
+      elHowto = $("st-howto"), elHowtoBody = $("st-howto-body");
   var ringWrap = $("ring-wrap"), ringFg = $("ring-fg"), ringNum = $("ring-num"), ringLabel = $("ring-label");
   var btnMain = $("btn-main"), controlRow = $("control-row"), btnPause = $("btn-pause"), btnSkipRest = $("btn-skip-rest");
   var btnSkipEx = $("btn-skip-ex"), btnPrev = $("btn-prev"), btnRestart = $("btn-restart"), btnExit = $("btn-exit");
@@ -606,6 +660,9 @@
     else { elSide.hidden = true; }
     elTarget.hidden = false;
     elTarget.textContent = step.target;
+    elHowto.open = false;
+    elHowto.hidden = !HOWTO[step.icon];
+    elHowtoBody.innerHTML = HOWTO[step.icon] || "";
 
     ringWrap.hidden = true;
     ringWrap.classList.remove("tappable");
@@ -710,7 +767,7 @@
     btnSkipEx.hidden = true;
     // Rest view: hide the finished exercise, show only "Descanso" and what comes next
     elBlock.hidden = true; elRound.hidden = true; elIcon.hidden = true; elPhoto.hidden = true;
-    elSide.hidden = true; elTarget.hidden = true;
+    elSide.hidden = true; elTarget.hidden = true; elHowto.hidden = true;
     elName.textContent = "Descanso";
     var next = state.sequence[state.index + 1];
     elPhaseNote.hidden = !next;
