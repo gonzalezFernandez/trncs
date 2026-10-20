@@ -583,6 +583,7 @@
     state.phase = "ready";
     state.paused = false;
 
+    elBlock.hidden = false;
     elBlock.textContent = step.blockLabel;
     if(step.totalRounds > 1){
       elRound.hidden = false;
@@ -603,6 +604,7 @@
     elName.textContent = step.name;
     if(step.side){ elSide.hidden = false; elSide.textContent = step.side; elSide.style.color = accentVar(); }
     else { elSide.hidden = true; }
+    elTarget.hidden = false;
     elTarget.textContent = step.target;
 
     ringWrap.hidden = true;
@@ -637,7 +639,7 @@
 
   function setRing(remaining, duration){
     var frac = duration > 0 ? remaining/duration : 0;
-    drawRing(remaining, frac, state.phase === "rest" ? "descanso" : "segundos");
+    drawRing(remaining, frac, "segundos");
   }
 
   // Rest ring uses a lighter tint of the day colour so it reads differently from work
@@ -706,8 +708,13 @@
     btnPause.textContent = "Pausar";
     btnSkipRest.textContent = "Saltar descanso";
     btnSkipEx.hidden = true;
-    elPhaseNote.hidden = false;
-    elPhaseNote.textContent = "Descanso — prepárate para el siguiente ejercicio.";
+    // Rest view: hide the finished exercise, show only "Descanso" and what comes next
+    elBlock.hidden = true; elRound.hidden = true; elIcon.hidden = true; elPhoto.hidden = true;
+    elSide.hidden = true; elTarget.hidden = true;
+    elName.textContent = "Descanso";
+    var next = state.sequence[state.index + 1];
+    elPhaseNote.hidden = !next;
+    if(next) elPhaseNote.textContent = "Siguiente: " + next.name + (next.side ? " · " + next.side : "");
     setRing(state.remaining, step.rest);
     runTick(step, function(){ restDone(step); });
   }
@@ -718,7 +725,6 @@
     state.phase = "rest-done";
     controlRow.hidden = true;
     ringWrap.hidden = true;
-    elPhaseNote.hidden = true;
     btnMain.hidden = false;
     btnMain.textContent = "Siguiente ejercicio ▶";
     btnMain.onclick = advance;
