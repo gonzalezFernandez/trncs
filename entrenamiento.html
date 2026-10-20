@@ -136,7 +136,7 @@
   }
   .ex-target{ font-family:"IBM Plex Mono",monospace; font-size:0.95rem; color:var(--ink-soft); font-variant-numeric:tabular-nums; }
   .phase-note{ font-size:0.86rem; color:var(--ink-soft); max-width:36ch; }
-  /* auto-advance toggle, top-left under the progress bar */
+  /* auto-advance toggle, overlaid top-left under the progress bar (takes no layout space) */
   .auto-wrap{ position:absolute; left:0; top:2px; z-index:2; display:flex; align-items:center; gap:8px; }
   .auto-btn{
     font-family:"IBM Plex Mono",monospace; font-size:0.7rem; font-weight:700; letter-spacing:0.06em;
@@ -144,8 +144,9 @@
     background:var(--surface-2); color:var(--ink-soft); border:1px solid var(--line);
   }
   .auto-btn.on{ background:var(--day-color, var(--accent)); color:var(--bg); border-color:transparent; }
-  /* the AUTO row gets its own line so block titles never run under it */
-  #screen-player .stage-stack{ padding-top:26px; }
+  /* texts on the AUTO line keep clear of it; long ones wrap instead of running underneath */
+  #screen-player .meta-row{ padding:0 76px; flex-wrap:wrap; justify-content:center; row-gap:4px; }
+  .stage-stack.intro-mode .ex-name{ padding:0 76px; }
   /* start gate: the timer ring, full, with the call to action inside */
   .ring-wrap.intro{ border-radius:50%; }
   #screen-player .ring-wrap.intro .ring-val{
@@ -801,6 +802,7 @@
 
     // the first step of each warm-up / block / cool-down is preceded by a start gate
     ringWrap.classList.remove("intro");
+    ringWrap.parentNode.classList.remove("intro-mode");
     var firstOfBlock = state.index === 0 || state.sequence[state.index-1].blockIdx !== step.blockIdx;
     if(firstOfBlock && !state.introsSeen[step.blockIdx]){ renderIntro(step); return; }
 
@@ -866,6 +868,7 @@
       step.blockLabel === COOLDOWN.label ? "Iniciar\nestiramientos" :
       "Iniciar\nbloque";
     ringWrap.classList.add("intro", "tappable");
+    ringWrap.parentNode.classList.add("intro-mode");
     drawRing(label, 1, "");
     armAuto(AUTO_GATE_DELAY, startFromIntro, true);
     elPhaseNote.hidden = false;
