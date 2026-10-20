@@ -131,9 +131,10 @@
   .stat-chip b{ color:var(--ink); }
   p.lede{ font-size:1.08rem; color:var(--ink-soft); max-width: 62ch; margin-top:18px; }
   .hero-cta{
-    display:inline-flex; align-items:center; gap:8px; margin-top:20px;
-    background:var(--accent); color:var(--accent-ink); font-weight:700; font-size:0.95rem;
-    padding:12px 20px; border-radius:12px; text-decoration:none;
+    display:flex; align-items:center; justify-content:center; gap:12px; margin-top:28px;
+    width:100%; max-width:520px; min-height:76px; box-sizing:border-box;
+    background:var(--accent); color:var(--accent-ink); font-weight:800; font-size:clamp(1.2rem, 5.4vw, 1.55rem);
+    padding:20px 24px; border-radius:18px; text-decoration:none; box-shadow:var(--shadow); text-align:center; white-space:nowrap;
   }
   .hero-cta:hover{ filter:brightness(1.05); }
 
@@ -330,7 +331,6 @@
 
 <nav class="jump">
   <div class="jump-inner">
-    <a href="#resumen">Resumen</a>
     <a href="#semana">Semana</a>
     <a href="#dia-a">Día A</a>
     <a href="#dia-b">Día B</a>
@@ -349,15 +349,8 @@
     <span class="stat-chip">Esterilla + KB 12kg + banda elástica</span>
   </div>
   <p class="lede">Un plan de 6 días a la semana (más 1 de descanso completo) con tres tipos de sesión que rotan — fuerza, core/banda y patrones a una pierna — todo con el mismo kettlebell de 12 kg. Progresas variando el ejercicio y el control, no subiendo el peso.</p>
-  <a class="hero-cta" href="entrenamiento.html">▶ Iniciar entrenamiento guiado</a>
+  <a class="hero-cta" href="entrenamiento.html">▶ Empezar entrenamiento</a>
 </header>
-
-<div class="callout" id="resumen">
-  <span class="tag">Antes de empezar</span>
-  <h2>La grasa abdominal no se "quema" haciendo abdominales</h2>
-  <p>Es la parte más importante de todo el plan, así que va primero: ningún ejercicio localizado reduce la grasa de la zona que trabaja. Un metaanálisis de 2022 con más de 1.000 participantes y una revisión de 2021 con 13 estudios (1.158 personas) no encontraron diferencias en la pérdida de grasa localizada entre el lado entrenado y el no entrenado, sin importar el ejercicio usado<sup>1,2</sup>. Un ensayo controlado de 12 semanas tampoco halló más reducción de grasa abdominal en el grupo que además de dieta hacía ejercicios de core, frente al grupo que solo hacía dieta<sup>3</sup>.</p>
-  <p><strong>¿Qué funciona entonces?</strong> Tu cuerpo decide dónde tirar de las reservas de grasa según genética y hormonas, no según qué músculo mueves<sup>1</sup>. Lo que sí reduce la grasa en general —incluida la abdominal— es un <strong>déficit calórico sostenido</strong> combinado con <strong>entrenamiento de fuerza de cuerpo completo</strong> para no perder músculo mientras pierdes grasa. El trabajo de core de este plan está aquí para darte un abdomen fuerte y estable, no para "quemarlo" directamente — eso lo hace la dieta.</p>
-</div>
 
 <div class="wrap">
 
@@ -858,6 +851,12 @@
       <li><div><strong>Dolor agudo o que se irradia no es lo mismo que fatiga muscular.</strong> Si aparece, detén el ejercicio y, si hace falta, saltas una sesión aunque no sea domingo — revisa la técnica antes de continuar.</div></li>
       <li><div><strong>Calienta siempre, 6 minutos mínimo,</strong> incluso los días con prisa. Es lo que separa un swing seguro de una lumbalgia.</div></li>
     </ul>
+    <div class="callout" id="resumen" style="margin-top:22px;">
+      <span class="tag">Antes de empezar</span>
+      <h2>La grasa abdominal no se "quema" haciendo abdominales</h2>
+      <p>Es lo más importante de todo el plan: ningún ejercicio localizado reduce la grasa de la zona que trabaja. Un metaanálisis de 2022 con más de 1.000 participantes y una revisión de 2021 con 13 estudios (1.158 personas) no encontraron diferencias en la pérdida de grasa localizada entre el lado entrenado y el no entrenado, sin importar el ejercicio usado<sup>1,2</sup>. Un ensayo controlado de 12 semanas tampoco halló más reducción de grasa abdominal en el grupo que además de dieta hacía ejercicios de core, frente al grupo que solo hacía dieta<sup>3</sup>.</p>
+      <p><strong>¿Qué funciona entonces?</strong> Tu cuerpo decide dónde tirar de las reservas de grasa según genética y hormonas, no según qué músculo mueves<sup>1</sup>. Lo que sí reduce la grasa en general —incluida la abdominal— es un <strong>déficit calórico sostenido</strong> combinado con <strong>entrenamiento de fuerza de cuerpo completo</strong> para no perder músculo mientras pierdes grasa. El trabajo de core de este plan está aquí para darte un abdomen fuerte y estable, no para "quemarlo" directamente — eso lo hace la dieta.</p>
+    </div>
   </section>
 
   <footer class="sources" id="fuentes">
