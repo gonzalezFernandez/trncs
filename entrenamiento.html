@@ -136,6 +136,15 @@
   }
   .ex-target{ font-family:"IBM Plex Mono",monospace; font-size:0.95rem; color:var(--ink-soft); font-variant-numeric:tabular-nums; }
   .phase-note{ font-size:0.86rem; color:var(--ink-soft); max-width:36ch; }
+  /* start gate shown before the warm-up, each round and the cool-down */
+  .intro-btn{
+    width:min(240px, 62vw); aspect-ratio:1; border-radius:50%; border:none; cursor:pointer; margin:12px 0;
+    display:flex; align-items:center; justify-content:center; text-align:center; padding:28px;
+    background:var(--day-color, var(--accent)); color:var(--line);
+    font-family:"Big Shoulders Display","Arial Narrow",sans-serif; font-weight:800; text-transform:uppercase;
+    font-size:clamp(1.6rem, 7vw, 2.1rem); line-height:1.05; letter-spacing:0.02em; white-space:pre-line;
+  }
+  .intro-btn:active{ transform:scale(0.97); }
   .photo-btn{ position:relative; background:none; border:none; padding:0; cursor:pointer; -webkit-tap-highlight-color:transparent; }
   .photo-btn .info-badge{
     position:absolute; right:12px; bottom:12px; width:24px; height:24px; border-radius:50%;
@@ -177,7 +186,7 @@
   .app{ --day-color:var(--accent); }
   .app[data-day="b"]{ --day-color:var(--accent2); }
   .app[data-day="c"]{ --day-color:var(--good); }
-  .cta.nudge{ animation:nudge 1.4s ease-out infinite; }
+  .cta.nudge, .intro-btn.nudge{ animation:nudge 1.4s ease-out infinite; }
   @keyframes nudge{
     0%  { transform:scale(1);    box-shadow:0 0 0 0 color-mix(in srgb, var(--day-color) 60%, transparent); }
     35% { transform:scale(1.03); }
@@ -307,6 +316,8 @@
           </svg>
           <div class="ring-num"><span class="ring-val" id="ring-num">0</span><span class="ring-label" id="ring-label"></span></div>
         </div>
+
+        <button class="intro-btn nudge" id="intro-btn" type="button" hidden><span id="intro-label"></span></button>
 
         <p class="phase-note" id="phase-note" hidden></p>
 
@@ -580,7 +591,8 @@
     tickTimer: null,
     sessionStart: null,
     clockTimer: null,
-    completedCount: 0
+    completedCount: 0,
+    introsSeen: {}
   };
 
   /* ================= AUDIO / HAPTICS ================= */
@@ -614,6 +626,7 @@
   var btnMain = $("btn-main"), controlRow = $("control-row"), btnPause = $("btn-pause"), btnSkipRest = $("btn-skip-rest");
   var btnSkipEx = $("btn-skip-ex"), btnPrev = $("btn-prev"), btnExit = $("btn-exit");
   var btnSkipWarmup = $("btn-skip-warmup");
+  var elIntro = $("intro-btn"), elIntroLabel = $("intro-label");
 
   var RING_CIRC = 2 * Math.PI * 42;
   ringFg.style.strokeDasharray = RING_CIRC.toFixed(1);
@@ -666,13 +679,15 @@
     state.sequence = buildSequence(dayKey);
     state.index = 0;
     state.completedCount = 0;
-    state.sessionStart = Date.now();
+    state.sessionStart = null;
+    state.introsSeen = {};
+    stopClock();
+    elPlayerClock.textContent = "00:00";
     screenStart.hidden = true; screenDone.hidden = true; screenPlayer.hidden = false;
     elPlayerDaytag.textContent = DAYS[dayKey].short;
     elPlayerDaytag.className = "daytag " + DAYS[dayKey].colorClass;
     document.querySelector(".app").setAttribute("data-day", DAYS[dayKey].colorClass);
     buildRail();
-    startClock();
     renderStep();
   }
 
@@ -770,6 +785,11 @@
     state.phase = "ready";
     state.paused = false;
 
+    // the first step of each warm-up / round / cool-down is preceded by a start gate
+    elIntro.hidden = true;
+    var firstOfSeg = state.index === 0 || state.sequence[state.index-1].seg !== step.seg;
+    if(firstOfSeg && !state.introsSeen[step.seg]){ renderIntro(step); return; }
+
     elBlock.hidden = false;
     elBlock.textContent = step.blockLabel;
     if(step.totalRounds > 1){
@@ -812,6 +832,32 @@
       btnMain.onclick = function(){ afterExercise(step); };
       startReps(step);
     }
+
+    updateProgress();
+    btnPrev.disabled = state.index === 0;
+  }
+
+  function renderIntro(step){
+    state.phase = "intro";
+    elBlock.hidden = true; elRound.hidden = true; elIcon.hidden = true; elPhotoBtn.hidden = true;
+    elHowtoBody.hidden = true; elSide.hidden = true; elTarget.hidden = true;
+    ringWrap.hidden = true; controlRow.hidden = true; btnMain.hidden = true; btnSkipEx.hidden = true;
+    btnSkipWarmup.hidden = step.blockLabel !== WARMUP.label;
+
+    elName.textContent = step.blockLabel;
+    elIntroLabel.textContent =
+      step.blockLabel === WARMUP.label ? "Iniciar\ncalentamiento" :
+      step.blockLabel === COOLDOWN.label ? "Iniciar\nestiramientos" :
+      step.totalRounds > 1 ? "Iniciar\nronda " + step.round + "/" + step.totalRounds : "Iniciar\nbloque";
+    elPhaseNote.hidden = false;
+    elPhaseNote.textContent = "Primer ejercicio: " + step.name + (step.side ? " · " + step.side : "");
+    elIntro.hidden = false;
+    elIntro.onclick = function(){
+      state.introsSeen[step.seg] = true;
+      // the session clock only starts once the first gate is tapped
+      if(!state.sessionStart){ state.sessionStart = Date.now(); startClock(); }
+      renderStep();
+    };
 
     updateProgress();
     btnPrev.disabled = state.index === 0;
