@@ -376,7 +376,7 @@
           {id:"dead-bug", name:"Dead bug", kind:"reps", target:"8–10 reps", perSide:true, rest:30},
           {id:"side-plank", name:"Plancha lateral", kind:"time", duration:25, target:"20–30 s", perSide:true, rest:30},
           {id:"pallof-press", name:"Pallof press con banda", kind:"reps", target:"10–12 reps", perSide:true, rest:30},
-          {id:"russian-twist", name:"Russian twist con kettlebell", kind:"reps", target:"10–12 reps", perSide:true, rest:30},
+          {id:"russian-twist", name:"Russian twist con kettlebell", kind:"reps", target:"20–24 totales", rest:30},
           {id:"mountain-climbers", name:"Mountain climbers", kind:"reps", target:"20 totales", rest:90}
         ]},
         { label:"Bloque 3 — Pecho y brazos", rounds:3, exercises:[
@@ -739,7 +739,7 @@
       btnMain.textContent = step.rest > 0 ? "Descansar " + step.rest + "s ▶" : "Siguiente ejercicio ▶";
       btnMain.onclick = function(){ afterExercise(step); };
     } else {
-      restDone(step);
+      advance();
     }
   });
   btnSkipEx.addEventListener("click", advance);
