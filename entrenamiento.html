@@ -65,11 +65,11 @@
   #screen-player .topbar .back{ justify-self:start; }
   #screen-player .topbar .daytag{ justify-self:end; }
   .clock{ font-family:"IBM Plex Mono",monospace; font-size:clamp(2.8rem, 15vw, 3.8rem); font-weight:700; line-height:1; letter-spacing:-0.03em; font-variant-numeric:tabular-nums; color:var(--ink); }
-  /* log mark to the left of the session clock, absolutely placed so the bar layout is untouched */
+  /* log mark floating left of the session clock, out of flow so nothing in the bar moves */
   .clock{ position:relative; }
-  .clock::before{
-    content:""; position:absolute; right:100%; top:50%; width:0.55em; height:0.55em; margin-right:0.18em;
-    transform:translateY(-50%); background:url(tronco.svg) center/contain no-repeat;
+  .clock-log{
+    position:absolute; right:100%; margin-right:0.15em; top:50%; transform:translateY(-50%);
+    height:0.55em; width:auto; pointer-events:none; z-index:2;
   }
 
   /* ---- progress ---- */
@@ -308,7 +308,7 @@
   <section id="screen-player" class="screen" hidden>
     <div class="topbar">
       <button class="back" id="btn-exit" style="background:none;border:none;cursor:pointer;font-family:'IBM Plex Mono',monospace;">← Salir</button>
-      <span class="clock" id="player-clock">00:00</span>
+      <span class="clock"><img class="clock-log" src="tronco.svg" alt="" aria-hidden="true"><span id="player-clock">00:00</span></span>
       <span class="daytag" id="player-daytag"></span>
     </div>
     <div class="progress-label"><span id="progress-text">Paso 1 / 1</span><span id="progress-pct">0%</span></div>
