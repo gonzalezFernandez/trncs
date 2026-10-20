@@ -57,7 +57,10 @@
   .daytag.a{ background:var(--accent-soft); color:var(--accent); }
   .daytag.b{ background:var(--accent2-soft); color:var(--accent2); }
   .daytag.c{ background:var(--good-soft); color:var(--good); }
-  .clock{ font-family:"IBM Plex Mono",monospace; font-size:2.2rem; font-weight:700; line-height:1; letter-spacing:-0.02em; font-variant-numeric:tabular-nums; color:var(--ink); }
+  #screen-player .topbar{ display:grid; grid-template-columns:1fr auto 1fr; }
+  #screen-player .topbar .back{ justify-self:start; }
+  #screen-player .topbar .daytag{ justify-self:end; }
+  .clock{ font-family:"IBM Plex Mono",monospace; font-size:clamp(2.8rem, 15vw, 3.8rem); font-weight:700; line-height:1; letter-spacing:-0.03em; font-variant-numeric:tabular-nums; color:var(--ink); }
 
   /* ---- progress ---- */
   .progress-label{ font-family:"IBM Plex Mono",monospace; font-size:0.72rem; color:var(--ink-soft); display:flex; justify-content:space-between; margin-bottom:6px; }
@@ -169,7 +172,7 @@
   @media (max-width:360px){
     .ring-wrap{ width:min(280px, 88vw); }
     .ring-num{ font-size:4.6rem; }
-    .clock{ font-size:1.8rem; }
+    .clock{ font-size:2.5rem; }
     .big-icon{ width:88px; height:88px; }
     .big-photo{ max-width:170px; max-height:170px; }
   }
@@ -194,10 +197,8 @@
   <section id="screen-player" class="screen" hidden>
     <div class="topbar">
       <button class="back" id="btn-exit" style="background:none;border:none;cursor:pointer;font-family:'IBM Plex Mono',monospace;">← Salir</button>
-      <div class="mid">
-        <span class="daytag" id="player-daytag"></span>
-        <span class="clock" id="player-clock">00:00</span>
-      </div>
+      <span class="clock" id="player-clock">00:00</span>
+      <span class="daytag" id="player-daytag"></span>
     </div>
     <div class="progress-label"><span id="progress-text">Paso 1 / 1</span><span id="progress-pct">0%</span></div>
     <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
