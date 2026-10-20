@@ -978,6 +978,10 @@
     }, delay);
     if(drainRing){
       state.ringDraining = true;
+      // snap to a full ring first, whatever the ring showed before (e.g. an empty rest ring)
+      ringFg.style.transition = "none";
+      ringFg.style.strokeDashoffset = "0";
+      void ringFg.getBoundingClientRect();
       ringFg.style.transition = "stroke-dashoffset " + delay + "ms linear";
       void ringFg.getBoundingClientRect();
       ringFg.style.strokeDashoffset = RING_CIRC.toFixed(1);
