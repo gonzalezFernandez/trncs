@@ -136,7 +136,7 @@
   }
   .ex-target{ font-family:"IBM Plex Mono",monospace; font-size:0.95rem; color:var(--ink-soft); font-variant-numeric:tabular-nums; }
   .phase-note{ font-size:0.86rem; color:var(--ink-soft); max-width:36ch; }
-  /* start gate shown before the warm-up, each round and the cool-down */
+  /* start gate shown before the warm-up, each block and the cool-down */
   .intro-btn{
     width:min(240px, 62vw); aspect-ratio:1; border-radius:50%; border:none; cursor:pointer; margin:12px 0;
     display:flex; align-items:center; justify-content:center; text-align:center; padding:28px;
@@ -785,10 +785,10 @@
     state.phase = "ready";
     state.paused = false;
 
-    // the first step of each warm-up / round / cool-down is preceded by a start gate
+    // the first step of each warm-up / block / cool-down is preceded by a start gate
     elIntro.hidden = true;
-    var firstOfSeg = state.index === 0 || state.sequence[state.index-1].seg !== step.seg;
-    if(firstOfSeg && !state.introsSeen[step.seg]){ renderIntro(step); return; }
+    var firstOfBlock = state.index === 0 || state.sequence[state.index-1].blockIdx !== step.blockIdx;
+    if(firstOfBlock && !state.introsSeen[step.blockIdx]){ renderIntro(step); return; }
 
     elBlock.hidden = false;
     elBlock.textContent = step.blockLabel;
@@ -848,12 +848,12 @@
     elIntroLabel.textContent =
       step.blockLabel === WARMUP.label ? "Iniciar\ncalentamiento" :
       step.blockLabel === COOLDOWN.label ? "Iniciar\nestiramientos" :
-      step.totalRounds > 1 ? "Iniciar\nronda " + step.round + "/" + step.totalRounds : "Iniciar\nbloque";
+      "Iniciar\nbloque";
     elPhaseNote.hidden = false;
     elPhaseNote.textContent = "Primer ejercicio: " + step.name + (step.side ? " · " + step.side : "");
     elIntro.hidden = false;
     elIntro.onclick = function(){
-      state.introsSeen[step.seg] = true;
+      state.introsSeen[step.blockIdx] = true;
       // the session clock only starts once the first gate is tapped
       if(!state.sessionStart){ state.sessionStart = Date.now(); startClock(); }
       renderStep();
