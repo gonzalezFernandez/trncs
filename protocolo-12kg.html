@@ -135,10 +135,21 @@
   .hero-cta{
     display:flex; align-items:center; justify-content:center; gap:12px; margin-top:28px;
     width:100%; max-width:520px; min-height:76px; box-sizing:border-box;
-    background:var(--accent); color:var(--accent-ink); font-weight:800; font-size:clamp(1.2rem, 5.4vw, 1.55rem);
-    padding:20px 24px; border-radius:18px; text-decoration:none; box-shadow:var(--shadow); text-align:center; white-space:nowrap;
+    background:var(--accent); color:var(--line); font-weight:800; font-size:clamp(1.2rem, 5.4vw, 1.55rem);
+    padding:20px 24px; border-radius:18px; text-decoration:none; text-align:center; white-space:nowrap;
+    animation:ctaHalo 1.4s ease-out infinite;
   }
   .hero-cta:hover{ filter:brightness(1.05); }
+  /* same pulsing halo as the timer's main button */
+  @keyframes ctaHalo{
+    0%  { transform:scale(1);    box-shadow:0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent); }
+    35% { transform:scale(1.03); }
+    70% { transform:scale(1);    box-shadow:0 0 0 16px transparent; }
+    100%{ transform:scale(1);    box-shadow:0 0 0 0 transparent; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .hero-cta{ animation:none; box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 60%, transparent); }
+  }
 
   /* ---------- MYTH CALLOUT ---------- */
   .callout{
