@@ -216,6 +216,7 @@
   .progress-ticks{ position:absolute; inset:0; pointer-events:none; }
   .progress-tick{ position:absolute; top:0; bottom:0; width:2px; margin-left:-1px; background:var(--bg); }
   .progress-tick.block{ width:4px; margin-left:-2px; }
+  .progress-tick.ex{ width:1px; margin-left:0; }
   .seg-dot{ width:8px; height:8px; border-radius:50%; background:rgba(159,176,188,0.3); transition:background 0.3s ease, transform 0.3s ease; }
   .seg-dot.done{ background:var(--seg-color); }
   .seg-dot.current{ background:transparent; box-shadow:inset 0 0 0 2px var(--seg-color); transform:scale(1.3); }
@@ -679,9 +680,13 @@
     var ticks = $("progress-ticks"), seq = state.sequence;
     ticks.innerHTML = "";
     for(var i=1; i<seq.length; i++){
-      if(seq[i].seg === seq[i-1].seg) continue;
+      // both sides of the same exercise stay in one segment
+      var kind = seq[i].blockIdx !== seq[i-1].blockIdx ? " block"
+               : seq[i].seg !== seq[i-1].seg ? ""
+               : seq[i].name !== seq[i-1].name ? " ex" : null;
+      if(kind === null) continue;
       var tick = document.createElement("span");
-      tick.className = "progress-tick" + (seq[i].blockIdx !== seq[i-1].blockIdx ? " block" : "");
+      tick.className = "progress-tick" + kind;
       tick.style.left = (i / seq.length * 100) + "%";
       ticks.appendChild(tick);
     }
