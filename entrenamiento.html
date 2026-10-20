@@ -140,9 +140,12 @@
   .ring-bg{ fill:none; stroke:var(--surface-2); stroke-width:13; }
   .ring-fg{ fill:none; stroke-width:13; stroke-linecap:round; transition:stroke-dashoffset 0.2s linear; }
   .ring-num{
-    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
     font-family:"IBM Plex Mono",monospace; font-size:clamp(5rem, 26vw, 7.2rem); font-weight:700; font-variant-numeric:tabular-nums; letter-spacing:-0.04em;
   }
+  .ring-val{ line-height:1; }
+  .ring-label{ font-size:0.9rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-soft); margin-top:6px; }
+  .ring-wrap.tappable{ cursor:pointer; -webkit-tap-highlight-color:transparent; }
 
   .cta{
     width:100%; max-width:340px; padding:16px 20px; border-radius:16px; border:none; cursor:pointer;
@@ -218,7 +221,7 @@
             <circle class="ring-bg" cx="50" cy="50" r="42"></circle>
             <circle class="ring-fg" id="ring-fg" cx="50" cy="50" r="42"></circle>
           </svg>
-          <div class="ring-num" id="ring-num">0</div>
+          <div class="ring-num"><span class="ring-val" id="ring-num">0</span><span class="ring-label" id="ring-label"></span></div>
         </div>
 
         <p class="phase-note" id="phase-note" hidden></p>
@@ -330,6 +333,21 @@
     "hamstring-stretch": "hamstring-stretch.png",
     "thoracic-rotation": "thoracic-rotation.png"
   };
+
+  // Seconds per rep, used only for the orientative rep countdown ring
+  var REP_TEMPO = {
+    "hip-circles": 3, "cat-cow": 4, "glute-bridge": 2.5, "band-pull-apart": 2,
+    "goblet-squat": 3, "clean-press": 4, "kb-row": 2.5, "push-up": 2.5, "band-curl": 2.5,
+    "floor-press": 2.5, "band-row": 2.5, "kb-halo": 4, "dead-bug": 3, "pallof-press": 3,
+    "russian-twist": 1.5, "mountain-climbers": 1, "band-chest-press": 2.5, "band-triceps-extension": 2.5,
+    "reverse-lunge": 3.5, "single-leg-deadlift": 4, "band-woodchopper": 2.5, "renegade-row": 3,
+    "shoulder-taps": 1.5, "thoracic-rotation": 3
+  };
+
+  function repMax(target){
+    var nums = (target || "").match(/\d+/g);
+    return nums ? Math.max.apply(null, nums.map(Number)) : 0;
+  }
 
   /* ================= WORKOUT DATA ================= */
   var WARMUP = { label:"Calentamiento", rounds:1, exercises:[
@@ -471,7 +489,7 @@
   var elProgressText = $("progress-text"), elProgressPct = $("progress-pct"), elProgressFill = $("progress-fill");
   var elBlock = $("st-block"), elRound = $("st-round"), elIcon = $("st-icon"), elPhoto = $("st-photo"), elName = $("st-name"),
       elSide = $("st-side"), elTarget = $("st-target"), elPhaseNote = $("phase-note");
-  var ringWrap = $("ring-wrap"), ringFg = $("ring-fg"), ringNum = $("ring-num");
+  var ringWrap = $("ring-wrap"), ringFg = $("ring-fg"), ringNum = $("ring-num"), ringLabel = $("ring-label");
   var btnMain = $("btn-main"), controlRow = $("control-row"), btnPause = $("btn-pause"), btnSkipRest = $("btn-skip-rest");
   var btnSkipEx = $("btn-skip-ex"), btnPrev = $("btn-prev"), btnRestart = $("btn-restart"), btnExit = $("btn-exit");
   var btnSkipWarmup = $("btn-skip-warmup");
@@ -587,8 +605,8 @@
     else { elSide.hidden = true; }
     elTarget.textContent = step.target;
 
-    ringFg.style.stroke = accentVar();
     ringWrap.hidden = true;
+    ringWrap.classList.remove("tappable");
     elPhaseNote.hidden = true;
     controlRow.hidden = true;
     btnMain.hidden = false;
@@ -601,6 +619,7 @@
     } else {
       btnMain.textContent = step.rest > 0 ? "✓ Completado — descansar " + step.rest + "s" : "✓ Completado";
       btnMain.onclick = function(){ afterExercise(step); };
+      startReps(step);
     }
 
     updateProgress();
@@ -617,10 +636,33 @@
   }
 
   function setRing(remaining, duration){
-    ringWrap.hidden = false;
-    ringNum.textContent = remaining;
     var frac = duration > 0 ? remaining/duration : 0;
+    drawRing(remaining, frac, state.phase === "rest" ? "descanso" : "segundos");
+  }
+
+  // Rest ring uses a lighter tint of the day colour so it reads differently from work
+  function drawRing(value, frac, label){
+    ringWrap.hidden = false;
+    ringNum.textContent = value;
+    ringLabel.textContent = label;
+    ringFg.style.stroke = state.phase === "rest" ? "color-mix(in srgb, " + accentVar() + " 40%, #fff)" : accentVar();
     ringFg.style.strokeDashoffset = (RING_CIRC * (1 - frac)).toFixed(1);
+  }
+
+  // Orientative rep countdown: from the top of the rep range down to 0 at the exercise's tempo
+  function startReps(step){
+    clearTick();
+    var max = repMax(step.target);
+    if(!max) return;
+    var total = max * (REP_TEMPO[step.icon] || 3) * 1000;
+    var t0 = Date.now();
+    ringWrap.classList.add("tappable");
+    drawRing(max, 1, "reps");
+    state.tickTimer = setInterval(function(){
+      var left = Math.max(0, total - (Date.now() - t0));
+      drawRing(Math.ceil(left / total * max), left / total, "reps");
+      if(left <= 0){ clearTick(); beep(660, 0.12); }
+    }, 100);
   }
 
   function clearTick(){
@@ -660,6 +702,7 @@
     state.remaining = step.rest;
     btnMain.hidden = true;
     controlRow.hidden = false;
+    ringWrap.classList.remove("tappable");
     btnPause.textContent = "Pausar";
     btnSkipRest.textContent = "Saltar descanso";
     btnSkipEx.hidden = true;
@@ -744,6 +787,10 @@
     }
   });
   btnSkipEx.addEventListener("click", advance);
+  ringWrap.addEventListener("click", function(){
+    var step = currentStep();
+    if(state.phase === "ready" && step && step.kind === "reps") startReps(step);
+  });
   btnSkipWarmup.addEventListener("click", function(){
     clearTick();
     var i = state.index;
