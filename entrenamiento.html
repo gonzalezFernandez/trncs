@@ -206,10 +206,16 @@
   body:has(#screen-player:not([hidden])){ padding-top:0; padding-bottom:0; overflow:hidden; }
   #screen-player{ min-height:0; position:relative; }
   /* round-progress dots, overlaid in the left gutter so they never shift the layout */
+  #screen-player .center{ position:relative; }
   .seg-rail{
-    position:absolute; left:-13px; top:50%; transform:translateY(-50%);
+    position:absolute; left:-13px; top:8px;
     display:flex; flex-direction:column; gap:6px; pointer-events:none; z-index:1;
   }
+  /* block / round boundaries cut into the step progress bar */
+  #screen-player .progress-track{ position:relative; height:8px; }
+  .progress-ticks{ position:absolute; inset:0; pointer-events:none; }
+  .progress-tick{ position:absolute; top:0; bottom:0; width:2px; margin-left:-1px; background:var(--bg); }
+  .progress-tick.block{ width:4px; margin-left:-2px; }
   .seg-dot{ width:8px; height:8px; border-radius:50%; background:rgba(159,176,188,0.3); transition:background 0.3s ease, transform 0.3s ease; }
   .seg-dot.done{ background:var(--seg-color); }
   .seg-dot.current{ background:transparent; box-shadow:inset 0 0 0 2px var(--seg-color); transform:scale(1.3); }
@@ -256,16 +262,16 @@
 
   <!-- PLAYER SCREEN -->
   <section id="screen-player" class="screen" hidden>
-    <div class="seg-rail" id="seg-rail" aria-hidden="true"></div>
     <div class="topbar">
       <button class="back" id="btn-exit" style="background:none;border:none;cursor:pointer;font-family:'IBM Plex Mono',monospace;">← Salir</button>
       <span class="clock" id="player-clock">00:00</span>
       <span class="daytag" id="player-daytag"></span>
     </div>
     <div class="progress-label"><span id="progress-text">Paso 1 / 1</span><span id="progress-pct">0%</span></div>
-    <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div><div class="progress-ticks" id="progress-ticks"></div></div>
 
     <div class="center">
+      <div class="seg-rail" id="seg-rail" aria-hidden="true"></div>
       <div class="stage-stack">
         <div class="meta-row">
           <span class="block-tag" id="st-block">Bloque</span>
@@ -670,6 +676,15 @@
       rail.appendChild(dot);
       railDots[s.seg] = dot;
     });
+    var ticks = $("progress-ticks"), seq = state.sequence;
+    ticks.innerHTML = "";
+    for(var i=1; i<seq.length; i++){
+      if(seq[i].seg === seq[i-1].seg) continue;
+      var tick = document.createElement("span");
+      tick.className = "progress-tick" + (seq[i].blockIdx !== seq[i-1].blockIdx ? " block" : "");
+      tick.style.left = (i / seq.length * 100) + "%";
+      ticks.appendChild(tick);
+    }
   }
   function updateRail(){
     var cur = currentStep().seg;
