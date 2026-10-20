@@ -136,6 +136,16 @@
   }
   .ex-target{ font-family:"IBM Plex Mono",monospace; font-size:0.95rem; color:var(--ink-soft); font-variant-numeric:tabular-nums; }
   .phase-note{ font-size:0.86rem; color:var(--ink-soft); max-width:36ch; }
+  /* auto-advance toggle, overlaid top-left under the progress bar */
+  .auto-btn{
+    position:absolute; left:0; top:2px; z-index:2;
+    font-family:"IBM Plex Mono",monospace; font-size:0.7rem; font-weight:700; letter-spacing:0.06em;
+    padding:4px 10px; border-radius:999px; cursor:pointer;
+    background:var(--surface-2); color:var(--ink-soft); border:1px solid var(--line);
+  }
+  .auto-btn.on{ background:var(--day-color, var(--accent)); color:var(--line); border-color:transparent; }
+  /* keep long block titles on the start gate clear of the AUTO button */
+  .stage-stack.intro-mode{ padding-top:28px; }
   /* start gate: the timer ring, full, with the call to action inside */
   .ring-wrap.intro{ border-radius:50%; }
   #screen-player .ring-wrap.intro .ring-val{
@@ -297,6 +307,7 @@
 
     <div class="center">
       <div class="seg-rail" id="seg-rail" aria-hidden="true"></div>
+      <button class="auto-btn" id="btn-auto" type="button" aria-pressed="false">▶ AUTO</button>
       <div class="stage-stack">
         <div class="meta-row">
           <span class="block-tag" id="st-block">Bloque</span>
@@ -591,7 +602,9 @@
     sessionStart: null,
     clockTimer: null,
     completedCount: 0,
-    introsSeen: {}
+    introsSeen: {},
+    auto: false,
+    autoTimer: null
   };
 
   /* ================= AUDIO / HAPTICS ================= */
@@ -624,7 +637,7 @@
   var ringWrap = $("ring-wrap"), ringFg = $("ring-fg"), ringNum = $("ring-num"), ringLabel = $("ring-label");
   var btnMain = $("btn-main"), controlRow = $("control-row"), btnPause = $("btn-pause"), btnSkipRest = $("btn-skip-rest");
   var btnSkipEx = $("btn-skip-ex"), btnPrev = $("btn-prev"), btnExit = $("btn-exit");
-  var btnSkipWarmup = $("btn-skip-warmup");
+  var btnSkipWarmup = $("btn-skip-warmup"), btnAuto = $("btn-auto");
 
   var RING_CIRC = 2 * Math.PI * 42;
   ringFg.style.strokeDasharray = RING_CIRC.toFixed(1);
@@ -786,6 +799,7 @@
 
     // the first step of each warm-up / block / cool-down is preceded by a start gate
     ringWrap.classList.remove("intro");
+    ringWrap.parentNode.classList.remove("intro-mode");
     var firstOfBlock = state.index === 0 || state.sequence[state.index-1].blockIdx !== step.blockIdx;
     if(firstOfBlock && !state.introsSeen[step.blockIdx]){ renderIntro(step); return; }
 
@@ -827,6 +841,7 @@
       btnMain.textContent = "▶ Empezar (" + step.duration + "s)";
       btnMain.onclick = function(){ beginWork(step); };
       drawRing(step.duration, 1, "segundos");
+      armAuto();
     } else {
       btnMain.textContent = step.rest > 0 ? "✓ Completado — descansar " + step.rest + "s" : "✓ Completado";
       btnMain.onclick = function(){ afterExercise(step); };
@@ -850,6 +865,7 @@
       step.blockLabel === COOLDOWN.label ? "Iniciar\nestiramientos" :
       "Iniciar\nbloque";
     ringWrap.classList.add("intro", "tappable");
+    ringWrap.parentNode.classList.add("intro-mode");
     drawRing(label, 1, "");
     elPhaseNote.hidden = false;
     elPhaseNote.textContent = "Primer ejercicio: " + step.name + (step.side ? " · " + step.side : "");
@@ -937,12 +953,39 @@
     state.tickTimer = setInterval(function(){
       var left = Math.max(0, total - (Date.now() - t0));
       drawRing(Math.ceil(left / total * max), left / total, "reps");
-      if(left <= 0){ clearTick(); beep(660, 0.12); btnMain.classList.add("nudge"); }
+      if(left <= 0){ clearTick(); beep(660, 0.12); btnMain.classList.add("nudge"); armAuto(); }
     }, 100);
   }
 
   function clearTick(){
     if(state.tickTimer){ clearInterval(state.tickTimer); state.tickTimer = null; }
+    clearAuto();
+  }
+
+  // Auto mode: whenever the main button becomes the obvious next action, press it after 2 s.
+  // Any transition goes through clearTick, which cancels a pending auto-press.
+  var AUTO_DELAY = 2000;
+  function armAuto(){
+    clearAuto();
+    if(!state.auto) return;
+    state.autoTimer = setTimeout(function(){
+      state.autoTimer = null;
+      if(!screenPlayer.hidden && !btnMain.hidden) btnMain.click();
+    }, AUTO_DELAY);
+  }
+  function clearAuto(){
+    if(state.autoTimer){ clearTimeout(state.autoTimer); state.autoTimer = null; }
+  }
+  function setAuto(on){
+    state.auto = on;
+    btnAuto.classList.toggle("on", on);
+    btnAuto.setAttribute("aria-pressed", on ? "true" : "false");
+    btnAuto.innerHTML = (on ? "■" : "▶") + " AUTO";
+    clearAuto();
+    // turning it on while already waiting on the main button: pick up from there
+    var step = currentStep();
+    if(on && step && !btnMain.hidden &&
+       (btnMain.classList.contains("nudge") || (state.phase === "ready" && step.kind === "time"))) armAuto();
   }
 
   function beginWork(step){
@@ -958,8 +1001,8 @@
       beep(880, 0.18); setTimeout(function(){ beep(880,0.18); }, 220);
       state.phase = "work-done";
       controlRow.hidden = true;
-      ringWrap.hidden = true;
-      btnMain.hidden = false; btnMain.classList.add("nudge");
+      drawRing(0, 0, "segundos");
+      btnMain.hidden = false; btnMain.classList.add("nudge"); armAuto();
       btnMain.textContent = step.rest > 0 ? "Descansar " + step.rest + "s ▶" : "Siguiente ejercicio ▶";
       btnMain.onclick = function(){ afterExercise(step); };
     });
@@ -999,8 +1042,8 @@
     state.phase = "rest-done";
     setFill(timeline[state.index].end);
     controlRow.hidden = true;
-    ringWrap.hidden = true;
-    btnMain.hidden = false; btnMain.classList.add("nudge");
+    drawRing(0, 0, "segundos");
+    btnMain.hidden = false; btnMain.classList.add("nudge"); armAuto();
     btnMain.textContent = "Siguiente ejercicio ▶";
     btnMain.onclick = advance;
   }
@@ -1048,6 +1091,7 @@
   }
 
   /* ================= EVENTS ================= */
+  btnAuto.addEventListener("click", function(){ setAuto(!state.auto); });
   btnPause.addEventListener("click", function(){
     state.paused = !state.paused;
     btnPause.textContent = state.paused ? "Reanudar" : "Pausar";
@@ -1059,8 +1103,8 @@
       beep(880,0.18);
       state.phase = "work-done";
       controlRow.hidden = true;
-      ringWrap.hidden = true;
-      btnMain.hidden = false; btnMain.classList.add("nudge");
+      drawRing(0, 0, "segundos");
+      btnMain.hidden = false; btnMain.classList.add("nudge"); armAuto();
       btnMain.textContent = step.rest > 0 ? "Descansar " + step.rest + "s ▶" : "Siguiente ejercicio ▶";
       btnMain.onclick = function(){ afterExercise(step); };
     } else {
