@@ -284,12 +284,11 @@
           <button class="cta secondary" id="btn-pause">Pausar</button>
           <button class="cta ghost" id="btn-skip-rest">Saltar</button>
         </div>
-        <button class="link-btn" id="btn-skip-ex">Saltar este ejercicio ›</button>
         <button class="cta ghost" id="btn-skip-warmup" hidden style="margin-top:8px;">⏭ Saltar calentamiento completo</button>
 
         <div class="nav-row">
           <button id="btn-prev">‹ Anterior</button>
-          <button id="btn-restart">Reiniciar sesión</button>
+          <button id="btn-skip-ex">Saltar ejercicio ›</button>
         </div>
       </div>
     </div>
@@ -578,7 +577,7 @@
       elPhotoBtn = $("st-photo-btn"), elHowtoBody = $("st-howto-body");
   var ringWrap = $("ring-wrap"), ringFg = $("ring-fg"), ringNum = $("ring-num"), ringLabel = $("ring-label");
   var btnMain = $("btn-main"), controlRow = $("control-row"), btnPause = $("btn-pause"), btnSkipRest = $("btn-skip-rest");
-  var btnSkipEx = $("btn-skip-ex"), btnPrev = $("btn-prev"), btnRestart = $("btn-restart"), btnExit = $("btn-exit");
+  var btnSkipEx = $("btn-skip-ex"), btnPrev = $("btn-prev"), btnExit = $("btn-exit");
   var btnSkipWarmup = $("btn-skip-warmup");
 
   var RING_CIRC = 2 * Math.PI * 42;
@@ -904,7 +903,6 @@
     renderStep();
   });
   btnPrev.addEventListener("click", goPrev);
-  btnRestart.addEventListener("click", function(){ startDay(state.dayKey); });
   $("btn-done-restart").addEventListener("click", function(){ startDay(state.dayKey); });
   btnExit.addEventListener("click", function(){
     clearTick(); stopClock();
