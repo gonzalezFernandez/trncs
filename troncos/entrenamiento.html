@@ -65,6 +65,12 @@
   #screen-player .topbar .back{ justify-self:start; }
   #screen-player .topbar .daytag{ justify-self:end; }
   .clock{ font-family:"IBM Plex Mono",monospace; font-size:clamp(2.8rem, 15vw, 3.8rem); font-weight:700; line-height:1; letter-spacing:-0.03em; font-variant-numeric:tabular-nums; color:var(--ink); }
+  /* log mark to the left of the session clock, absolutely placed so the bar layout is untouched */
+  .clock{ position:relative; }
+  .clock::before{
+    content:""; position:absolute; right:100%; top:50%; width:0.55em; height:0.55em; margin-right:0.18em;
+    transform:translateY(-50%); background:url(tronco.svg) center/contain no-repeat;
+  }
 
   /* ---- progress ---- */
   .progress-label{ font-family:"IBM Plex Mono",monospace; font-size:0.72rem; color:var(--ink-soft); display:flex; justify-content:space-between; margin-bottom:6px; }
@@ -355,7 +361,7 @@
   <section id="screen-done" class="screen done" hidden>
     <div class="center">
       <div class="check">✓</div>
-      <h1 style="font-size:2rem;">Sesión completa</h1>
+      <h1 style="font-size:2rem;">Sesión completa <img class="title-emoji" src="tronco.svg" alt=""></h1>
       <p class="sub" style="margin:8px 0 0;">Buen trabajo con el <span id="done-day"></span>.</p>
       <div class="stat-row">
         <div class="stat"><div class="n" id="done-time">00:00</div><div class="l">tiempo total</div></div>
