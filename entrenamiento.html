@@ -173,6 +173,18 @@
   /* primary buttons take the colour of the day being trained */
   .app[data-day="b"] .cta:not(.secondary):not(.ghost){ background:var(--accent2); }
   .app[data-day="c"] .cta:not(.secondary):not(.ghost){ background:var(--good); }
+  /* pulsing halo on the main button once it's time to press it */
+  .app{ --day-color:var(--accent); }
+  .app[data-day="b"]{ --day-color:var(--accent2); }
+  .app[data-day="c"]{ --day-color:var(--good); }
+  .cta.nudge{ animation:nudge 1.4s ease-out infinite; }
+  @keyframes nudge{
+    0%  { transform:scale(1);    box-shadow:0 0 0 0 color-mix(in srgb, var(--day-color) 60%, transparent); }
+    35% { transform:scale(1.03); }
+    70% { transform:scale(1);    box-shadow:0 0 0 16px transparent; }
+    100%{ transform:scale(1);    box-shadow:0 0 0 0 transparent; }
+  }
+  @media (prefers-reduced-motion: reduce){ .cta.nudge{ animation:none; box-shadow:0 0 0 3px color-mix(in srgb, var(--day-color) 60%, transparent); } }
   .cta.ghost{ background:none; border:1px solid var(--line); color:var(--ink-soft); }
   .control-row{ display:flex; gap:10px; width:100%; max-width:340px; }
   .control-row .cta{ flex:1; }
@@ -751,6 +763,7 @@
 
   function renderStep(){
     clearTick();
+    btnMain.classList.remove("nudge");
     var step = currentStep();
     if(!step){ finishSession(); return; }
 
@@ -836,6 +849,7 @@
   // Orientative rep countdown: from the top of the rep range down to 0 at the exercise's tempo
   function startReps(step){
     clearTick();
+    btnMain.classList.remove("nudge");
     var max = repMax(step.target);
     if(!max) return;
     var total = max * (REP_TEMPO[step.icon] || 3) * 1000;
@@ -845,7 +859,7 @@
     state.tickTimer = setInterval(function(){
       var left = Math.max(0, total - (Date.now() - t0));
       drawRing(Math.ceil(left / total * max), left / total, "reps");
-      if(left <= 0){ clearTick(); beep(660, 0.12); }
+      if(left <= 0){ clearTick(); beep(660, 0.12); btnMain.classList.add("nudge"); }
     }, 100);
   }
 
@@ -867,7 +881,7 @@
       state.phase = "work-done";
       controlRow.hidden = true;
       ringWrap.hidden = true;
-      btnMain.hidden = false;
+      btnMain.hidden = false; btnMain.classList.add("nudge");
       btnMain.textContent = step.rest > 0 ? "Descansar " + step.rest + "s ▶" : "Siguiente ejercicio ▶";
       btnMain.onclick = function(){ afterExercise(step); };
     });
@@ -908,7 +922,7 @@
     setFill(timeline[state.index].end);
     controlRow.hidden = true;
     ringWrap.hidden = true;
-    btnMain.hidden = false;
+    btnMain.hidden = false; btnMain.classList.add("nudge");
     btnMain.textContent = "Siguiente ejercicio ▶";
     btnMain.onclick = advance;
   }
@@ -968,7 +982,7 @@
       state.phase = "work-done";
       controlRow.hidden = true;
       ringWrap.hidden = true;
-      btnMain.hidden = false;
+      btnMain.hidden = false; btnMain.classList.add("nudge");
       btnMain.textContent = step.rest > 0 ? "Descansar " + step.rest + "s ▶" : "Siguiente ejercicio ▶";
       btnMain.onclick = function(){ afterExercise(step); };
     } else {
