@@ -136,16 +136,19 @@
   }
   .ex-target{ font-family:"IBM Plex Mono",monospace; font-size:0.95rem; color:var(--ink-soft); font-variant-numeric:tabular-nums; }
   .phase-note{ font-size:0.86rem; color:var(--ink-soft); max-width:36ch; }
-  /* auto-advance toggle, overlaid top-left under the progress bar */
+  /* auto-advance toggle + countdown bar, top-left under the progress bar */
+  .auto-wrap{ position:absolute; left:0; top:2px; z-index:2; display:flex; align-items:center; gap:8px; }
   .auto-btn{
-    position:absolute; left:0; top:2px; z-index:2;
     font-family:"IBM Plex Mono",monospace; font-size:0.7rem; font-weight:700; letter-spacing:0.06em;
     padding:4px 10px; border-radius:999px; cursor:pointer;
     background:var(--surface-2); color:var(--ink-soft); border:1px solid var(--line);
   }
   .auto-btn.on{ background:var(--day-color, var(--accent)); color:var(--bg); border-color:transparent; }
-  /* keep long block titles on the start gate clear of the AUTO button */
-  .stage-stack.intro-mode{ padding-top:28px; }
+  .auto-bar{ width:44px; height:4px; border-radius:999px; background:var(--surface-2); overflow:hidden; opacity:0; transition:opacity 0.2s ease; }
+  .auto-bar.on{ opacity:1; }
+  .auto-bar-fill{ display:block; height:100%; background:var(--day-color, var(--accent)); transform-origin:left center; }
+  /* the AUTO row gets its own line so block titles never run under it */
+  #screen-player .stage-stack{ padding-top:26px; }
   /* start gate: the timer ring, full, with the call to action inside */
   .ring-wrap.intro{ border-radius:50%; }
   #screen-player .ring-wrap.intro .ring-val{
@@ -307,7 +310,10 @@
 
     <div class="center">
       <div class="seg-rail" id="seg-rail" aria-hidden="true"></div>
-      <button class="auto-btn" id="btn-auto" type="button" aria-pressed="false">▶ AUTO</button>
+      <div class="auto-wrap">
+        <button class="auto-btn" id="btn-auto" type="button" aria-pressed="false">▶ AUTO</button>
+        <span class="auto-bar" id="auto-bar" aria-hidden="true"><span class="auto-bar-fill" id="auto-bar-fill"></span></span>
+      </div>
       <div class="stage-stack">
         <div class="meta-row">
           <span class="block-tag" id="st-block">Bloque</span>
@@ -799,7 +805,6 @@
 
     // the first step of each warm-up / block / cool-down is preceded by a start gate
     ringWrap.classList.remove("intro");
-    ringWrap.parentNode.classList.remove("intro-mode");
     var firstOfBlock = state.index === 0 || state.sequence[state.index-1].blockIdx !== step.blockIdx;
     if(firstOfBlock && !state.introsSeen[step.blockIdx]){ renderIntro(step); return; }
 
@@ -865,7 +870,7 @@
       step.blockLabel === COOLDOWN.label ? "Iniciar\nestiramientos" :
       "Iniciar\nbloque";
     ringWrap.classList.add("intro", "tappable");
-    ringWrap.parentNode.classList.add("intro-mode");
+    armAuto(AUTO_GATE_DELAY, startFromIntro);
     drawRing(label, 1, "");
     elPhaseNote.hidden = false;
     elPhaseNote.textContent = "Primer ejercicio: " + step.name + (step.side ? " · " + step.side : "");
@@ -962,19 +967,31 @@
     clearAuto();
   }
 
-  // Auto mode: whenever the main button becomes the obvious next action, press it after 2 s.
+  // Auto mode: whenever the main button becomes the obvious next action, press it after 2 s;
+  // block start gates go by themselves after 5 s. The bar next to AUTO drains over the wait.
   // Any transition goes through clearTick, which cancels a pending auto-press.
-  var AUTO_DELAY = 2000;
-  function armAuto(){
+  var AUTO_DELAY = 2000, AUTO_GATE_DELAY = 5000;
+  var autoBar = $("auto-bar"), autoBarFill = $("auto-bar-fill");
+  function armAuto(delay, action){
     clearAuto();
     if(!state.auto) return;
+    delay = delay || AUTO_DELAY;
+    action = action || function(){ if(!btnMain.hidden) btnMain.click(); };
     state.autoTimer = setTimeout(function(){
       state.autoTimer = null;
-      if(!screenPlayer.hidden && !btnMain.hidden) btnMain.click();
-    }, AUTO_DELAY);
+      autoBar.classList.remove("on");
+      if(!screenPlayer.hidden) action();
+    }, delay);
+    autoBarFill.style.transition = "none";
+    autoBarFill.style.transform = "scaleX(1)";
+    void autoBarFill.offsetWidth;
+    autoBarFill.style.transition = "transform " + delay + "ms linear";
+    autoBarFill.style.transform = "scaleX(0)";
+    autoBar.classList.add("on");
   }
   function clearAuto(){
     if(state.autoTimer){ clearTimeout(state.autoTimer); state.autoTimer = null; }
+    autoBar.classList.remove("on");
   }
   function setAuto(on){
     state.auto = on;
@@ -984,7 +1001,9 @@
     clearAuto();
     // turning it on while already waiting on the main button: pick up from there
     var step = currentStep();
-    if(on && step && !btnMain.hidden &&
+    if(!on || !step) return;
+    if(state.phase === "intro") armAuto(AUTO_GATE_DELAY, startFromIntro);
+    else if(!btnMain.hidden &&
        (btnMain.classList.contains("nudge") || (state.phase === "ready" && step.kind === "time"))) armAuto();
   }
 
