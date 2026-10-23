@@ -136,9 +136,9 @@ function fillKettlebells(rgba, w, h, seeds) {
   return rgba;
 }
 
-// The inside of every solid kettlebell is set to a dark grey (KB_ALPHA) while its outline stays full ink.
-// Lines are at most ~5 px wide, so any solid pixel more than 3 px from the edge of the solid area is a kettlebell.
-const KB_ALPHA = 150;
+// The inside of every solid kettlebell fades from full ink at its rim to a dark grey (KB_ALPHA) at its centre.
+// Lines are at most ~5 px wide, so any solid pixel more than RIM px from the edge of the solid area is a kettlebell.
+const KB_ALPHA = 140, RIM = 2, FADE = 7;
 function softenSolids(rgba, w, h) {
   const solid = (p) => rgba[p * 4 + 3] > 230, INF = 1e6, d = new Float32Array(w * h);
   for (let p = 0; p < w * h; p++) d[p] = solid(p) ? INF : 0;
@@ -152,7 +152,16 @@ function softenSolids(rgba, w, h) {
     if (x < w - 1) v = Math.min(v, d[p + 1] + 1); if (y < h - 1) { v = Math.min(v, d[p + w] + 1); if (x < w - 1) v = Math.min(v, d[p + w + 1] + 1.414); if (x > 0) v = Math.min(v, d[p + w - 1] + 1.414); }
     d[p] = v;
   }
-  for (let p = 0; p < w * h; p++) if (d[p] > 3) rgba[p * 4 + 3] = KB_ALPHA;
+  // a pixel only belongs to a kettlebell if the solid area reaches more than 3 px deep somewhere near it
+  const deep = new Uint8Array(w * h);
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (d[y * w + x] > 3) {
+    for (let dy = -3; dy <= 3; dy++) for (let dx = -3; dx <= 3; dx++) { const yy = y + dy, xx = x + dx; if (yy >= 0 && yy < h && xx >= 0 && xx < w) deep[yy * w + xx] = 1; }
+  }
+  for (let p = 0; p < w * h; p++) {
+    if (!deep[p] || d[p] <= RIM) continue;
+    const t = Math.min(1, (d[p] - RIM) / FADE), e = t * t * (3 - 2 * t);   // smooth fade from the rim inward
+    rgba[p * 4 + 3] = Math.round(255 - (255 - KB_ALPHA) * e);
+  }
   return rgba;
 }
 
