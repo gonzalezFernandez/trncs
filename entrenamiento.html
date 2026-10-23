@@ -1,52 +1,35 @@
 <!doctype html>
-<html lang="es" data-theme="dark">
+<html lang="es">
 <head>
 <meta charset="utf-8">
 <link rel="icon" type="image/svg+xml" href="tronco.svg">
 <meta name="color-scheme" content="dark">
-<meta name="theme-color" content="#10151B">
+<meta name="theme-color" content="#0a0a0a">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Cronómetro Troncos 12kg</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..600&display=swap" rel="stylesheet">
 <style>
   .title-emoji{ height:0.85em; width:auto; vertical-align:-0.06em; margin-left:0.12em; }
+  /* same system as the plan page, on a dark ground for the gym */
   :root{
-    --bg: #EDF0F2; --surface: #FFFFFF; --surface-2: #E3E8EB;
-    --ink: #16202A; --ink-soft: #4B5A66; --line: #D7DCE1;
-    --accent: #2A5DA8; --accent-ink: #FFFFFF; --accent-soft: #DCE6F3;
-    --accent2: #B2622E; --accent2-ink: #FFFFFF; --accent2-soft: #F3E2D1;
-    --good: #2F7A54; --good-soft: #DCEFE2;
-    --shadow: 0 1px 2px rgba(22,32,42,0.06), 0 8px 24px -12px rgba(22,32,42,0.18);
-  }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      --bg:#10151B; --surface:#171D24; --surface-2:#1E2630;
-      --ink:#E7ECEF; --ink-soft:#9FB0BC; --line:#2A333C;
-      --accent:#6AA3EE; --accent-ink:#0B1520; --accent-soft:#1E3250;
-      --accent2:#E08A4E; --accent2-ink:#1A1006; --accent2-soft:#3A2A1A;
-      --good:#5FBE8D; --good-soft:#163227;
-      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 28px -14px rgba(0,0,0,0.55);
-    }
-  }
-  :root[data-theme="dark"]{
-    --bg:#10151B; --surface:#171D24; --surface-2:#1E2630;
-    --ink:#E7ECEF; --ink-soft:#9FB0BC; --line:#2A333C;
-    --accent:#6AA3EE; --accent-ink:#0B1520; --accent-soft:#1E3250;
-    --accent2:#E08A4E; --accent2-ink:#1A1006; --accent2-soft:#3A2A1A;
-    --good:#5FBE8D; --good-soft:#163227;
-    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 28px -14px rgba(0,0,0,0.55);
+    --bg:#0a0a0a; --surface:#18181a; --surface-2:#242427;
+    --ink:#ffffff; --ink-soft:#b4b4ba; --line:#2e2e32;
+    --accent:#4a5bff; --accent-ink:#ffffff; --accent-soft:#161b4d;
+    --accent2:#ff4a2e; --accent2-ink:#0a0a0a; --accent2-soft:#40160e;
+    --good:#1fae66; --good-ink:#0a0a0a; --good-soft:#0c2e1e;
+    --shadow:none;
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
   body{
     background:var(--bg); color:var(--ink);
-    font-family:"IBM Plex Sans", system-ui, -apple-system, Segoe UI, sans-serif;
+    font-family:"Bricolage Grotesque", system-ui, -apple-system, Segoe UI, sans-serif;
     line-height:1.4; -webkit-font-smoothing:antialiased;
     padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
   }
-  h1,h2{ font-family:"Big Shoulders Display","Arial Narrow",sans-serif; text-transform:uppercase; letter-spacing:0.02em; text-wrap:balance; margin:0; }
+  h1,h2{ font-family:"Bricolage Grotesque",sans-serif; font-weight:600; letter-spacing:-0.035em; line-height:0.95; text-wrap:balance; margin:0; }
   [hidden]{ display:none !important; }
   button{ font-family:inherit; }
   a{ color:var(--accent); }
@@ -55,16 +38,16 @@
 
   /* ---- top bar ---- */
   .topbar{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:14px; }
-  .topbar .back{ font-family:"IBM Plex Mono",monospace; font-size:0.78rem; color:var(--ink-soft); text-decoration:none; }
+  .topbar .back{ font-family:"Bricolage Grotesque",sans-serif; font-size:0.78rem; color:var(--ink-soft); text-decoration:none; }
   .topbar .mid{ display:flex; align-items:center; gap:8px; }
-  .daytag{ font-family:"IBM Plex Mono",monospace; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.05em; padding:3px 9px; border-radius:7px; font-weight:700; }
+  .daytag{ font-family:"Bricolage Grotesque",sans-serif; font-size:0.72rem;  letter-spacing:0.05em; padding:3px 9px; border-radius:0; font-weight:700; }
   .daytag.a{ background:var(--accent-soft); color:var(--accent); }
   .daytag.b{ background:var(--accent2-soft); color:var(--accent2); }
   .daytag.c{ background:var(--good-soft); color:var(--good); }
   #screen-player .topbar{ display:grid; grid-template-columns:1fr auto 1fr; }
   #screen-player .topbar .back{ justify-self:start; }
   #screen-player .topbar .daytag-wrap{ justify-self:end; position:relative; display:flex; }
-  .clock{ font-family:"IBM Plex Mono",monospace; font-size:clamp(2.8rem, 15vw, 3.8rem); font-weight:700; line-height:1; letter-spacing:-0.03em; font-variant-numeric:tabular-nums; color:var(--ink); }
+  .clock{ font-family:"Bricolage Grotesque",sans-serif; font-size:clamp(2.8rem, 15vw, 3.8rem); font-weight:700; line-height:1; letter-spacing:-0.03em; font-variant-numeric:tabular-nums; color:var(--ink); }
   /* log mark floating left of the day tag, out of flow so nothing in the bar moves */
   .day-log{
     position:absolute; right:100%; margin-right:6px; top:50%; transform:translateY(-50%);
@@ -72,9 +55,9 @@
   }
 
   /* ---- progress ---- */
-  .progress-label{ font-family:"IBM Plex Mono",monospace; font-size:0.72rem; color:var(--ink-soft); display:flex; justify-content:space-between; margin-bottom:6px; }
-  .progress-track{ height:6px; background:var(--surface-2); border-radius:999px; overflow:hidden; margin-bottom:8px; }
-  .progress-fill{ height:100%; border-radius:999px; transition:width 0.25s ease; background:var(--accent); }
+  .progress-label{ font-family:"Bricolage Grotesque",sans-serif; font-size:0.72rem; color:var(--ink-soft); display:flex; justify-content:space-between; margin-bottom:6px; }
+  .progress-track{ height:6px; background:var(--surface-2); border-radius:0; overflow:hidden; margin-bottom:8px; }
+  .progress-fill{ height:100%; border-radius:0; transition:width 0.25s ease; background:var(--accent); }
 
   /* ---- screens ---- */
   .screen{ flex:1; display:flex; flex-direction:column; }
@@ -83,40 +66,40 @@
 
   /* ---- start screen ---- */
   .start h1{ font-size:clamp(1.7rem,7vw,2.1rem); line-height:1; }
-  .start .eyebrow{ font-family:"IBM Plex Mono",monospace; font-size:0.76rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent); font-weight:600; margin-bottom:8px; }
+  .start .eyebrow{ font-family:"Bricolage Grotesque",sans-serif; font-size:0.76rem; letter-spacing:0.08em;  color:var(--accent); font-weight:600; margin-bottom:8px; }
   .start p.sub{ color:var(--ink-soft); margin:10px 0 22px; max-width:46ch; }
   .day-grid{ display:flex; flex-direction:column; gap:12px; }
   .day-card{
-    background:var(--surface); border:1.5px solid var(--line); border-radius:16px;
+    background:var(--surface); border:1.5px solid var(--line); border-radius:0;
     padding:14px 16px; text-align:left; cursor:pointer; display:flex; align-items:center; gap:14px;
     width:100%; font-family:inherit; color:inherit;
   }
   .day-card:hover{ border-color:var(--ink-soft); }
   .day-card.suggested{ border-color:var(--accent); box-shadow:0 0 0 1.5px var(--accent) inset; }
-  .day-card .letter{ font-family:"Big Shoulders Display",sans-serif; font-size:2.1rem; font-weight:900; width:40px; text-align:center; flex:0 0 auto; }
+  .day-card .letter{ font-family:"Bricolage Grotesque",sans-serif; font-size:2.1rem; font-weight:600; width:40px; text-align:center; flex:0 0 auto; }
   .day-card.a .letter{ color:var(--accent); }
   .day-card.b .letter{ color:var(--accent2); }
   .day-card.c .letter{ color:var(--good); }
   .day-card .body{ flex:1; }
   .day-card .title{ display:block; font-weight:700; font-size:0.98rem; }
-  .day-card .meta{ display:block; font-family:"IBM Plex Mono",monospace; font-size:0.72rem; color:var(--ink-soft); margin-top:4px; }
+  .day-card .meta{ display:block; font-family:"Bricolage Grotesque",sans-serif; font-size:0.72rem; color:var(--ink-soft); margin-top:4px; }
   .day-card .badge{
-    font-family:"IBM Plex Mono",monospace; font-size:0.65rem; text-transform:uppercase; letter-spacing:0.04em;
-    background:var(--accent-soft); color:var(--accent); padding:2px 7px; border-radius:6px; margin-top:6px; display:inline-block;
+    font-family:"Bricolage Grotesque",sans-serif; font-size:0.65rem;  letter-spacing:0.04em;
+    background:var(--accent-soft); color:var(--accent); padding:2px 7px; border-radius:0; margin-top:6px; display:inline-block;
   }
   .rest-note{ margin-top:18px; font-size:0.82rem; color:var(--ink-soft); text-align:center; }
 
   /* ---- player stage ---- */
-  .block-tag{ font-family:"IBM Plex Mono",monospace; font-size:0.74rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-soft); }
+  .block-tag{ font-family:"Bricolage Grotesque",sans-serif; font-size:0.74rem;  letter-spacing:0.06em; color:var(--ink-soft); }
   .round-pill{
-    font-family:"IBM Plex Mono",monospace; font-size:0.72rem; font-weight:600; color:var(--ink-soft);
-    background:var(--surface-2); padding:3px 10px; border-radius:999px; margin-top:4px;
+    font-family:"Bricolage Grotesque",sans-serif; font-size:0.72rem; font-weight:600; color:var(--ink-soft);
+    background:var(--surface-2); padding:3px 10px; border-radius:0; margin-top:4px;
   }
   .big-icon{ width:104px; height:104px; margin:6px 0; }
   .big-icon svg{ overflow:visible; }
   .big-photo{
     max-width:220px; max-height:220px; width:auto; height:auto; object-fit:contain;
-    background:#10151B; border-radius:12px; margin:6px 0;
+    background:#10151B; border-radius:0; margin:6px 0;
   }
 
   /* ---- icon motion ---- */
@@ -136,18 +119,18 @@
   @media (prefers-reduced-motion: reduce){
     .big-icon svg *{ animation: none !important; }
   }
-  .ex-name{ font-size:clamp(1.5rem,7vw,2.1rem); font-weight:800; line-height:1.05; padding:0 6px; }
+  .ex-name{ font-size:clamp(1.5rem,7vw,2.1rem); font-weight:600; line-height:1.05; padding:0 6px; }
   .side-tag{
-    font-size:1.6rem; font-weight:800; text-transform:uppercase; letter-spacing:0.04em;
-    background:var(--surface-2); padding:6px 18px; border-radius:999px;
+    font-size:1.6rem; font-weight:600;  letter-spacing:0.04em;
+    background:var(--surface-2); padding:6px 18px; border-radius:0;
   }
-  .ex-target{ font-family:"IBM Plex Mono",monospace; font-size:0.95rem; color:var(--ink-soft); font-variant-numeric:tabular-nums; }
+  .ex-target{ font-family:"Bricolage Grotesque",sans-serif; font-size:0.95rem; color:var(--ink-soft); font-variant-numeric:tabular-nums; }
   .phase-note{ font-size:0.86rem; color:var(--ink-soft); max-width:36ch; }
   /* auto-advance toggle, overlaid top-left under the progress bar (takes no layout space) */
   .auto-wrap{ position:absolute; left:0; top:2px; z-index:2; display:flex; align-items:center; gap:8px; }
   .auto-btn{
-    font-family:"IBM Plex Mono",monospace; font-size:0.7rem; font-weight:700; letter-spacing:0.06em;
-    padding:4px 10px; border-radius:999px; cursor:pointer;
+    font-family:"Bricolage Grotesque",sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.06em;
+    padding:4px 10px; border-radius:0; cursor:pointer;
     background:var(--surface-2); color:var(--ink-soft); border:1px solid var(--line);
   }
   .auto-btn.on{ background:var(--day-color, var(--accent)); color:var(--bg); border-color:transparent; }
@@ -157,7 +140,7 @@
   /* start gate: the timer ring, full, with the call to action inside */
   .ring-wrap.intro{ border-radius:50%; }
   #screen-player .ring-wrap.intro .ring-val{
-    font-family:"Big Shoulders Display","Arial Narrow",sans-serif; font-weight:800; text-transform:uppercase;
+    font-family:"Bricolage Grotesque",sans-serif; font-weight:600; 
     font-size:8.5cqmin; line-height:1.05; letter-spacing:0.02em; white-space:pre-line; text-align:center; max-width:60%;
   }
   /* after the gate, everything but the ring fades in once the ring has moved into place */
@@ -166,11 +149,11 @@
   .photo-btn{ position:relative; background:none; border:none; padding:0; cursor:pointer; -webkit-tap-highlight-color:transparent; }
   .photo-btn .info-badge{
     position:absolute; right:12px; bottom:12px; width:24px; height:24px; border-radius:50%;
-    background:var(--ink); color:var(--bg); font:700 0.8rem/24px "IBM Plex Mono",monospace; text-align:center; opacity:0.8;
+    background:var(--ink); color:var(--bg); font:600 0.8rem/24px "Bricolage Grotesque",sans-serif; text-align:center; opacity:0.8;
   }
   .howto-body{
     width:100%; max-width:340px; text-align:left; cursor:pointer;
-    background:var(--surface); border:1px solid var(--line); border-radius:12px;
+    background:var(--surface); border:1px solid var(--line); border-radius:0;
     padding:12px 14px; font-size:0.88rem; color:var(--ink-soft);
   }
   .howto-body p:last-child, .howto-body .mistake:last-child{ margin-bottom:0; }
@@ -185,14 +168,14 @@
   .ring-fg{ fill:none; stroke-width:13; stroke-linecap:round; transition:stroke-dashoffset 0.2s linear; }
   .ring-num{
     position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
-    font-family:"IBM Plex Mono",monospace; font-size:clamp(5rem, 26vw, 7.2rem); font-weight:700; font-variant-numeric:tabular-nums; letter-spacing:-0.04em;
+    font-family:"Bricolage Grotesque",sans-serif; font-size:clamp(5rem, 26vw, 7.2rem); font-weight:700; font-variant-numeric:tabular-nums; letter-spacing:-0.04em;
   }
   .ring-val{ line-height:1; }
-  .ring-label{ font-size:0.9rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-soft); margin-top:6px; }
+  .ring-label{ font-size:0.9rem; font-weight:600; letter-spacing:0.08em;  color:var(--ink-soft); margin-top:6px; }
   .ring-wrap.tappable{ cursor:pointer; -webkit-tap-highlight-color:transparent; }
 
   .cta{
-    width:100%; max-width:340px; padding:16px 20px; border-radius:16px; border:none; cursor:pointer;
+    width:100%; max-width:340px; padding:16px 20px; border-radius:0; border:none; cursor:pointer;
     font-weight:700; font-size:1.02rem; background:var(--accent); color:var(--bg);
   }
   .cta:active{ transform:scale(0.98); }
@@ -217,7 +200,7 @@
   .control-row .cta{ flex:1; }
   .link-btn{ background:none; border:none; color:var(--ink-soft); font-size:0.82rem; text-decoration:underline; cursor:pointer; margin-top:10px; padding:4px; }
   .nav-row{ display:flex; justify-content:space-between; width:100%; max-width:340px; margin-top:14px; }
-  .nav-row button{ background:none; border:none; color:var(--ink-soft); font-family:"IBM Plex Mono",monospace; font-size:0.78rem; cursor:pointer; padding:8px 10px; }
+  .nav-row button{ background:none; border:none; color:var(--ink-soft); font-family:"Bricolage Grotesque",sans-serif; font-size:0.78rem; cursor:pointer; padding:8px 10px; }
   .nav-row button:hover{ color:var(--ink); }
   .stage-stack{ display:flex; flex-direction:column; align-items:center; gap:14px; width:100%; }
 
@@ -227,9 +210,9 @@
     display:flex; align-items:center; justify-content:center; font-size:2rem; margin-bottom:14px;
   }
   .stat-row{ display:flex; gap:10px; margin:16px 0 8px; }
-  .stat{ background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:12px 18px; text-align:center; }
-  .stat .n{ font-family:"IBM Plex Mono",monospace; font-size:1.3rem; font-weight:700; font-variant-numeric:tabular-nums; }
-  .stat .l{ font-size:0.68rem; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.03em; }
+  .stat{ background:var(--surface); border:1px solid var(--line); border-radius:0; padding:12px 18px; text-align:center; }
+  .stat .n{ font-family:"Bricolage Grotesque",sans-serif; font-size:1.3rem; font-weight:700; font-variant-numeric:tabular-nums; }
+  .stat .l{ font-size:0.68rem; color:var(--ink-soft);  letter-spacing:0.03em; }
 
   @media (max-width:360px){
     .ring-wrap{ width:min(280px, 88vw); }
@@ -286,6 +269,41 @@
   #screen-player .link-btn{ margin-top:0; padding:2px 4px; }
   #screen-player .nav-row{ margin-top:auto; }
   #screen-player .nav-row button{ padding:4px 10px; }
+
+  /* ---- chapter colours: day cards and buttons are filled with their day ---- */
+  body{ font-variant-numeric:tabular-nums; }
+  .start h1{ font-size:clamp(2.2rem, 9vw, 3rem); line-height:0.95; }
+  .start p.sub{ color:var(--ink); font-size:1.0625rem; }
+  .day-card{ border:0; padding:18px 18px; gap:16px; transition:transform .15s ease, filter .15s ease; }
+  .day-card:hover{ filter:brightness(1.08); }
+  .day-card:active{ transform:scale(.98); }
+  .day-card.a{ background:var(--accent); color:var(--accent-ink); }
+  .day-card.b{ background:var(--accent2); color:var(--accent2-ink); }
+  .day-card.c{ background:var(--good); color:var(--good-ink); }
+  .day-card.a .letter, .day-card.b .letter, .day-card.c .letter{ color:inherit; font-size:3rem; letter-spacing:-0.05em; width:48px; }
+  .day-card .title{ font-size:1.125rem; }
+  .day-card .meta{ color:inherit; opacity:.85; font-size:0.875rem; }
+  .day-card .badge{ background:var(--ink); color:var(--bg); font-size:0.8125rem; font-weight:600; padding:3px 8px; }
+  .day-card.suggested{ box-shadow:none; outline:3px solid var(--ink); outline-offset:3px; }
+  .daytag{ font-size:0.8125rem; font-weight:600; padding:4px 10px; }
+  .daytag.a{ background:var(--accent); color:var(--accent-ink); }
+  .daytag.b{ background:var(--accent2); color:var(--accent2-ink); }
+  .daytag.c{ background:var(--good); color:var(--good-ink); }
+  .cta{ font-weight:600; color:var(--accent-ink); transition:transform .15s ease, filter .15s ease; }
+  .cta:hover{ filter:brightness(1.08); }
+  .app[data-day="b"] .cta:not(.secondary):not(.ghost){ color:var(--accent2-ink); }
+  .app[data-day="c"] .cta:not(.secondary):not(.ghost){ color:var(--good-ink); }
+  .cta.ghost{ border:0; background:var(--surface); color:var(--ink); }
+  .auto-btn.on{ color:var(--accent-ink); }
+  .app[data-day="b"] .auto-btn.on, .app[data-day="c"] .auto-btn.on{ color:#0a0a0a; }
+  .block-tag, .ex-target, .nav-row button, .topbar .back{ font-size:0.875rem; }
+  .ring-label{ letter-spacing:0; }
+  .ex-name{ letter-spacing:-0.035em; }
+  .side-tag{ letter-spacing:0; }
+  .stat{ border:0; }
+  .stat .l{ font-size:0.8125rem; letter-spacing:0; }
+  .done .check{ background:var(--good); color:var(--good-ink); }
+  @media (prefers-reduced-motion: reduce){ .day-card, .cta{ transition:none; } }
 </style>
 </head>
 <body>
@@ -296,8 +314,7 @@
     <div class="topbar">
       <a class="back" href="index.html">← Volver al plan</a>
     </div>
-    <div class="eyebrow">Sesión guiada</div>
-    <h1>Cronómetro Troncos 12KG <img class="title-emoji" src="tronco.svg" alt=""></h1>
+    <h1>Cronómetro Troncos 12 kg <img class="title-emoji" src="tronco.svg" alt=""></h1>
     <p class="sub">Elige el día y te voy guiando ejercicio a ejercicio con temporizador de descanso. Tú decides cuándo pasar al siguiente.</p>
     <div class="day-grid" id="day-grid"></div>
     <p class="rest-note" id="rest-note" hidden>Hoy toca descanso completo según tu plan — pero si quieres entrenar igual, elige un día arriba.</p>
@@ -306,7 +323,7 @@
   <!-- PLAYER SCREEN -->
   <section id="screen-player" class="screen" hidden>
     <div class="topbar">
-      <button class="back" id="btn-exit" style="background:none;border:none;cursor:pointer;font-family:'IBM Plex Mono',monospace;">← Salir</button>
+      <button class="back" id="btn-exit" style="background:none;border:none;cursor:pointer;font-family:"Bricolage Grotesque",sans-serif;">← Salir</button>
       <span class="clock" id="player-clock">00:00</span>
       <span class="daytag-wrap"><img class="day-log" src="tronco.svg" alt="" aria-hidden="true"><span class="daytag" id="player-daytag"></span></span>
     </div>
