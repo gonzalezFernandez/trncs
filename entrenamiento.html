@@ -9,7 +9,7 @@
 <title>Cronómetro Troncos 12kg</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..600&family=Instrument+Serif&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..600&family=Instrument+Serif&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 <style>
   .title-emoji{ height:0.85em; width:auto; vertical-align:-0.06em; margin-left:0.12em; }
   /* same paper, ink and day colours as the plan page */
@@ -356,6 +356,33 @@
   #screen-player .water .nav-row button:disabled{ opacity:.4; }
   .water .cta.nudge{ --day-color:#fff; }
   @media (min-width:520px){ #screen-player .stage-stack > .water{ margin-left:0; margin-right:0; } }
+
+  /* ---- numbers: Space Grotesk ---- */
+  .clock, #screen-player .water .ring-num, .stat .n{ font-family:"Space Grotesk", sans-serif; font-weight:700; letter-spacing:-0.04em; font-variant-numeric:tabular-nums; }
+  #screen-player .water .ring-num{ font-size:min(74cqh, 52cqw); }
+  #screen-player .water .ring-val{ line-height:0.8; }
+
+  /* ---- rest: the light tint of the day, with a slow breathing circle behind the count ---- */
+  .app[data-day="a"]{ --day-soft:#dbe4f2; --day-mid:#a9c1e4; --day-ink:#16305a; }
+  .app[data-day="b"]{ --day-soft:#f6dcd5; --day-mid:#efb2a3; --day-ink:#6b1606; }
+  .app[data-day="c"]{ --day-soft:#d9ece1; --day-mid:#a8d2bb; --day-ink:#123d27; }
+  #screen-player .stage-stack > .water{ transition:background-color .5s ease, color .5s ease; }
+  #screen-player .stage-stack.resting > .water{ background:var(--day-soft); color:var(--day-ink); overflow:hidden; }
+  .resting .water .ring-num, .resting .water .ring-label, .resting .water .phase-note{ color:var(--day-ink) !important; }
+  .resting .water .ring-val{ color:var(--day-color); }
+  .resting .water .ring-bg{ stroke:rgba(0,0,0,0.12); }
+  .resting .water .ring-fg{ stroke:var(--day-color) !important; }
+  #screen-player .resting .water .ring-wrap::before{
+    content:""; position:absolute; z-index:0; left:-4%; bottom:4%;
+    width:min(108cqh, 80cqw); aspect-ratio:1; border-radius:50%; background:var(--day-mid);
+    animation:breathe 4s ease-in-out infinite;
+  }
+  #screen-player .resting .water .ring-num{ z-index:1; }
+  @keyframes breathe{ 0%,100%{ transform:scale(.72); } 50%{ transform:scale(1); } }
+  #screen-player .resting .water .cta.secondary{ background:rgba(0,0,0,0.08); color:var(--day-ink); }
+  #screen-player .resting .water .cta.ghost{ color:var(--day-ink); box-shadow:inset 0 0 0 2px var(--day-ink); }
+  #screen-player .resting .water .nav-row button{ color:var(--day-ink); }
+  @media (prefers-reduced-motion: reduce){ #screen-player .resting .water .ring-wrap::before{ animation:none; transform:scale(.9); } }
 </style>
 </head>
 <body>
@@ -976,6 +1003,7 @@
   var ringBox = null, ringAnim = null;
   function watchRing(){
     requestAnimationFrame(watchRing);
+    stageStack.classList.toggle("resting", state.phase === "rest");
     if(screenPlayer.hidden || ringWrap.hidden) return; // keep the last visible box so it re-appears from there
     var box = { x: ringWrap.offsetLeft + ringWrap.offsetWidth / 2, y: ringWrap.offsetTop + ringWrap.offsetHeight / 2, w: ringWrap.offsetWidth };
     var prev = ringBox;
