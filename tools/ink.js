@@ -1,5 +1,7 @@
 // Turns the exercise drawings (light lines on a navy ground, RGB PNG) into ink on a transparent ground,
 // so they sit on any background without blend tricks. Usage: node tools/ink.js images images/ink
+// With tools/figures.json beside it, each drawing's lines are also thickened or thinned so that, once the pages
+// scale every drawing to one body size (REF / body size), all lines show the same weight (LINE px at REF).
 const fs = require("fs");
 const path = require("path");
 const zlib = require("zlib");
@@ -67,10 +69,150 @@ function ink({ width, height, px }) {
   return out;
 }
 
+// ---- kettlebells ----
+// A kettlebell's body is a closed, round area of faint fill (or of solid ink when the drawing already filled it)
+// that is not joined to the figure's body: a head, by contrast, runs into the torso through the neck.
+function kettlebells(rgba, w, h) {
+  const al = (p) => rgba[p * 4 + 3];
+  const inner = (p) => al(p) > 8 && al(p) <= 140;      // faint body fill, between the lines
+  const lab = new Int32Array(w * h).fill(-1), found = [];
+  for (let s = 0; s < w * h; s++) {
+    if (!inner(s) || lab[s] >= 0) continue;
+    const id = found.length, stack = [s], px = [];
+    lab[s] = id;
+    let x0 = w, y0 = h, x1 = 0, y1 = 0;
+    while (stack.length) {
+      const p = stack.pop(), x = p % w, y = (p / w) | 0;
+      px.push(p); if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y;
+      for (const q of [p - 1, p + 1, p - w, p + w]) if (q >= 0 && q < w * h && Math.abs((q % w) - x) <= 1 && inner(q) && lab[q] < 0) { lab[q] = id; stack.push(q); }
+    }
+    const bw = x1 - x0 + 1, bh = y1 - y0 + 1, d = Math.max(bw, bh);
+    const round = px.length / (Math.PI * d * d / 4), aspect = Math.min(bw, bh) / d;
+    found.push({ px, x: (x0 + x1) / 2, y: (y0 + y1) / 2, d, round, aspect });
+  }
+  const balls = found.filter((c) => c.d >= 14 && c.d <= 60 && c.round > 0.62 && c.aspect > 0.72);
+  // the handle: a small pocket of empty ground fully enclosed by ink, right next to the ball
+  const empty = (p) => al(p) <= 8, seen = new Uint8Array(w * h), holes = [];
+  for (let s = 0; s < w * h; s++) {
+    if (!empty(s) || seen[s]) continue;
+    const stack = [s]; seen[s] = 1; let n = 0, sx = 0, sy = 0, edge = false;
+    while (stack.length) {
+      const p = stack.pop(), x = p % w, y = (p / w) | 0;
+      n++; sx += x; sy += y; if (x === 0 || y === 0 || x === w - 1 || y === h - 1) edge = true;
+      for (const q of [p - 1, p + 1, p - w, p + w]) if (q >= 0 && q < w * h && Math.abs((q % w) - x) <= 1 && empty(q) && !seen[q]) { seen[q] = 1; stack.push(q); }
+    }
+    if (!edge && n >= 15 && n <= 500) holes.push({ x: sx / n, y: sy / n });
+  }
+  return balls.filter((c) => holes.some((o) => Math.hypot(o.x - c.x, o.y - c.y) < c.d * 0.95));
+}
+
+// A point inside each kettlebell drawn as an outline only (the others are already solid). The ball is filled solid
+// ink from there, out to its own outline, so every kettlebell on the site reads black.
+const KB = {
+  "clean-press": [[178, 133], [355, 52]], "kb-halo": [[122, 128]], "suitcase-carry": [[143, 245], [352, 248]],
+  "russian-twist": [[103, 220], [380, 272]], "renegade-row": [[392, 165], [305, 283]], "floor-press": [[183, 213], [478, 110]],
+  "kb-row": [[207, 276], [383, 185]], "kb-swing": [[92, 300], [538, 105]], "single-leg-deadlift": [[83, 247], [490, 325]]
+};
+function fillKettlebells(rgba, w, h, seeds) {
+  const al = (p) => rgba[p * 4 + 3];
+  for (const [sx, sy] of seeds) {
+    let start = -1;   // nearest faint pixel to the given point
+    for (let r = 0; r <= 8 && start < 0; r++) for (let dy = -r; dy <= r && start < 0; dy++) for (let dx = -r; dx <= r; dx++) {
+      const p = (sy + dy) * w + sx + dx; if (al(p) <= 140) { start = p; break; }
+    }
+    if (start < 0) continue;
+    const seen = new Uint8Array(w * h), stack = [start]; seen[start] = 1;
+    while (stack.length) {
+      const p = stack.pop(), x = p % w, y = (p / w) | 0;
+      rgba[p * 4 + 3] = 255;
+      for (const q of [p - 1, p + 1, p - w, p + w]) {
+        const qx = q % w, qy = (q / w) | 0;
+        if (q < 0 || q >= w * h || Math.abs(qx - x) > 1 || seen[q] || al(q) > 140) continue;
+        if (Math.hypot(qx - sx, qy - sy) > 30) continue;   // never leak past the ball
+        seen[q] = 1; stack.push(q);
+      }
+    }
+  }
+  return rgba;
+}
+
+// ---- line weight ----
+const REF = 270, LINE = 2.8;   // body size the pages scale to, and the line width wanted there
+
+// mean width of the lines: horizontal and vertical runs of solid ink shorter than 14 px
+function lineWidth(rgba, w, h) {
+  const m = (p) => rgba[p * 4 + 3] > 140;
+  let sum = 0, n = 0;
+  const add = (r) => { if (r > 0 && r < 14) { sum += r; n++; } };
+  for (let y = 0; y < h; y += 2) { let r = 0; for (let x = 0; x < w; x++) { if (m(y * w + x)) r++; else { add(r); r = 0; } } }
+  for (let x = 0; x < w; x += 2) { let r = 0; for (let y = 0; y < h; y++) { if (m(y * w + x)) r++; else { add(r); r = 0; } } }
+  return sum / n;
+}
+
+// grow (d > 0) or shrink (d < 0) the ink by |d| px per side, with sub-pixel precision: work at 8× resolution,
+// take the running max (or min) over a square window in two passes, then average back down
+const S = 8;
+function upsample(rgba, w, h) {           // bilinear up-sampling of the alpha channel, done once per drawing
+  const W = w * S, H = h * S, a = new Float32Array(W * H);
+  for (let y = 0; y < H; y++) {
+    const sy = Math.min(h - 1, Math.max(0, (y + 0.5) / S - 0.5)), y0 = Math.floor(sy), y1 = Math.min(h - 1, y0 + 1), fy = sy - y0;
+    for (let x = 0; x < W; x++) {
+      const sx = Math.min(w - 1, Math.max(0, (x + 0.5) / S - 0.5)), x0 = Math.floor(sx), x1 = Math.min(w - 1, x0 + 1), fx = sx - x0;
+      const a00 = rgba[(y0 * w + x0) * 4 + 3], a10 = rgba[(y0 * w + x1) * 4 + 3], a01 = rgba[(y1 * w + x0) * 4 + 3], a11 = rgba[(y1 * w + x1) * 4 + 3];
+      a[y * W + x] = (a00 * (1 - fx) + a10 * fx) * (1 - fy) + (a01 * (1 - fx) + a11 * fx) * fy;
+    }
+  }
+  return a;
+}
+// running max/min over a window of 2R+1 along one line (van Herk / Gil-Werman: cost does not grow with R)
+function runLine(src, dst, n, start, step, R, grow, g, hb) {
+  const k = 2 * R + 1, pad = n + 2 * R, fill = grow ? -Infinity : Infinity;
+  const at = (i) => { const j = i - R; return j < 0 || j >= n ? fill : src[start + j * step]; };
+  for (let b = 0; b < pad; b += k) {
+    const e = Math.min(b + k, pad);
+    g[b] = at(b); for (let i = b + 1; i < e; i++) { const v = at(i); g[i] = grow ? (v > g[i - 1] ? v : g[i - 1]) : (v < g[i - 1] ? v : g[i - 1]); }
+    hb[e - 1] = at(e - 1); for (let i = e - 2; i >= b; i--) { const v = at(i); hb[i] = grow ? (v > hb[i + 1] ? v : hb[i + 1]) : (v < hb[i + 1] ? v : hb[i + 1]); }
+  }
+  for (let i = 0; i < n; i++) { const l = hb[i], r = g[i + 2 * R]; dst[start + i * step] = grow ? (l > r ? l : r) : (l < r ? l : r); }
+}
+function reweigh(rgba, w, h, d, up) {
+  const R = Math.round(Math.abs(d) * S);
+  if (!R) return rgba;
+  const W = w * S, H = h * S, grow = d > 0, tmp = new Float32Array(W * H), a = new Float32Array(W * H);
+  const g = new Float32Array(Math.max(W, H) + 2 * R + 1), hb = new Float32Array(Math.max(W, H) + 2 * R + 1);
+  for (let y = 0; y < H; y++) runLine(up, tmp, W, y * W, 1, R, grow, g, hb);
+  for (let x = 0; x < W; x++) runLine(tmp, a, H, x, W, R, grow, g, hb);
+  const out = Buffer.from(rgba);
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+    let s = 0; for (let j = 0; j < S; j++) for (let i = 0; i < S; i++) s += a[(y * S + j) * W + x * S + i];
+    out[(y * w + x) * 4 + 3] = Math.round(s / (S * S));
+  }
+  return out;
+}
+
 const [srcDir, outDir] = process.argv.slice(2);
+const figFile = path.join(__dirname, "figures.json");
+const bodies = fs.existsSync(figFile) ? JSON.parse(fs.readFileSync(figFile, "utf8")) : {};
 fs.mkdirSync(outDir, { recursive: true });
 for (const f of fs.readdirSync(srcDir).filter((f) => f.endsWith(".png"))) {
   const img = readPng(path.join(srcDir, f));
-  writePng(path.join(outDir, f), img.width, img.height, ink(img));
-  console.log(f);
+  let rgba = ink(img);
+  if (KB[f.slice(0, -4)]) rgba = fillKettlebells(rgba, img.width, img.height, KB[f.slice(0, -4)]);
+  const body = bodies[f.slice(0, -4)];
+  let note = "";
+  if (body) {
+    // the measured width does not grow linearly with the reweighing, so search for the amount that hits the target
+    const have = lineWidth(rgba, img.width, img.height), want = LINE * body / REF;
+    let lo = -1.5, hi = 1.5, best = rgba, bestErr = Math.abs(have - want);
+    const up = upsample(rgba, img.width, img.height);
+    for (let k = 0; k < 7; k++) {
+      const d = (lo + hi) / 2, cand = reweigh(rgba, img.width, img.height, d, up), got = lineWidth(cand, img.width, img.height);
+      if (Math.abs(got - want) < bestErr) { best = cand; bestErr = Math.abs(got - want); }
+      if (got < want) lo = d; else hi = d;
+    }
+    rgba = best;
+    note = ` line ${have.toFixed(2)} → ${lineWidth(rgba, img.width, img.height).toFixed(2)} (want ${want.toFixed(2)})`;
+  }
+  writePng(path.join(outDir, f), img.width, img.height, rgba);
+  console.log(f + note);
 }

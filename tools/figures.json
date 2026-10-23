@@ -1,0 +1,9 @@
+{
+  "_note": "Standing-height equivalent (source px of the 600x400 drawing) of the person in each drawing: measured height when upright, head radius x 15.5 when bent or on all fours, body length when lying. The pages scale every drawing by REF / this value so all people match, and tools/ink.js sets each drawing's line weight so the lines also match once scaled.",
+  "band-chest-press": 285, "band-curl": 318, "band-pull-apart": 243, "band-row": 395, "band-triceps-extension": 320,
+  "band-woodchopper": 340, "cat-cow": 310, "clean-press": 297, "dead-bug": 270, "floor-press": 252,
+  "glute-bridge": 258, "goblet-squat": 321, "hamstring-stretch": 305, "hip-circles": 321, "hip-flexor-stretch": 332,
+  "kb-halo": 336, "kb-row": 372, "kb-swing": 348, "mountain-climbers": 255, "pallof-press": 354,
+  "push-up": 264, "renegade-row": 293, "reverse-lunge": 315, "russian-twist": 274, "shoulder-taps": 293,
+  "side-plank": 480, "single-leg-deadlift": 336, "suitcase-carry": 315, "thoracic-rotation": 325, "thruster": 275
+}

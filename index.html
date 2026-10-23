@@ -64,7 +64,7 @@
 
   /* hero */
   .hero{ padding:clamp(24px,4vw,56px) var(--m) 0; display:grid; grid-template-columns:5fr 7fr; gap:var(--gap); align-items:end; min-height:calc(100svh - 72px); padding-bottom:clamp(32px,5vw,64px); }
-  .hero h1{ font-size:var(--s-display); line-height:0.86; letter-spacing:-0.035em; }
+  .hero h1{ font-size:var(--s-display); line-height:0.86; letter-spacing:-0.035em; padding-bottom:0.16em; }
   .hero .lead{ margin-top:28px; max-width:22ch; }
   .hero .acts{ display:flex; flex-wrap:wrap; gap:12px; margin-top:32px; }
   .hero .today{ margin-top:28px; font-size:var(--s-body); }
@@ -204,7 +204,8 @@
   /* motion */
   .js .rv{ opacity:0; transform:translateY(24px); transition:opacity .7s var(--ease), transform .7s var(--ease); transition-delay:var(--d,0ms); }
   .js .rv.in{ opacity:1; transform:none; }
-  .js .hero h1 .ln{ display:block; overflow:hidden; padding-bottom:.06em; }
+  /* the mask leaves room for descenders (the g of "kg") without moving the lines */
+  .js .hero h1 .ln{ display:block; overflow:hidden; padding-bottom:.28em; margin-bottom:-.28em; }
   .js .hero h1 .ln > span{ display:block; transform:translateY(105%); animation:rise .9s var(--ease) forwards; }
   .js .hero h1 .ln:nth-child(2) > span{ animation-delay:.11s; }
   @keyframes rise{ to{ transform:none; } }
