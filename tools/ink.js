@@ -109,13 +109,13 @@ function kettlebells(rgba, w, h) {
 // A point inside each kettlebell drawn as an outline only (the others are already solid). The ball is filled solid
 // ink from there, out to its own outline, so every kettlebell on the site reads black.
 const KB = {
-  "clean-press": [[178, 133], [355, 52]], "kb-halo": [[122, 128]], "suitcase-carry": [[143, 245], [352, 248]],
+  "clean-press": [[178, 133], [366, 56, 16], [340, 42, 9]], "kb-halo": [[122, 128], [464, 118]], "suitcase-carry": [[143, 245], [352, 248]],
   "russian-twist": [[103, 220], [380, 272]], "renegade-row": [[392, 165], [305, 283]], "floor-press": [[183, 213], [478, 110]],
   "kb-row": [[207, 276], [383, 185]], "kb-swing": [[92, 300], [538, 105]], "single-leg-deadlift": [[83, 247], [490, 325]]
 };
 function fillKettlebells(rgba, w, h, seeds) {
   const al = (p) => rgba[p * 4 + 3];
-  for (const [sx, sy] of seeds) {
+  for (const [sx, sy, maxR = 30] of seeds) {   // optional third value: how far the fill may spread
     let start = -1;   // nearest faint pixel to the given point
     for (let r = 0; r <= 8 && start < 0; r++) for (let dy = -r; dy <= r && start < 0; dy++) for (let dx = -r; dx <= r; dx++) {
       const p = (sy + dy) * w + sx + dx; if (al(p) <= 140) { start = p; break; }
@@ -128,7 +128,7 @@ function fillKettlebells(rgba, w, h, seeds) {
       for (const q of [p - 1, p + 1, p - w, p + w]) {
         const qx = q % w, qy = (q / w) | 0;
         if (q < 0 || q >= w * h || Math.abs(qx - x) > 1 || seen[q] || al(q) > 140) continue;
-        if (Math.hypot(qx - sx, qy - sy) > 30) continue;   // never leak past the ball
+        if (Math.hypot(qx - sx, qy - sy) > maxR) continue;   // never leak past the ball
         seen[q] = 1; stack.push(q);
       }
     }
