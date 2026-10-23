@@ -307,6 +307,8 @@
   .stat .l{ font-size:0.8125rem; letter-spacing:0; }
   .done .check{ background:var(--good); color:var(--good-ink); }
   .big-photo{ background:transparent; filter:invert(1) grayscale(1) brightness(1.12) contrast(1.15); mix-blend-mode:multiply; }
+  /* the paper sits behind the drawing inside its own box, so it still blends while the box fades in */
+  .photo-btn{ background:var(--bg); isolation:isolate; }
   @media (prefers-reduced-motion: reduce){ .day-card, .cta{ transition:none; } }
 
   /* ---- waterline: the exercise on paper above, the count on the day colour below ---- */
