@@ -410,8 +410,8 @@
   .day-card .title{ font-weight:600; font-size:1.0625rem; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
   .day-card .badge{ margin:0; background:var(--ink); color:#fff; font-size:0.75rem; padding:3px 8px; }
   /* three equal columns: each exercise centred in its third of the card */
-  .day-card .strip{ display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:10px; align-items:end; }
-  .day-card .strip .fig{ justify-self:center; }
+  /* one line per day; the gap is set by fitStrips so it is the same on every card */
+  .day-card .strip{ display:flex; flex-wrap:nowrap; align-items:flex-end; gap:24px; }
   .day-card .strip .fig{ display:block; overflow:hidden; flex:0 0 auto; }
   .day-card .strip img{ display:block; max-width:none; height:auto; }
   .day-card .meta{ color:var(--ink-soft); opacity:1; margin:0; }
@@ -854,7 +854,7 @@
     "hamstring-stretch":[42,69,516,261,305],
     "thoracic-rotation":[6,66,588,267,325]
   };
-  var PERSON_PX = 50;
+  var PERSON_BASE = 50, PERSON_PX = PERSON_BASE;
   // the exercise view: scale the drawing about its figures so the person matches FIT_REF, and centre them
   var FIT_REF = 270;
   function fitFigure(img, id){
@@ -912,7 +912,31 @@
       dayGrid.appendChild(card);
     });
     if(!suggested){ restNote.hidden = false; } else { restNote.hidden = true; }
+    fitStrips();
   }
+
+  // Every day's exercises stay on one line with the same gap on all cards: the largest gap up to 32 px that the
+  // widest row allows. If even a 14 px gap does not fit (a narrow phone), the people shrink just enough.
+  function fitStrips(){
+    var strips = dayGrid.querySelectorAll(".strip");
+    if(!strips.length || !strips[0].clientWidth) return;
+    var avail = strips[0].clientWidth, widest = 0;
+    strips.forEach(function(st){
+      var w = 0; st.querySelectorAll(".fig").forEach(function(f){ w += f.getBoundingClientRect().width; });
+      widest = Math.max(widest, w);
+    });
+    var gap = Math.min(32, Math.floor((avail - widest) / 2));
+    if(gap < 14 && PERSON_PX === PERSON_BASE){
+      PERSON_PX = Math.floor(PERSON_BASE * (avail - 28) / widest);
+      renderStart();
+      return;
+    }
+    strips.forEach(function(st){ st.style.gap = Math.max(gap, 14) + "px"; });
+  }
+  window.addEventListener("resize", function(){
+    if(screenStart.hidden) return;
+    PERSON_PX = PERSON_BASE; renderStart();
+  });
 
   /* ================= PLAYER ================= */
   function startDay(dayKey){
