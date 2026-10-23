@@ -46,7 +46,7 @@
   .dot.w, .dot.k{ background:transparent; border:2px solid var(--ink); }
   /* the drawings: inverted to ink and multiplied into the paper, so their navy ground vanishes */
   .im{ background:var(--bg); overflow:hidden; }
-  .im img{ width:100%; filter:invert(1) grayscale(1) brightness(1.12) contrast(1.15); mix-blend-mode:multiply; transition:transform .6s var(--ease); }
+  .im img{ width:100%; transition:transform .6s var(--ease); }
 
   /* bar */
   .bar{ position:sticky; top:0; z-index:30; background:var(--bg); display:flex; align-items:center; gap:clamp(14px,2vw,32px); padding:12px var(--m); }
@@ -116,7 +116,7 @@
   .thumbs{ list-style:none; margin:0 0 24px; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:4px 16px; }
   .thumbs a{ display:flex; align-items:center; gap:10px; text-decoration:none; padding:4px 0; }
   .thumbs a:hover span{ text-decoration:underline; }
-  .thumbs img{ width:96px; flex:0 0 auto; filter:invert(1) grayscale(1) brightness(1.12) contrast(1.15); mix-blend-mode:multiply; }
+  .thumbs img{ width:96px; flex:0 0 auto; }
   .thumbs span{ font-size:var(--s-small); line-height:1.25; font-weight:500; }
 
   /* catalogue */
@@ -273,7 +273,7 @@
     <p class="today" id="today">Tres sesiones que rotan: fuerza, core y banda, una pierna.</p>
   </div>
   <figure>
-    <div class="im"><img src="images/kb-swing.png" alt="Swing con kettlebell: de la bisagra de cadera a los brazos extendidos" width="600" height="400"></div>
+    <div class="im"><img src="images/ink/kb-swing.png" alt="Swing con kettlebell: de la bisagra de cadera a los brazos extendidos" width="600" height="400"></div>
     <figcaption><span>Lámina 1 · Swing</span><span>El mismo kettlebell de 12 kg todo el plan</span></figcaption>
   </figure>
 </section>
@@ -354,7 +354,7 @@
     <p class="note">Este bloque añade trabajo directo de pecho y brazo.</p></div>
     <div class="s-strip rv">
       <h3>Las láminas de esta sesión</h3>
-      <ul class="thumbs"><li><a href="#ex-goblet-squat" data-jump="a"><img src="images/goblet-squat.png" alt="" width="600" height="400" loading="lazy"><span>Goblet squat</span></a></li><li><a href="#ex-clean-press" data-jump="a"><img src="images/clean-press.png" alt="" width="600" height="400" loading="lazy"><span>Clean and press</span></a></li><li><a href="#ex-kb-row" data-jump="a"><img src="images/kb-row.png" alt="" width="600" height="400" loading="lazy"><span>Remo a una mano</span></a></li><li><a href="#ex-kb-swing" data-jump="a"><img src="images/kb-swing.png" alt="" width="600" height="400" loading="lazy"><span>Swing</span></a></li><li><a href="#ex-thruster" data-jump="a"><img src="images/thruster.png" alt="" width="600" height="400" loading="lazy"><span>Thruster</span></a></li><li><a href="#ex-push-up" data-jump="a"><img src="images/push-up.png" alt="" width="600" height="400" loading="lazy"><span>Flexión de brazos (push-up)</span></a></li><li><a href="#ex-band-curl" data-jump="a"><img src="images/band-curl.png" alt="" width="600" height="400" loading="lazy"><span>Band curl de bíceps</span></a></li></ul>
+      <ul class="thumbs"><li><a href="#ex-goblet-squat" data-jump="a"><img src="images/ink/goblet-squat.png" alt="" width="600" height="400" loading="lazy"><span>Goblet squat</span></a></li><li><a href="#ex-clean-press" data-jump="a"><img src="images/ink/clean-press.png" alt="" width="600" height="400" loading="lazy"><span>Clean and press</span></a></li><li><a href="#ex-kb-row" data-jump="a"><img src="images/ink/kb-row.png" alt="" width="600" height="400" loading="lazy"><span>Remo a una mano</span></a></li><li><a href="#ex-kb-swing" data-jump="a"><img src="images/ink/kb-swing.png" alt="" width="600" height="400" loading="lazy"><span>Swing</span></a></li><li><a href="#ex-thruster" data-jump="a"><img src="images/ink/thruster.png" alt="" width="600" height="400" loading="lazy"><span>Thruster</span></a></li><li><a href="#ex-push-up" data-jump="a"><img src="images/ink/push-up.png" alt="" width="600" height="400" loading="lazy"><span>Flexión de brazos (push-up)</span></a></li><li><a href="#ex-band-curl" data-jump="a"><img src="images/ink/band-curl.png" alt="" width="600" height="400" loading="lazy"><span>Band curl de bíceps</span></a></li></ul>
       <a class="btn" href="entrenamiento.html">Entrenar el Día A con cronómetro</a>
     </div>
   </div>
@@ -405,7 +405,7 @@
     <p class="note">Entre este bloque y el push-up + curl del Día A, pecho y brazo quedan cubiertos 2 veces por semana cada uno — la dosis mínima recomendada para progresar.</p></div>
     <div class="s-strip rv">
       <h3>Las láminas de esta sesión</h3>
-      <ul class="thumbs"><li><a href="#ex-floor-press" data-jump="b"><img src="images/floor-press.png" alt="" width="600" height="400" loading="lazy"><span>Press de suelo a una mano</span></a></li><li><a href="#ex-band-row" data-jump="b"><img src="images/band-row.png" alt="" width="600" height="400" loading="lazy"><span>Remo inclinado con banda</span></a></li><li><a href="#ex-kb-halo" data-jump="b"><img src="images/kb-halo.png" alt="" width="600" height="400" loading="lazy"><span>Kettlebell halo</span></a></li><li><a href="#ex-dead-bug" data-jump="b"><img src="images/dead-bug.png" alt="" width="600" height="400" loading="lazy"><span>Dead bug</span></a></li><li><a href="#ex-side-plank" data-jump="b"><img src="images/side-plank.png" alt="" width="600" height="400" loading="lazy"><span>Plancha lateral</span></a></li><li><a href="#ex-suitcase-carry" data-jump="b"><img src="images/suitcase-carry.png" alt="" width="600" height="400" loading="lazy"><span>Suitcase hold con kettlebell</span></a></li><li><a href="#ex-russian-twist" data-jump="b"><img src="images/russian-twist.png" alt="" width="600" height="400" loading="lazy"><span>Russian twist con kettlebell</span></a></li><li><a href="#ex-mountain-climbers" data-jump="b"><img src="images/mountain-climbers.png" alt="" width="600" height="400" loading="lazy"><span>Mountain climbers</span></a></li><li><a href="#ex-band-chest-press" data-jump="b"><img src="images/band-chest-press.png" alt="" width="600" height="400" loading="lazy"><span>Band chest press</span></a></li><li><a href="#ex-band-triceps-extension" data-jump="b"><img src="images/band-triceps-extension.png" alt="" width="600" height="400" loading="lazy"><span>Band triceps extension</span></a></li></ul>
+      <ul class="thumbs"><li><a href="#ex-floor-press" data-jump="b"><img src="images/ink/floor-press.png" alt="" width="600" height="400" loading="lazy"><span>Press de suelo a una mano</span></a></li><li><a href="#ex-band-row" data-jump="b"><img src="images/ink/band-row.png" alt="" width="600" height="400" loading="lazy"><span>Remo inclinado con banda</span></a></li><li><a href="#ex-kb-halo" data-jump="b"><img src="images/ink/kb-halo.png" alt="" width="600" height="400" loading="lazy"><span>Kettlebell halo</span></a></li><li><a href="#ex-dead-bug" data-jump="b"><img src="images/ink/dead-bug.png" alt="" width="600" height="400" loading="lazy"><span>Dead bug</span></a></li><li><a href="#ex-side-plank" data-jump="b"><img src="images/ink/side-plank.png" alt="" width="600" height="400" loading="lazy"><span>Plancha lateral</span></a></li><li><a href="#ex-suitcase-carry" data-jump="b"><img src="images/ink/suitcase-carry.png" alt="" width="600" height="400" loading="lazy"><span>Suitcase hold con kettlebell</span></a></li><li><a href="#ex-russian-twist" data-jump="b"><img src="images/ink/russian-twist.png" alt="" width="600" height="400" loading="lazy"><span>Russian twist con kettlebell</span></a></li><li><a href="#ex-mountain-climbers" data-jump="b"><img src="images/ink/mountain-climbers.png" alt="" width="600" height="400" loading="lazy"><span>Mountain climbers</span></a></li><li><a href="#ex-band-chest-press" data-jump="b"><img src="images/ink/band-chest-press.png" alt="" width="600" height="400" loading="lazy"><span>Band chest press</span></a></li><li><a href="#ex-band-triceps-extension" data-jump="b"><img src="images/ink/band-triceps-extension.png" alt="" width="600" height="400" loading="lazy"><span>Band triceps extension</span></a></li></ul>
       <a class="btn" href="entrenamiento.html">Entrenar el Día B con cronómetro</a>
     </div>
   </div>
@@ -442,7 +442,7 @@
     </div></div>
     <div class="s-strip rv">
       <h3>Las láminas de esta sesión</h3>
-      <ul class="thumbs"><li><a href="#ex-kb-halo" data-jump="c"><img src="images/kb-halo.png" alt="" width="600" height="400" loading="lazy"><span>Kettlebell halo</span></a></li><li><a href="#ex-reverse-lunge" data-jump="c"><img src="images/reverse-lunge.png" alt="" width="600" height="400" loading="lazy"><span>Reverse lunge con kettlebell</span></a></li><li><a href="#ex-single-leg-deadlift" data-jump="c"><img src="images/single-leg-deadlift.png" alt="" width="600" height="400" loading="lazy"><span>Peso muerto a una pierna</span></a></li><li><a href="#ex-band-woodchopper" data-jump="c"><img src="images/band-woodchopper.png" alt="" width="600" height="400" loading="lazy"><span>Band woodchopper</span></a></li><li><a href="#ex-renegade-row" data-jump="c"><img src="images/renegade-row.png" alt="" width="600" height="400" loading="lazy"><span>Renegade row</span></a></li><li><a href="#ex-shoulder-taps" data-jump="c"><img src="images/shoulder-taps.png" alt="" width="600" height="400" loading="lazy"><span>Plancha con toque de hombro</span></a></li></ul>
+      <ul class="thumbs"><li><a href="#ex-kb-halo" data-jump="c"><img src="images/ink/kb-halo.png" alt="" width="600" height="400" loading="lazy"><span>Kettlebell halo</span></a></li><li><a href="#ex-reverse-lunge" data-jump="c"><img src="images/ink/reverse-lunge.png" alt="" width="600" height="400" loading="lazy"><span>Reverse lunge con kettlebell</span></a></li><li><a href="#ex-single-leg-deadlift" data-jump="c"><img src="images/ink/single-leg-deadlift.png" alt="" width="600" height="400" loading="lazy"><span>Peso muerto a una pierna</span></a></li><li><a href="#ex-band-woodchopper" data-jump="c"><img src="images/ink/band-woodchopper.png" alt="" width="600" height="400" loading="lazy"><span>Band woodchopper</span></a></li><li><a href="#ex-renegade-row" data-jump="c"><img src="images/ink/renegade-row.png" alt="" width="600" height="400" loading="lazy"><span>Renegade row</span></a></li><li><a href="#ex-shoulder-taps" data-jump="c"><img src="images/ink/shoulder-taps.png" alt="" width="600" height="400" loading="lazy"><span>Plancha con toque de hombro</span></a></li></ul>
       <a class="btn" href="entrenamiento.html">Entrenar el Día C con cronómetro</a>
     </div>
   </div>
@@ -456,7 +456,7 @@
   <div class="filters rv" role="group" aria-label="Filtrar ejercicios"><button type="button" data-f="todos" aria-pressed="true">Todos<span class="n">29</span></button><button type="button" data-f="a" aria-pressed="false">Día A<span class="n">7</span></button><button type="button" data-f="b" aria-pressed="false">Día B<span class="n">10</span></button><button type="button" data-f="c" aria-pressed="false">Día C<span class="n">6</span></button><button type="button" data-f="w" aria-pressed="false">Calentamiento<span class="n">4</span></button><button type="button" data-f="k" aria-pressed="false">Enfriamiento<span class="n">3</span></button><button type="button" data-f="kettlebell" aria-pressed="false">Kettlebell<span class="n">12</span></button><button type="button" data-f="banda" aria-pressed="false">Banda<span class="n">6</span></button><button type="button" data-f="suelo" aria-pressed="false">Sin material<span class="n">11</span></button></div>
   <div class="plates" id="plates">
     <article class="plate lead-plate rv" id="ex-kb-swing" data-tags="a kettlebell">
-      <div class="im"><img src="images/kb-swing.png" alt="Kettlebell swing" width="600" height="400" loading="lazy"></div>
+      <div class="im"><img src="images/ink/kb-swing.png" alt="Kettlebell swing" width="600" height="400" loading="lazy"></div>
       <h3>Swing</h3>
       <dl>
         <dt>Sesión</dt><dd><span class="dot a"></span>Día A</dd>
@@ -467,7 +467,7 @@
           <div class="mistake">Error típico: hacer sentadilla en vez de bisagra, o redondear la espalda al recoger el kettlebell. Es un movimiento de cadera, no de piernas ni de brazos.</div></div></details>
     </article>
     <article class="plate rv" id="ex-hip-circles" data-tags="w suelo">
-      <div class="im"><img src="images/hip-circles.png" alt="Círculos de cadera a cuatro patas" width="600" height="400" loading="lazy"></div>
+      <div class="im"><img src="images/ink/hip-circles.png" alt="Círculos de cadera a cuatro patas" width="600" height="400" loading="lazy"></div>
       <h3>Círculos de cadera a cuatro patas</h3>
       <dl>
         <dt>Sesión</dt><dd><span class="dot w"></span>Calentamiento</dd>
@@ -477,7 +477,7 @@
       <details class="how"><summary>Cómo se hace</summary><div class="body"><p>A cuatro patas, dibuja círculos amplios con una rodilla sin mover la zona lumbar. Despierta la movilidad de cadera que necesitas para la bisagra del swing y la sentadilla.</p><p><strong>De pie:</strong> apoyado en una pared o una silla si lo necesitas, levanta una rodilla al frente a la altura de la cadera, ábrela hacia el lado y bájala por detrás, dibujando un círculo amplio. Haz las repeticiones hacia fuera y luego hacia dentro. Mantén el tronco quieto: el círculo lo dibuja la rodilla, no la espalda.</p></div></details>
     </article>
     <article class="plate rv" id="ex-cat-cow" data-tags="w suelo">
-      <div class="im"><img src="images/cat-cow.png" alt="Gato-camello" width="600" height="400" loading="lazy"></div>
+      <div class="im"><img src="images/ink/cat-cow.png" alt="Gato-camello" width="600" height="400" loading="lazy"></div>
       <h3>Gato-camello</h3>
       <dl>
         <dt>Sesión</dt><dd><span class="dot w"></span>Calentamiento</dd>
@@ -487,7 +487,7 @@
       <details class="how"><summary>Cómo se hace</summary><div class="body"><p>A cuatro patas, alterna arquear y redondear la columna con el movimiento, no de golpe. Moviliza toda la espalda antes de cargarla.</p></div></details>
     </article>
     <article class="plate rv" id="ex-glute-bridge" data-tags="w suelo">
-      <div class="im"><img src="images/glute-bridge.png" alt="Puente de glúteo" width="600" height="400" loading="lazy"></div>
+      <div class="im"><img src="images/ink/glute-bridge.png" alt="Puente de glúteo" width="600" height="400" loading="lazy"></div>
       <h3>Puente de glúteo</h3>
       <dl>
         <dt>Sesión</dt><dd><span class="dot w"></span>Calentamiento</dd>
@@ -497,7 +497,7 @@
       <details class="how"><summary>Cómo se hace</summary><div class="body"><p>Tumbado, pies apoyados cerca de los glúteos, empuja caderas hacia el techo apretando glúteos arriba. Activa la cadena que más vas a usar en el swing.</p></div></details>
     </article>
     <article class="plate rv" id="ex-band-pull-apart" data-tags="w banda">
-      <div class="im"><img src="images/band-pull-apart.png" alt="Band pull-apart" width="600" height="400" loading="lazy"></div>
+      <div class="im"><img src="images/ink/band-pull-apart.png" alt="Band pull-apart" width="600" height="400" loading="lazy"></div>
       <h3>Band pull-apart</h3>
       <dl>
         <dt>Sesión</dt><dd><span class="dot w"></span>Calentamiento</dd>
@@ -507,7 +507,7 @@
       <details class="how"><summary>Cómo se hace</summary><div class="body"><p>Banda estirada a la altura del pecho con los brazos extendidos, separa los brazos llevando los omóplatos hacia atrás y vuelve controlado. Enciende la espalda alta antes del remo y el press.</p></div></details>
     </article>
     <article class="plate rv" id="ex-goblet-squat" data-tags="a kettlebell">
-      <div class="im"><img src="images/goblet-squat.png" alt="Goblet squat" width="600" height="400" loading="lazy"></div>
+      <div class="im"><img src="images/ink/goblet-squat.png" alt="Goblet squat" width="600" height="400" loading="lazy"></div>
       <h3>Goblet squat</h3>
       <dl>
         <dt>Sesión</dt><dd><span class="dot a"></span>Día A</dd>
@@ -519,7 +519,7 @@
           <div class="mistake">Error típico: las rodillas colapsan hacia dentro o los talones se levantan. Si pasa, abre un poco más los pies y pon más peso en los talones.</div></div></details>
     </article>
     <article class="plate rv" id="ex-clean-press" data-tags="a kettlebell">
-      <div class="im"><img src="images/clean-press.png" alt="Clean and press" width="600" height="400" loading="lazy"></div>
+      <div class="im"><img src="images/ink/clean-press.png" alt="Clean and press" width="600" height="400" loading="lazy"></div>
       <h3>Clean and press</h3>
       <dl>
         <dt>Sesión</dt><dd><span class="dot a"></span>Día A</dd>
@@ -530,7 +530,7 @@
           <p><strong>Para principiantes:</strong> es normal tardar 2–4 semanas en pulir el clean. Practícalo despacio y sin prisa antes de buscar fluidez; si se siente brusco en la muñeca, deja que el kettlebell vuelva al suelo entre repeticiones en vez de encadenarlas.</p></div></details>
     </article>
     <article class="plate rv" id="ex-kb-row" data-tags="a kettlebell">
-      <div class="im"><img src="images/kb-row.png" alt="Remo a una mano" width="600" height="400" loading="lazy"></div>
+      <div class="im"><img src="images/ink/kb-row.png" alt="Remo a una mano" width="600" height="400" loading="lazy"></div>
       <h3>Remo a una mano</h3>
       <dl>
         <dt>Sesión</dt><dd><span class="dot a"></span>Día A</dd>
@@ -541,7 +541,7 @@
           <div class="mistake">Error típico: rotar el tronco para "ayudar" al tirón. Mantén las caderas y los hombros cuadrados; si necesitas rotar para subir el peso, es que pesa demasiado para tu técnica actual.</div></div></details>
     </article>
     <article class="plate rv" id="ex-thruster" data-tags="a kettlebell">
-      <div class="im"><img src="images/thruster.png" alt="Thruster" width="600" height="400" loading="lazy"></div>
+      <div class="im"><img src="images/ink/thruster.png" alt="Thruster" width="600" height="400" loading="lazy"></div>
       <h3>Thruster</h3>
       <dl>
         <dt>Sesión</dt><dd><span class="dot a"></span>Día A</dd>
@@ -552,7 +552,7 @@
           <p><strong>Nota:</strong> es exigente para el ritmo cardíaco. Al principio prioriza completar el movimiento con buena técnica sobre hacerlo rápido.</p></div></details>
     </article>
     <article class="plate rv" id="ex-push-up" data-tags="a suelo">
-      <div class="im"><img src="images/push-up.png" alt="Push-up" width="600" height="400" loading="lazy"></div>
+      <div class="im"><img src="images/ink/push-up.png" alt="Push-up" width="600" height="400" loading="lazy"></div>
       <h3>Flexión de brazos (push-up)</h3>
       <dl>
         <dt>Sesión</dt><dd><span class="dot a"></span>Día A</dd>
@@ -563,7 +563,7 @@
           <div class="mistake">Si 8 reps completas es demasiado: apoya las rodillas en el suelo, o pon las manos sobre algo firme y elevado (banco, escalón) — misma técnica, menos carga.</div></div></details>
     </article>
     <article class="plate rv" id="ex-band-curl" data-tags="a banda">
-      <div class="im"><img src="images/band-curl.png" alt="Band curl de bíceps" width="600" height="400" loading="lazy"></div>
+      <div class="im"><img src="images/ink/band-curl.png" alt="Band curl de bíceps" width="600" height="400" loading="lazy"></div>
       <h3>Band curl de bíceps</h3>
       <dl>
         <dt>Sesión</dt><dd><span class="dot a"></span>Día A</dd>
@@ -573,7 +573,7 @@
       <details class="how"><summary>Cómo se hace</summary><div class="body"><p>De pie, pisa el centro de la banda con ambos pies y sujeta un extremo en cada mano. Codos pegados al cuerpo, flexiona solo el antebrazo llevando la mano hacia el hombro, sin que el codo se adelante ni uses el impulso de la espalda. Baja controlado hasta extender el brazo del todo.</p></div></details>
     </article>
     <article class="plate rv" id="ex-floor-press" data-tags="b kettlebell">
-      <div class="im"><img src="images/floor-press.png" alt="Press de suelo a una mano" width="600" height="400" loading="lazy"></div>
+      <div class="im"><img src="images/ink/floor-press.png" alt="Press de suelo a una mano" width="600" height="400" loading="lazy"></div>
       <h3>Press de suelo a una mano</h3>
       <dl>
         <dt>Sesión</dt><dd><span class="dot b"></span>Día B</dd>
@@ -585,7 +585,7 @@
           <p>El suelo limita el rango de movimiento y protege el hombro — por eso es una buena entrada al press para alguien nuevo en kettlebell.</p></div></details>
     </article>
     <article class="plate rv" id="ex-band-row" data-tags="b banda">
-      <div class="im"><img src="images/band-row.png" alt="Remo inclinado con banda" width="600" height="400" loading="lazy"></div>
+      <div class="im"><img src="images/ink/band-row.png" alt="Remo inclinado con banda" width="600" height="400" loading="lazy"></div>
       <h3>Remo inclinado con banda</h3>
       <dl>
         <dt>Sesión</dt><dd><span class="dot b"></span>Día B</dd>
@@ -597,7 +597,7 @@
           <div class="mistake">Error típico: erguir el tronco al tirar. Mantén la inclinación toda la serie; si no puedes, coge la banda más larga para que tenga menos tensión.</div></div></details>
     </article>
     <article class="plate rv" id="ex-kb-halo" data-tags="b c kettlebell">
-      <div class="im"><img src="images/kb-halo.png" alt="Kettlebell halo" width="600" height="400" loading="lazy"></div>
+      <div class="im"><img src="images/ink/kb-halo.png" alt="Kettlebell halo" width="600" height="400" loading="lazy"></div>
       <h3>Kettlebell halo</h3>
       <dl>
         <dt>Sesión</dt><dd><span class="dot b"></span>Día B<br><span class="dot c"></span>Día C</dd>
@@ -608,7 +608,7 @@
           <p>Trabaja la movilidad de hombro y el core de forma anti-rotación, con poco riesgo al ser un movimiento lento y controlado.</p></div></details>
     </article>
     <article class="plate rv" id="ex-dead-bug" data-tags="b suelo">
-      <div class="im"><img src="images/dead-bug.png" alt="Dead bug" width="600" height="400" loading="lazy"></div>
+      <div class="im"><img src="images/ink/dead-bug.png" alt="Dead bug" width="600" height="400" loading="lazy"></div>
       <h3>Dead bug</h3>
       <dl>
         <dt>Sesión</dt><dd><span class="dot b"></span>Día B</dd>
@@ -619,7 +619,7 @@
           <p>Es el ejercicio base para aprender a <em>estabilizar</em> el core antes de moverlo — la habilidad detrás de todos los demás ejercicios de este bloque.</p></div></details>
     </article>
     <article class="plate rv" id="ex-side-plank" data-tags="b suelo">
-      <div class="im"><img src="images/side-plank.png" alt="Plancha lateral" width="600" height="400" loading="lazy"></div>
+      <div class="im"><img src="images/ink/side-plank.png" alt="Plancha lateral" width="600" height="400" loading="lazy"></div>
       <h3>Plancha lateral</h3>
       <dl>
         <dt>Sesión</dt><dd><span class="dot b"></span>Día B</dd>
@@ -630,7 +630,7 @@
           <div class="mistake">Más fácil: apoya la rodilla inferior en el suelo en vez del pie si 20 segundos es demasiado al principio.</div></div></details>
     </article>
     <article class="plate rv" id="ex-suitcase-carry" data-tags="b kettlebell">
-      <div class="im"><img src="images/suitcase-carry.png" alt="Suitcase hold con kettlebell" width="600" height="400" loading="lazy"></div>
+      <div class="im"><img src="images/ink/suitcase-carry.png" alt="Suitcase hold con kettlebell" width="600" height="400" loading="lazy"></div>
       <h3>Suitcase hold con kettlebell</h3>
       <dl>
         <dt>Sesión</dt><dd><span class="dot b"></span>Día B</dd>
@@ -643,7 +643,7 @@
           <div class="mistake">Error típico: subir el hombro del lado de la pesa o dejar que la cadera se desplace hacia fuera. Los hombros y la cadera deben quedar a la misma altura todo el tiempo.</div></div></details>
     </article>
     <article class="plate rv" id="ex-russian-twist" data-tags="b kettlebell">
-      <div class="im"><img src="images/russian-twist.png" alt="Russian twist con kettlebell" width="600" height="400" loading="lazy"></div>
+      <div class="im"><img src="images/ink/russian-twist.png" alt="Russian twist con kettlebell" width="600" height="400" loading="lazy"></div>
       <h3>Russian twist con kettlebell</h3>
       <dl>
         <dt>Sesión</dt><dd><span class="dot b"></span>Día B</dd>
@@ -654,7 +654,7 @@
           <p>Es un giro continuo, no un bloque de reps solo hacia un lado: cada toque a un lado cuenta como una repetición, así que automáticamente reparte el mismo trabajo en ambos lados.</p></div></details>
     </article>
     <article class="plate rv" id="ex-mountain-climbers" data-tags="b suelo">
-      <div class="im"><img src="images/mountain-climbers.png" alt="Mountain climbers" width="600" height="400" loading="lazy"></div>
+      <div class="im"><img src="images/ink/mountain-climbers.png" alt="Mountain climbers" width="600" height="400" loading="lazy"></div>
       <h3>Mountain climbers</h3>
       <dl>
         <dt>Sesión</dt><dd><span class="dot b"></span>Día B</dd>
@@ -664,7 +664,7 @@
       <details class="how"><summary>Cómo se hace</summary><div class="body"><p>En plancha alta, lleva una rodilla al pecho y luego la otra, alternando a ritmo controlado, cadera baja y estable (no la subas como un techo). Es el componente cardiovascular del circuito.</p></div></details>
     </article>
     <article class="plate rv" id="ex-band-chest-press" data-tags="b banda">
-      <div class="im"><img src="images/band-chest-press.png" alt="Band chest press" width="600" height="400" loading="lazy"></div>
+      <div class="im"><img src="images/ink/band-chest-press.png" alt="Band chest press" width="600" height="400" loading="lazy"></div>
       <h3>Band chest press</h3>
       <dl>
         <dt>Sesión</dt><dd><span class="dot b"></span>Día B</dd>
@@ -675,7 +675,7 @@
           <p><strong>Sin anclaje:</strong> pasa la banda por la espalda, a la altura de los omóplatos y por debajo de las axilas, y sujeta un extremo en cada mano junto al pecho. Empuja igual hacia delante; tu propia espalda hace de anclaje. Agarra la banda más corta para más resistencia o más larga para menos. No sirve pisarla: tiraría hacia abajo y no trabajaría el pecho.</p></div></details>
     </article>
     <article class="plate rv" id="ex-band-triceps-extension" data-tags="b banda">
-      <div class="im"><img src="images/band-triceps-extension.png" alt="Band triceps extension" width="600" height="400" loading="lazy"></div>
+      <div class="im"><img src="images/ink/band-triceps-extension.png" alt="Band triceps extension" width="600" height="400" loading="lazy"></div>
       <h3>Band triceps extension</h3>
       <dl>
         <dt>Sesión</dt><dd><span class="dot b"></span>Día B</dd>
@@ -685,7 +685,7 @@
       <details class="how"><summary>Cómo se hace</summary><div class="body"><p>Ancla la banda baja, detrás o bajo un pie. Sujeta el extremo con ambas manos por detrás de la cabeza, codos apuntando al techo y pegados a las orejas. Extiende los brazos hacia arriba hasta casi estirarlos del todo, sin que los codos se abran hacia los lados, y vuelve controlado flexionando de nuevo.</p></div></details>
     </article>
     <article class="plate rv" id="ex-reverse-lunge" data-tags="c kettlebell">
-      <div class="im"><img src="images/reverse-lunge.png" alt="Reverse lunge con kettlebell" width="600" height="400" loading="lazy"></div>
+      <div class="im"><img src="images/ink/reverse-lunge.png" alt="Reverse lunge con kettlebell" width="600" height="400" loading="lazy"></div>
       <h3>Reverse lunge con kettlebell</h3>
       <dl>
         <dt>Sesión</dt><dd><span class="dot c"></span>Día C</dd>
@@ -696,7 +696,7 @@
           <div class="mistake">Error típico: que la rodilla delantera se adelante mucho sobre la punta del pie. Si pasa, da un paso atrás más largo.</div></div></details>
     </article>
     <article class="plate rv" id="ex-single-leg-deadlift" data-tags="c kettlebell">
-      <div class="im"><img src="images/single-leg-deadlift.png" alt="Peso muerto a una pierna con kettlebell" width="600" height="400" loading="lazy"></div>
+      <div class="im"><img src="images/ink/single-leg-deadlift.png" alt="Peso muerto a una pierna con kettlebell" width="600" height="400" loading="lazy"></div>
       <h3>Peso muerto a una pierna</h3>
       <dl>
         <dt>Sesión</dt><dd><span class="dot c"></span>Día C</dd>
@@ -707,7 +707,7 @@
           <p><strong>Para principiantes:</strong> es el ejercicio del plan que más pide equilibrio. Apóyate con la mano libre en una pared o silla las primeras semanas si lo necesitas — no resta nada al trabajo real del ejercicio.</p></div></details>
     </article>
     <article class="plate rv" id="ex-band-woodchopper" data-tags="c banda">
-      <div class="im"><img src="images/band-woodchopper.png" alt="Band woodchopper" width="600" height="400" loading="lazy"></div>
+      <div class="im"><img src="images/ink/band-woodchopper.png" alt="Band woodchopper" width="600" height="400" loading="lazy"></div>
       <h3>Band woodchopper</h3>
       <dl>
         <dt>Sesión</dt><dd><span class="dot c"></span>Día C</dd>
@@ -719,7 +719,7 @@
           <p><strong>Importante:</strong> para el "lado derecho", pisa con el pie izquierdo y sube hacia el hombro derecho, como se describe arriba. Para el "lado izquierdo", al revés: pisa con el pie derecho y sube hacia el hombro izquierdo. Cambia de pie entre una serie y otra para no entrenar dos veces el mismo lado.</p></div></details>
     </article>
     <article class="plate rv" id="ex-renegade-row" data-tags="c kettlebell">
-      <div class="im"><img src="images/renegade-row.png" alt="Renegade row" width="600" height="400" loading="lazy"></div>
+      <div class="im"><img src="images/ink/renegade-row.png" alt="Renegade row" width="600" height="400" loading="lazy"></div>
       <h3>Renegade row</h3>
       <dl>
         <dt>Sesión</dt><dd><span class="dot c"></span>Día C</dd>
@@ -729,7 +729,7 @@
       <details class="how"><summary>Cómo se hace</summary><div class="body"><p>En posición de plancha alta, con una mano apoyada en el suelo y la otra sujetando el kettlebell, rema el kettlebell hacia la cadera manteniéndote lo más quieto posible. El reto real es que las caderas no giren hacia el lado que rema. Baja controlado y repite; cambia de mano a mitad de serie.</p></div></details>
     </article>
     <article class="plate rv" id="ex-shoulder-taps" data-tags="c suelo">
-      <div class="im"><img src="images/shoulder-taps.png" alt="Plancha con toque de hombro" width="600" height="400" loading="lazy"></div>
+      <div class="im"><img src="images/ink/shoulder-taps.png" alt="Plancha con toque de hombro" width="600" height="400" loading="lazy"></div>
       <h3>Plancha con toque de hombro</h3>
       <dl>
         <dt>Sesión</dt><dd><span class="dot c"></span>Día C</dd>
@@ -740,7 +740,7 @@
           <p>Es anti-rotación: el core trabaja para que el tronco no gire, en posición de plancha y sin ningún equipo.</p></div></details>
     </article>
     <article class="plate rv" id="ex-hip-flexor-stretch" data-tags="k suelo">
-      <div class="im"><img src="images/hip-flexor-stretch.png" alt="Estiramiento de flexor de cadera" width="600" height="400" loading="lazy"></div>
+      <div class="im"><img src="images/ink/hip-flexor-stretch.png" alt="Estiramiento de flexor de cadera" width="600" height="400" loading="lazy"></div>
       <h3>Estiramiento de flexor de cadera</h3>
       <dl>
         <dt>Sesión</dt><dd><span class="dot k"></span>Enfriamiento</dd>
@@ -750,7 +750,7 @@
       <details class="how"><summary>Cómo se hace</summary><div class="body"><p>Postura de zancada baja (una rodilla en el suelo), empuja la cadera hacia delante sin arquear la espalda. Libera la tensión que acumula la cadera tras swings y squats.</p></div></details>
     </article>
     <article class="plate rv" id="ex-hamstring-stretch" data-tags="k suelo">
-      <div class="im"><img src="images/hamstring-stretch.png" alt="Estiramiento de isquiotibiales" width="600" height="400" loading="lazy"></div>
+      <div class="im"><img src="images/ink/hamstring-stretch.png" alt="Estiramiento de isquiotibiales" width="600" height="400" loading="lazy"></div>
       <h3>Estiramiento de isquiotibiales</h3>
       <dl>
         <dt>Sesión</dt><dd><span class="dot k"></span>Enfriamiento</dd>
@@ -760,7 +760,7 @@
       <details class="how"><summary>Cómo se hace</summary><div class="body"><p>Sentado o de pie, pierna extendida, inclínate hacia delante desde la cadera sin redondear en exceso la espalda baja.</p></div></details>
     </article>
     <article class="plate rv" id="ex-thoracic-rotation" data-tags="k suelo">
-      <div class="im"><img src="images/thoracic-rotation.png" alt="Rotaciones torácicas" width="600" height="400" loading="lazy"></div>
+      <div class="im"><img src="images/ink/thoracic-rotation.png" alt="Rotaciones torácicas" width="600" height="400" loading="lazy"></div>
       <h3>Rotaciones torácicas</h3>
       <dl>
         <dt>Sesión</dt><dd><span class="dot k"></span>Enfriamiento</dd>

@@ -306,9 +306,8 @@
   .stat{ border:0; }
   .stat .l{ font-size:0.8125rem; letter-spacing:0; }
   .done .check{ background:var(--good); color:var(--good-ink); }
-  .big-photo{ background:transparent; filter:invert(1) grayscale(1) brightness(1.12) contrast(1.15); mix-blend-mode:multiply; }
-  /* the paper sits behind the drawing inside its own box, so it still blends while the box fades in */
-  .photo-btn{ background:var(--bg); isolation:isolate; }
+  .big-photo{ background:transparent; }
+
   @media (prefers-reduced-motion: reduce){ .day-card, .cta{ transition:none; } }
 
   /* ---- waterline: the exercise on paper above, the count on the day colour below ---- */
@@ -411,8 +410,8 @@
   .day-card .title{ font-weight:600; font-size:1.0625rem; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
   .day-card .badge{ margin:0; background:var(--ink); color:#fff; font-size:0.75rem; padding:3px 8px; }
   .day-card .strip{ display:flex; align-items:flex-end; gap:18px; flex-wrap:wrap; }
-  .day-card .strip .fig{ display:block; overflow:hidden; background:#fff; isolation:isolate; flex:0 0 auto; }
-  .day-card .strip img{ display:block; max-width:none; height:auto; filter:invert(1) grayscale(1) brightness(1.12) contrast(1.15); mix-blend-mode:multiply; }
+  .day-card .strip .fig{ display:block; overflow:hidden; flex:0 0 auto; }
+  .day-card .strip img{ display:block; max-width:none; height:auto; }
   .day-card .meta{ color:var(--ink-soft); opacity:1; margin:0; }
   .day-card.suggested{ outline:2px solid var(--ink); outline-offset:0; }
 
@@ -856,9 +855,9 @@
   var PERSON_PX = 40;
   function figureHTML(id){
     var c = CROPS[id];
-    if(!c) return '<img src="images/' + PHOTOS[id] + '" alt="" loading="lazy">';
+    if(!c) return '<img src="images/ink/' + PHOTOS[id] + '" alt="" loading="lazy">';
     var k = PERSON_PX / c[4], r = function(v){ return (v * k).toFixed(1) + "px"; };
-    return '<span class="fig" style="width:' + r(c[2]) + ';height:' + r(c[3]) + '"><img src="images/' + PHOTOS[id] + '" alt="" loading="lazy" style="width:' + r(600) + ';margin-left:-' + r(c[0]) + ';margin-top:-' + r(c[1]) + '"></span>';
+    return '<span class="fig" style="width:' + r(c[2]) + ';height:' + r(c[3]) + '"><img src="images/ink/' + PHOTOS[id] + '" alt="" loading="lazy" style="width:' + r(600) + ';margin-left:-' + r(c[0]) + ';margin-top:-' + r(c[1]) + '"></span>';
   }
 
   /* ================= START SCREEN ================= */
@@ -1033,7 +1032,7 @@
     if(PHOTOS[step.icon]){
       elIcon.hidden = true;
       elPhotoBtn.hidden = false;
-      elPhoto.src = "images/" + PHOTOS[step.icon];
+      elPhoto.src = "images/ink/" + PHOTOS[step.icon];
       elPhoto.alt = step.name;
     } else {
       elPhotoBtn.hidden = true;
