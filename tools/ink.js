@@ -127,7 +127,8 @@ function fillKettlebells(rgba, w, h, seeds) {
       rgba[p * 4 + 3] = 255;
       for (const q of [p - 1, p + 1, p - w, p + w]) {
         const qx = q % w, qy = (q / w) | 0;
-        if (q < 0 || q >= w * h || Math.abs(qx - x) > 1 || seen[q] || al(q) > 140) continue;
+        if (q < 0 || q >= w * h || Math.abs(qx - x) > 1 || seen[q]) continue;
+        if (al(q) > 140) { rgba[q * 4 + 3] = 255; continue; }   // the outline's inner soft edge joins the fill, no light seam
         if (Math.hypot(qx - sx, qy - sy) > maxR) continue;   // never leak past the ball
         seen[q] = 1; stack.push(q);
       }
@@ -136,13 +137,13 @@ function fillKettlebells(rgba, w, h, seeds) {
   return rgba;
 }
 
-// The inside of every solid kettlebell fades from full ink at its rim to a dark grey (KB_ALPHA) at its centre.
-// Lines are at most ~5 px wide, so any solid pixel more than RIM px from the edge of the solid area is a kettlebell.
-const KB_ALPHA = 140, RIM = 2, FADE = 7;
-function softenSolids(rgba, w, h) {
-  const solid = (p) => rgba[p * 4 + 3] > 230, INF = 1e6, d = new Float32Array(w * h);
-  for (let p = 0; p < w * h; p++) d[p] = solid(p) ? INF : 0;
-  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {          // chamfer distance to the nearest non-solid pixel
+// Every solid kettlebell is lightened to a flat dark grey (KB_ALPHA of full ink), edge included.
+// Its core is where the solid ink lies more than 3.5 px from any edge (lines are never that thick). Everything within
+// 5 px of the core is scaled to KB_ALPHA, fading back to full ink by 6.5 px, so the ball's own smooth edge is kept
+// as it was, only lighter: no ring, no steps. Try other greys with KB_ALPHA=… node tools/ink.js images out
+const KB_ALPHA = +(process.env.KB_ALPHA || 175);
+function chamfer(d, w, h) {   // in place: distance to the nearest zero
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
     const p = y * w + x; if (!d[p]) continue; let v = d[p];
     if (x > 0) v = Math.min(v, d[p - 1] + 1); if (y > 0) { v = Math.min(v, d[p - w] + 1); if (x > 0) v = Math.min(v, d[p - w - 1] + 1.414); if (x < w - 1) v = Math.min(v, d[p - w + 1] + 1.414); }
     d[p] = v;
@@ -152,15 +153,19 @@ function softenSolids(rgba, w, h) {
     if (x < w - 1) v = Math.min(v, d[p + 1] + 1); if (y < h - 1) { v = Math.min(v, d[p + w] + 1); if (x < w - 1) v = Math.min(v, d[p + w + 1] + 1.414); if (x > 0) v = Math.min(v, d[p + w - 1] + 1.414); }
     d[p] = v;
   }
-  // a pixel only belongs to a kettlebell if the solid area reaches more than 3 px deep somewhere near it
-  const deep = new Uint8Array(w * h);
-  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (d[y * w + x] > 3) {
-    for (let dy = -3; dy <= 3; dy++) for (let dx = -3; dx <= 3; dx++) { const yy = y + dy, xx = x + dx; if (yy >= 0 && yy < h && xx >= 0 && xx < w) deep[yy * w + xx] = 1; }
-  }
+  return d;
+}
+function softenSolids(rgba, w, h) {
+  const INF = 1e6, edge = new Float32Array(w * h);
+  for (let p = 0; p < w * h; p++) edge[p] = rgba[p * 4 + 3] > 200 ? INF : 0;
+  chamfer(edge, w, h);                                   // depth inside the solid ink
+  const core = new Float32Array(w * h);
+  for (let p = 0; p < w * h; p++) core[p] = edge[p] > 3.5 ? 0 : INF;
+  chamfer(core, w, h);                                   // distance to the nearest ball core
+  const k = KB_ALPHA / 255;
   for (let p = 0; p < w * h; p++) {
-    if (!deep[p] || d[p] <= RIM) continue;
-    const t = Math.min(1, (d[p] - RIM) / FADE), e = t * t * (3 - 2 * t);   // smooth fade from the rim inward
-    rgba[p * 4 + 3] = Math.round(255 - (255 - KB_ALPHA) * e);
+    const m = Math.max(0, Math.min(1, (6.5 - core[p]) / 1.5));
+    if (m > 0) rgba[p * 4 + 3] = Math.round(rgba[p * 4 + 3] * (1 - m * (1 - k)));
   }
   return rgba;
 }
@@ -223,7 +228,8 @@ const [srcDir, outDir] = process.argv.slice(2);
 const figFile = path.join(__dirname, "figures.json");
 const bodies = fs.existsSync(figFile) ? JSON.parse(fs.readFileSync(figFile, "utf8")) : {};
 fs.mkdirSync(outDir, { recursive: true });
-for (const f of fs.readdirSync(srcDir).filter((f) => f.endsWith(".png"))) {
+const only = process.env.ONLY ? process.env.ONLY.split(",").map((n) => n + ".png") : null;
+for (const f of fs.readdirSync(srcDir).filter((f) => f.endsWith(".png") && (!only || only.includes(f)))) {
   const img = readPng(path.join(srcDir, f));
   let rgba = ink(img);
   if (KB[f.slice(0, -4)]) rgba = fillKettlebells(rgba, img.width, img.height, KB[f.slice(0, -4)]);
