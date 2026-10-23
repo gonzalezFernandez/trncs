@@ -410,8 +410,9 @@
   .day-card.a .letter, .day-card.b .letter, .day-card.c .letter{ font-size:2.6rem; width:auto; line-height:.8; }
   .day-card .title{ font-weight:600; font-size:1.0625rem; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
   .day-card .badge{ margin:0; background:var(--ink); color:#fff; font-size:0.75rem; padding:3px 8px; }
-  .day-card .strip{ display:grid; grid-template-columns:repeat(3,1fr); gap:4px; }
-  .day-card .strip img{ width:100%; filter:invert(1) grayscale(1) brightness(1.12) contrast(1.15); mix-blend-mode:multiply; }
+  .day-card .strip{ display:flex; align-items:flex-end; gap:18px; flex-wrap:wrap; }
+  .day-card .strip .fig{ display:block; overflow:hidden; background:#fff; isolation:isolate; flex:0 0 auto; }
+  .day-card .strip img{ display:block; max-width:none; height:auto; filter:invert(1) grayscale(1) brightness(1.12) contrast(1.15); mix-blend-mode:multiply; }
   .day-card .meta{ color:var(--ink-soft); opacity:1; margin:0; }
   .day-card.suggested{ outline:2px solid var(--ink); outline-offset:0; }
 
@@ -816,6 +817,50 @@
   var RING_CIRC = 2 * Math.PI * 42; // length of the progress bar in its viewBox
   ringFg.style.strokeDasharray = RING_CIRC.toFixed(1);
 
+  /* Each drawing (600×400) cropped to its figures: [x, y, width, height, body size].
+     The drawings are not drawn at one scale, so body size is the standing height of a person drawn there:
+     head width (front view, or profile depth ÷ 1.25) × 8.8 for the drawings the session picker shows, and the
+     largest figure (height upright, length lying) for the rest. Scaling by it gives every person the same size. */
+  var CROPS = {
+    "hip-circles":[36,102,528,195,252],
+    "cat-cow":[33,108,534,183,252],
+    "glute-bridge":[33,150,534,99,258],
+    "band-pull-apart":[39,78,522,243,261],
+    "goblet-squat":[93,39,411,321,308],
+    "clean-press":[150,18,300,363,282],
+    "kb-row":[84,27,432,348,343],
+    "kb-swing":[42,27,516,348,348],
+    "thruster":[108,39,381,324,324],
+    "push-up":[33,135,534,129,264],
+    "band-curl":[93,42,411,318,318],
+    "floor-press":[24,96,552,207,334],
+    "band-row":[39,21,522,357,326],
+    "suitcase-carry":[123,24,351,354,354],
+    "dead-bug":[21,126,558,147,294],
+    "side-plank":[36,84,528,231,264],
+    "pallof-press":[111,24,378,354,354],
+    "russian-twist":[27,111,546,177,237],
+    "mountain-climbers":[24,129,552,141,255],
+    "band-chest-press":[27,57,546,285,285],
+    "band-triceps-extension":[114,39,372,324,321],
+    "reverse-lunge":[63,42,471,315,299],
+    "kb-halo":[42,30,516,339,334],
+    "single-leg-deadlift":[39,33,522,336,299],
+    "band-woodchopper":[24,18,552,363,363],
+    "renegade-row":[141,21,318,360,318],
+    "shoulder-taps":[147,21,306,357,306],
+    "hip-flexor-stretch":[42,75,516,249,249],
+    "hamstring-stretch":[42,69,516,261,261],
+    "thoracic-rotation":[6,66,588,267,264]
+  };
+  var PERSON_PX = 40;
+  function figureHTML(id){
+    var c = CROPS[id];
+    if(!c) return '<img src="images/' + PHOTOS[id] + '" alt="" loading="lazy">';
+    var k = PERSON_PX / c[4], r = function(v){ return (v * k).toFixed(1) + "px"; };
+    return '<span class="fig" style="width:' + r(c[2]) + ';height:' + r(c[3]) + '"><img src="images/' + PHOTOS[id] + '" alt="" loading="lazy" style="width:' + r(600) + ';margin-left:-' + r(c[0]) + ';margin-top:-' + r(c[1]) + '"></span>';
+  }
+
   /* ================= START SCREEN ================= */
   var DAY_ORDER = ["A","B","C","A","B","C",null]; // Mon..Sun, index 0=Mon
   function todaySuggestion(){
@@ -850,7 +895,7 @@
       card.innerHTML =
         '<span class="dc-top"><span class="letter">' + key + '</span>' +
           '<span class="title">' + day.label.split(" — ")[1] + (key === suggested ? '<span class="badge">Hoy</span>' : '') + '</span></span>' +
-        '<span class="strip">' + firsts.map(function(id){ return '<img src="images/' + PHOTOS[id] + '" alt="" loading="lazy">'; }).join("") + '</span>' +
+        '<span class="strip">' + firsts.map(figureHTML).join("") + '</span>' +
         '<span class="meta">' + fmtMin(estimateSeconds(key)) + ' · ' + blocksCount + ' bloques + calentamiento</span>';
       card.setAttribute("aria-label", day.label + (key === suggested ? ", sugerido para hoy" : ""));
       card.addEventListener("click", function(){ startDay(key); });
