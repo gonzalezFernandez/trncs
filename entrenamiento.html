@@ -306,7 +306,7 @@
   .stat{ border:0; }
   .stat .l{ font-size:0.8125rem; letter-spacing:0; }
   .done .check{ background:var(--good); color:var(--good-ink); }
-  .big-photo{ background:transparent; }
+  .big-photo{ background:transparent; transform:var(--fit, none); transform-origin:var(--fo, 50% 50%); }
 
   @media (prefers-reduced-motion: reduce){ .day-card, .cta{ transition:none; } }
 
@@ -409,7 +409,7 @@
   .day-card.a .letter, .day-card.b .letter, .day-card.c .letter{ font-size:2.6rem; width:auto; line-height:.8; }
   .day-card .title{ font-weight:600; font-size:1.0625rem; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
   .day-card .badge{ margin:0; background:var(--ink); color:#fff; font-size:0.75rem; padding:3px 8px; }
-  .day-card .strip{ display:flex; align-items:flex-end; gap:18px; flex-wrap:wrap; }
+  .day-card .strip{ display:flex; align-items:flex-end; gap:14px; flex-wrap:wrap; }
   .day-card .strip .fig{ display:block; overflow:hidden; flex:0 0 auto; }
   .day-card .strip img{ display:block; max-width:none; height:auto; }
   .day-card .meta{ color:var(--ink-soft); opacity:1; margin:0; }
@@ -817,42 +817,51 @@
   ringFg.style.strokeDasharray = RING_CIRC.toFixed(1);
 
   /* Each drawing (600×400) cropped to its figures: [x, y, width, height, body size].
-     The drawings are not drawn at one scale, so body size is the standing height of a person drawn there:
-     head width (front view, or profile depth ÷ 1.25) × 8.8 for the drawings the session picker shows, and the
-     largest figure (height upright, length lying) for the rest. Scaling by it gives every person the same size. */
+     The drawings are not drawn at one scale. Body size is the standing height a person drawn there would have:
+     measured height when upright, head radius × 15.5 when bent or on all fours, body length when lying.
+     Scaling by it draws every person at the same size, here and in the exercise view (fitFigure). */
   var CROPS = {
-    "hip-circles":[36,102,528,195,252],
-    "cat-cow":[33,108,534,183,252],
+    "hip-circles":[36,102,528,195,321],
+    "cat-cow":[33,108,534,183,310],
     "glute-bridge":[33,150,534,99,258],
-    "band-pull-apart":[39,78,522,243,261],
-    "goblet-squat":[93,39,411,321,308],
-    "clean-press":[150,18,300,363,282],
-    "kb-row":[84,27,432,348,343],
+    "band-pull-apart":[39,78,522,243,243],
+    "goblet-squat":[93,39,411,321,321],
+    "clean-press":[150,18,300,363,297],
+    "kb-row":[84,27,432,348,372],
     "kb-swing":[42,27,516,348,348],
-    "thruster":[108,39,381,324,324],
+    "thruster":[108,39,381,324,275],
     "push-up":[33,135,534,129,264],
     "band-curl":[93,42,411,318,318],
-    "floor-press":[24,96,552,207,334],
-    "band-row":[39,21,522,357,326],
-    "suitcase-carry":[123,24,351,354,354],
-    "dead-bug":[21,126,558,147,294],
-    "side-plank":[36,84,528,231,264],
+    "floor-press":[24,96,552,207,252],
+    "band-row":[39,21,522,357,395],
+    "suitcase-carry":[123,24,351,354,315],
+    "dead-bug":[21,126,558,147,270],
+    "side-plank":[36,84,528,231,480],
     "pallof-press":[111,24,378,354,354],
-    "russian-twist":[27,111,546,177,237],
+    "russian-twist":[27,111,546,177,274],
     "mountain-climbers":[24,129,552,141,255],
     "band-chest-press":[27,57,546,285,285],
-    "band-triceps-extension":[114,39,372,324,321],
-    "reverse-lunge":[63,42,471,315,299],
-    "kb-halo":[42,30,516,339,334],
-    "single-leg-deadlift":[39,33,522,336,299],
-    "band-woodchopper":[24,18,552,363,363],
-    "renegade-row":[141,21,318,360,318],
-    "shoulder-taps":[147,21,306,357,306],
-    "hip-flexor-stretch":[42,75,516,249,249],
-    "hamstring-stretch":[42,69,516,261,261],
-    "thoracic-rotation":[6,66,588,267,264]
+    "band-triceps-extension":[114,39,372,324,320],
+    "reverse-lunge":[63,42,471,315,315],
+    "kb-halo":[42,30,516,339,336],
+    "single-leg-deadlift":[39,33,522,336,336],
+    "band-woodchopper":[24,18,552,363,340],
+    "renegade-row":[141,21,318,360,293],
+    "shoulder-taps":[147,21,306,357,293],
+    "hip-flexor-stretch":[42,75,516,249,332],
+    "hamstring-stretch":[42,69,516,261,305],
+    "thoracic-rotation":[6,66,588,267,325]
   };
-  var PERSON_PX = 40;
+  var PERSON_PX = 50;
+  // the exercise view: scale the drawing about its figures so the person matches FIT_REF, and centre them
+  var FIT_REF = 270;
+  function fitFigure(img, id){
+    var c = CROPS[id];
+    if(!c){ img.style.removeProperty("--fit"); return; }
+    var k = FIT_REF / c[4], cx = c[0] + c[2] / 2, cy = c[1] + c[3] / 2;
+    img.style.setProperty("--fo", (cx / 6).toFixed(2) + "% " + (cy / 4).toFixed(2) + "%");
+    img.style.setProperty("--fit", "translate(" + ((300 - cx) / 6).toFixed(2) + "%," + ((200 - cy) / 4).toFixed(2) + "%) scale(" + k.toFixed(3) + ")");
+  }
   function figureHTML(id){
     var c = CROPS[id];
     if(!c) return '<img src="images/ink/' + PHOTOS[id] + '" alt="" loading="lazy">';
@@ -1033,6 +1042,7 @@
       elIcon.hidden = true;
       elPhotoBtn.hidden = false;
       elPhoto.src = "images/ink/" + PHOTOS[step.icon];
+      fitFigure(elPhoto, step.icon);
       elPhoto.alt = step.name;
     } else {
       elPhotoBtn.hidden = true;

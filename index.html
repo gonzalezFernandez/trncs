@@ -46,7 +46,7 @@
   .dot.w, .dot.k{ background:transparent; border:2px solid var(--ink); }
   /* the drawings: inverted to ink and multiplied into the paper, so their navy ground vanishes */
   .im{ background:var(--bg); overflow:hidden; }
-  .im img{ width:100%; transition:transform .6s var(--ease); }
+  .im img{ width:100%; transform:var(--fit, none); transform-origin:var(--fo, 50% 50%); transition:transform .6s var(--ease); }
 
   /* bar */
   .bar{ position:sticky; top:0; z-index:30; background:var(--bg); display:flex; align-items:center; gap:clamp(14px,2vw,32px); padding:12px var(--m); }
@@ -71,7 +71,7 @@
   .hero .today b{ font-weight:600; }
   .hero figure{ margin:0; }
   .hero figure .im img{ animation:breathe 9s ease-in-out infinite alternate; }
-  @keyframes breathe{ from{ transform:scale(1); } to{ transform:scale(1.04); } }
+  @keyframes breathe{ from{ transform:var(--fit, none) scale(1); } to{ transform:var(--fit, none) scale(1.04); } }
   .hero figcaption{ display:flex; justify-content:space-between; gap:16px; margin-top:10px; font-size:var(--s-small); color:var(--muted); }
 
   /* principles: an index of five ideas */
@@ -116,7 +116,7 @@
   .thumbs{ list-style:none; margin:0 0 24px; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:4px 16px; }
   .thumbs a{ display:flex; align-items:center; gap:10px; text-decoration:none; padding:4px 0; }
   .thumbs a:hover span{ text-decoration:underline; }
-  .thumbs img{ width:96px; flex:0 0 auto; }
+  .thumbs img{ width:96px; flex:0 0 auto; transform:var(--fit, none); transform-origin:var(--fo, 50% 50%); }
   .thumbs span{ font-size:var(--s-small); line-height:1.25; font-weight:500; }
 
   /* catalogue */
@@ -132,7 +132,7 @@
   .plate{ grid-column:span 4; scroll-margin-top:96px; }
   .plate.lead-plate{ grid-column:span 8; grid-row:span 2; }
   .plate[hidden]{ display:none; }
-  .plate:hover .im img{ transform:scale(1.04); }
+  .plate:hover .im img{ transform:var(--fit, none) scale(1.04); }
   .plate h3{ font-size:var(--s-lead); margin:14px 0 12px; }
   .plate.lead-plate h3{ font-size:var(--s-head); }
   .plate dl{ display:grid; grid-template-columns:auto 1fr; gap:4px 16px; margin:0; font-size:var(--s-small); }
@@ -855,6 +855,20 @@
   <div class="f-word"><span aria-hidden="true">Troncos</span><a href="entrenamiento.html">Entrenar hoy →</a></div>
 </footer>
 
+<script>
+/* Every person drawn at one scale: per drawing, the centre of its figures and the standing height of its person
+   (measured when upright, from the head when bent or on all fours, body length when lying). */
+(function(){
+  var FIG = {"band-chest-press":[300,199.5,285],"band-curl":[298.5,201,318],"band-pull-apart":[300,199.5,243],"band-row":[300,199.5,395],"band-triceps-extension":[300,201,320],"band-woodchopper":[300,199.5,340],"cat-cow":[300,199.5,310],"clean-press":[300,199.5,297],"dead-bug":[300,199.5,270],"floor-press":[300,199.5,252],"glute-bridge":[300,199.5,258],"goblet-squat":[298.5,199.5,321],"hamstring-stretch":[300,199.5,305],"hip-circles":[300,199.5,321],"hip-flexor-stretch":[300,199.5,332],"kb-halo":[300,199.5,336],"kb-row":[300,201,372],"kb-swing":[300,201,348],"mountain-climbers":[300,199.5,255],"pallof-press":[300,201,354],"push-up":[300,199.5,264],"renegade-row":[300,201,293],"reverse-lunge":[298.5,199.5,315],"russian-twist":[300,199.5,274],"shoulder-taps":[300,199.5,293],"side-plank":[300,199.5,480],"single-leg-deadlift":[300,201,336],"suitcase-carry":[298.5,201,315],"thoracic-rotation":[300,199.5,325],"thruster":[298.5,201,275]}, REF = 270;
+  document.querySelectorAll('img[src^="images/ink/"]').forEach(function(img){
+    var f = FIG[img.getAttribute("src").slice(11, -4)];
+    if(!f) return;
+    var k = REF / f[2];
+    img.style.setProperty("--fo", (f[0] / 6).toFixed(2) + "% " + (f[1] / 4).toFixed(2) + "%");
+    img.style.setProperty("--fit", "translate(" + ((300 - f[0]) / 6).toFixed(2) + "%," + ((200 - f[1]) / 4).toFixed(2) + "%) scale(" + k.toFixed(3) + ")");
+  });
+})();
+</script>
 <script>
 (function(){
   /* today: mark the week and name today's session under the hero */
