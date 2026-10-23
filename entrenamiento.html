@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <link rel="icon" type="image/svg+xml" href="tronco.svg">
 <meta name="color-scheme" content="dark">
-<meta name="theme-color" content="#10151b">
+<meta name="theme-color" content="#f3f3f1">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Cronómetro Troncos 12kg</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,13 +12,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..600&family=Instrument+Serif&display=swap" rel="stylesheet">
 <style>
   .title-emoji{ height:0.85em; width:auto; vertical-align:-0.06em; margin-left:0.12em; }
-  /* same type and day colours as the plan, on the drawings own navy ground so their box disappears */
+  /* same paper, ink and day colours as the plan page */
   :root{
-    --bg:#10151b; --surface:#171d24; --surface-2:#1e2630;
-    --ink:#f4f2ee; --ink-soft:#a9b6c0; --line:#2a333c;
-    --accent:#6aa3ee; --accent-ink:#10151b; --accent-soft:#1e3250;
-    --accent2:#ff7a5c; --accent2-ink:#10151b; --accent2-soft:#3a1f18;
-    --good:#5fbe8d; --good-ink:#10151b; --good-soft:#163227;
+    --bg:#f3f3f1; --surface:#e6e6e3; --surface-2:#dcdcd8;
+    --ink:#151515; --ink-soft:#474744; --line:#d0d0cc;
+    --accent:#2a5da8; --accent-ink:#ffffff; --accent-soft:#dbe4f2;
+    --accent2:#d1361b; --accent2-ink:#ffffff; --accent2-soft:#f6dcd5;
+    --good:#2f7a54; --good-ink:#ffffff; --good-soft:#d9ece1;
     --shadow:none;
   }
   *{box-sizing:border-box;}
@@ -144,7 +144,7 @@
     font-size:8.5cqmin; line-height:1.05; letter-spacing:0.02em; white-space:pre-line; text-align:center; max-width:60%;
   }
   /* after the gate, everything but the ring fades in once the ring has moved into place */
-  .stage-stack.revealing > *:not(.ring-wrap){ animation:revealUp 0.45s ease 0.35s both; }
+  .stage-stack.revealing > *:not(.water), .stage-stack.revealing .water > *:not(.ring-wrap){ animation:revealUp 0.45s ease 0.35s both; }
   @keyframes revealUp{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:none; } }
   .photo-btn{ position:relative; background:none; border:none; padding:0; cursor:pointer; -webkit-tap-highlight-color:transparent; }
   .photo-btn .info-badge{
@@ -241,8 +241,8 @@
   .progress-ticks{ position:absolute; inset:0; pointer-events:none; }
   .progress-tick{ position:absolute; top:0; bottom:0; width:2px; margin-left:-1px; background:var(--bg); }
   .progress-tick.block{ width:4px; margin-left:-2px; }
-  .progress-rest{ position:absolute; top:0; bottom:0; background:rgba(231,236,239,0.28); }
-  .seg-dot{ width:8px; height:8px; border-radius:50%; background:rgba(159,176,188,0.3); transition:background 0.3s ease, transform 0.3s ease; }
+  .progress-rest{ position:absolute; top:0; bottom:0; background:rgba(0,0,0,0.14); }
+  .seg-dot{ width:8px; height:8px; border-radius:50%; background:rgba(0,0,0,0.18); transition:background 0.3s ease, transform 0.3s ease; }
   .seg-dot.done{ background:var(--seg-color); }
   .seg-dot.current{ background:transparent; box-shadow:inset 0 0 0 2px var(--seg-color); transform:scale(1.3); }
   #screen-player .topbar{ margin-bottom:6px; }
@@ -298,7 +298,7 @@
   .app[data-day="c"] .cta:not(.secondary):not(.ghost){ color:var(--good-ink); }
   .cta.ghost{ border:0; background:var(--surface); color:var(--ink); }
   .auto-btn.on{ color:var(--accent-ink); }
-  .app[data-day="b"] .auto-btn.on, .app[data-day="c"] .auto-btn.on{ color:#0a0a0a; }
+  .app[data-day="b"] .auto-btn.on, .app[data-day="c"] .auto-btn.on{ color:#fff; }
   .block-tag, .ex-target, .nav-row button, .topbar .back{ font-size:0.875rem; }
   .ring-label{ letter-spacing:0; }
   .ex-name{ letter-spacing:-0.035em; }
@@ -306,8 +306,56 @@
   .stat{ border:0; }
   .stat .l{ font-size:0.8125rem; letter-spacing:0; }
   .done .check{ background:var(--good); color:var(--good-ink); }
-  .big-photo{ background:transparent; }
+  .big-photo{ background:transparent; filter:invert(1) grayscale(1) brightness(1.12) contrast(1.15); mix-blend-mode:multiply; }
   @media (prefers-reduced-motion: reduce){ .day-card, .cta{ transition:none; } }
+
+  /* ---- waterline: the exercise on paper above, the count on the day colour below ---- */
+  .topbar .back{ background:none; border:0; cursor:pointer; color:var(--ink-soft); padding:6px 0; }
+  .topbar .back:hover{ color:var(--ink); }
+  .app:has(#screen-player:not([hidden])){ padding-bottom:0; }
+  #screen-player .seg-rail{ top:44px; transform:none; }
+  #screen-player .stage-stack > .water{
+    flex:1 1 auto; min-height:0; align-self:stretch; margin:6px -18px 0;
+    background:var(--day-color); color:#fff;
+    display:flex; flex-direction:column; align-items:stretch; gap:10px;
+    padding:14px 18px max(14px, env(safe-area-inset-bottom));
+  }
+  .water > *{ flex-shrink:0; }
+  #screen-player .water .ring-wrap{
+    flex:1 1 0; min-height:96px; width:100%; max-width:none; max-height:none; aspect-ratio:auto; margin:0;
+    position:relative; container-type:size; padding-bottom:16px;
+  }
+  #screen-player .water .ring-wrap svg{ position:absolute; left:0; right:0; bottom:0; width:100%; height:8px; transform:none; }
+  .water .ring-bg{ stroke:rgba(255,255,255,0.28); stroke-width:8; }
+  .water .ring-fg{ stroke:#fff !important; stroke-width:8; stroke-linecap:butt; }
+  #screen-player .water .ring-num{
+    position:absolute; inset:0 0 16px; align-items:flex-start; justify-content:flex-end;
+    font-family:"Instrument Serif", Georgia, serif; font-weight:400; letter-spacing:-0.03em;
+    font-size:min(82cqh, 60cqw); color:#fff;
+  }
+  #screen-player .water .ring-val{ line-height:0.78; }
+  #screen-player .water .ring-label{
+    position:absolute; top:0; left:0; margin:0; font-family:"Bricolage Grotesque", sans-serif;
+    font-size:0.9375rem; font-weight:500; color:#fff; opacity:.9;
+  }
+  #screen-player .water .ring-wrap.intro{ border-radius:0; }
+  #screen-player .water .ring-wrap.intro .ring-val{
+    font-family:"Instrument Serif", Georgia, serif; font-weight:400; text-transform:none; text-align:left;
+    font-size:min(30cqh, 15cqw); line-height:0.95; max-width:none; letter-spacing:-0.02em;
+  }
+  #screen-player .water .ring-wrap.intro svg{ display:none; }
+  .water .phase-note{ color:#fff; max-width:none; font-size:0.9375rem; }
+  #screen-player .water .cta{ max-width:none; }
+  #screen-player .water .cta:not(.secondary):not(.ghost){ background:#fff; color:var(--ink); }
+  #screen-player .water .cta.secondary{ background:rgba(255,255,255,0.2); color:#fff; }
+  #screen-player .water .cta.ghost{ background:transparent; color:#fff; box-shadow:inset 0 0 0 2px rgba(255,255,255,0.6); }
+  #screen-player .water .control-row{ max-width:none; }
+  #screen-player .water .nav-row{ max-width:none; margin-top:0; }
+  #screen-player .water .nav-row button{ color:#fff; opacity:.9; }
+  #screen-player .water .nav-row button:hover{ opacity:1; }
+  #screen-player .water .nav-row button:disabled{ opacity:.4; }
+  .water .cta.nudge{ --day-color:#fff; }
+  @media (min-width:520px){ #screen-player .stage-stack > .water{ margin-left:0; margin-right:0; } }
 </style>
 </head>
 <body>
@@ -327,7 +375,7 @@
   <!-- PLAYER SCREEN -->
   <section id="screen-player" class="screen" hidden>
     <div class="topbar">
-      <button class="back" id="btn-exit" style="background:none;border:none;cursor:pointer;font-family:"Bricolage Grotesque",sans-serif;">← Salir</button>
+      <button class="back" id="btn-exit" type="button">← Salir</button>
       <span class="clock" id="player-clock">00:00</span>
       <span class="daytag-wrap"><img class="day-log" src="tronco.svg" alt="" aria-hidden="true"><span class="daytag" id="player-daytag"></span></span>
     </div>
@@ -351,10 +399,11 @@
         <span class="side-tag" id="st-side" hidden></span>
         <span class="ex-target" id="st-target"></span>
 
+        <div class="water">
         <div class="ring-wrap" id="ring-wrap" hidden>
-          <svg viewBox="0 0 100 100">
-            <circle class="ring-bg" cx="50" cy="50" r="42"></circle>
-            <circle class="ring-fg" id="ring-fg" cx="50" cy="50" r="42"></circle>
+          <svg viewBox="0 0 263.9 8" preserveAspectRatio="none" aria-hidden="true">
+            <line class="ring-bg" x1="0" y1="4" x2="263.9" y2="4"></line>
+            <line class="ring-fg" id="ring-fg" x1="0" y1="4" x2="263.9" y2="4"></line>
           </svg>
           <div class="ring-num"><span class="ring-val" id="ring-num">0</span><span class="ring-label" id="ring-label"></span></div>
         </div>
@@ -372,6 +421,7 @@
         <div class="nav-row">
           <button id="btn-prev">‹ Anterior</button>
           <button id="btn-skip-ex">Saltar ejercicio ›</button>
+        </div>
         </div>
       </div>
     </div>
@@ -670,7 +720,8 @@
   var btnSkipEx = $("btn-skip-ex"), btnPrev = $("btn-prev"), btnExit = $("btn-exit");
   var btnSkipWarmup = $("btn-skip-warmup"), btnAuto = $("btn-auto");
 
-  var RING_CIRC = 2 * Math.PI * 42;
+  var stageStack = document.querySelector("#screen-player .stage-stack");
+  var RING_CIRC = 2 * Math.PI * 42; // length of the progress bar in its viewBox
   ringFg.style.strokeDasharray = RING_CIRC.toFixed(1);
 
   /* ================= START SCREEN ================= */
@@ -830,7 +881,7 @@
 
     // the first step of each warm-up / block / cool-down is preceded by a start gate
     ringWrap.classList.remove("intro");
-    ringWrap.parentNode.classList.remove("intro-mode");
+    stageStack.classList.remove("intro-mode");
     var firstOfBlock = state.index === 0 || state.sequence[state.index-1].blockIdx !== step.blockIdx;
     if(firstOfBlock && !state.introsSeen[step.blockIdx]){ renderIntro(step); return; }
 
@@ -896,7 +947,7 @@
       step.blockLabel === COOLDOWN.label ? "Iniciar\nestiramientos" :
       "Iniciar\nbloque";
     ringWrap.classList.add("intro", "tappable");
-    ringWrap.parentNode.classList.add("intro-mode");
+    stageStack.classList.add("intro-mode");
     drawRing(label, 1, "");
     armAuto(AUTO_GATE_DELAY, startFromIntro, true);
     elPhaseNote.hidden = false;
@@ -913,7 +964,7 @@
     // the session clock only starts once the first gate is tapped
     if(!state.sessionStart){ state.sessionStart = Date.now(); startClock(); }
     renderStep();
-    var stack = ringWrap.parentNode;
+    var stack = stageStack;
     stack.classList.remove("revealing");
     void stack.offsetWidth;
     stack.classList.add("revealing");
