@@ -929,7 +929,7 @@
       card.innerHTML =
         '<span class="dc-top"><span class="letter">' + key + '</span>' +
           '<span class="title">' + day.label.split(" — ")[1] + (key === suggested ? '<span class="badge">Hoy</span>' : '') + '</span></span>' +
-        '<span class="strip">' + firsts.map(figureHTML).join("") + '</span>' +
+        '<span class="strip">' + firsts.map(function(id){ return figureHTML(id); }).join("") + '</span>' +
         '<span class="meta">' + fmtMin(estimateSeconds(key)) + ' · ' + blocksCount + ' bloques + calentamiento</span>';
       card.setAttribute("aria-label", day.label + (key === suggested ? ", sugerido para hoy" : ""));
       card.addEventListener("click", function(){ startDay(key); });
