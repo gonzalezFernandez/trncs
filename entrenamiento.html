@@ -409,7 +409,9 @@
   .day-card.a .letter, .day-card.b .letter, .day-card.c .letter{ font-size:2.6rem; width:auto; line-height:.8; }
   .day-card .title{ font-weight:600; font-size:1.0625rem; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
   .day-card .badge{ margin:0; background:var(--ink); color:#fff; font-size:0.75rem; padding:3px 8px; }
-  .day-card .strip{ display:flex; align-items:flex-end; gap:14px; flex-wrap:wrap; }
+  /* three equal columns: each exercise centred in its third of the card */
+  .day-card .strip{ display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:10px; align-items:end; }
+  .day-card .strip .fig{ justify-self:center; }
   .day-card .strip .fig{ display:block; overflow:hidden; flex:0 0 auto; }
   .day-card .strip img{ display:block; max-width:none; height:auto; }
   .day-card .meta{ color:var(--ink-soft); opacity:1; margin:0; }
