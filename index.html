@@ -4,497 +4,320 @@
 <meta charset="utf-8">
 <link rel="icon" type="image/svg+xml" href="tronco.svg">
 <meta name="color-scheme" content="light">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#f3f3f1">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Protocolo Troncos 12 kg</title>
-<meta name="description" content="Plan de entrenamiento en casa de 6 días a la semana con un kettlebell de 12 kg, una banda elástica y una esterilla.">
+<meta name="description" content="Plan de fuerza en casa de 6 días con un kettlebell de 12 kg: 29 ejercicios ilustrados, tres sesiones, progresión y seguimiento.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..600&family=Instrument+Serif&display=swap" rel="stylesheet">
 <script>document.documentElement.classList.add("js");</script>
 <style>
   :root{
-    --bg:#ffffff; --surface:#f1f1ee; --ink:#0a0a0a; --muted:#55555a;
-    --accent:#2436ff; --accent-ink:#ffffff;
-    --a:#2436ff;  --a-ink:#ffffff;
-    --b:#ff3b1f;  --b-ink:#0a0a0a;
-    --c:#0d7a45;  --c-ink:#ffffff;
-    --black:#0a0a0a; --black-ink:#ffffff;
-    --navy:#050a5c; --navy-ink:#ffffff;
-    --photo:#10151b;
-    --m: clamp(16px, 2.6vw, 40px);
-    --gap: clamp(12px, 2vw, 32px);
+    --bg:#f3f3f1; --surface:#e6e6e3; --ink:#151515; --muted:#474744;
+    --a:#2a5da8; --b:#d1361b; --c:#2f7a54;
+    --m: clamp(16px, 3vw, 48px);
+    --gap: clamp(16px, 2.2vw, 32px);
     --s-small: 0.875rem;
-    --s-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
-    --s-lead: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
-    --s-head: clamp(2rem, 1.3rem + 3.2vw, 4rem);
-    --s-mega: clamp(3.75rem, 1rem + 9vw, 9rem);
+    --s-body: clamp(1.0625rem, 1rem + 0.2vw, 1.1875rem);
+    --s-lead: clamp(1.5rem, 1.2rem + 1vw, 2.125rem);
+    --s-head: clamp(2.75rem, 1.6rem + 4vw, 5.25rem);
+    --s-display: clamp(4.5rem, 1.5rem + 10vw, 11rem);
+    --serif: "Instrument Serif", Georgia, serif;
+    --sans: "Bricolage Grotesque", system-ui, sans-serif;
     --ease: cubic-bezier(.2,.7,.1,1);
   }
   *{ box-sizing:border-box; }
-  html{ scroll-behavior:smooth; scroll-padding-top:64px; }
+  html{ scroll-behavior:smooth; scroll-padding-top:72px; }
   html,body{ margin:0; padding:0; }
-  body{
-    background:var(--bg); color:var(--ink);
-    font-family:"Bricolage Grotesque", system-ui, sans-serif; font-optical-sizing:auto;
-    font-size:var(--s-body); line-height:1.5; -webkit-font-smoothing:antialiased;
-    font-variant-numeric: tabular-nums;
-  }
-  h1,h2,h3{ margin:0; font-weight:600; letter-spacing:-0.035em; line-height:0.95; text-wrap:balance; }
+  body{ background:var(--bg); color:var(--ink); font-family:var(--sans); font-size:var(--s-body); line-height:1.5; -webkit-font-smoothing:antialiased; font-variant-numeric:tabular-nums; }
+  h1,h2,h3{ font-family:var(--serif); font-weight:400; margin:0; letter-spacing:-0.02em; line-height:0.95; text-wrap:balance; }
   p{ margin:0; }
-  a{ color:inherit; text-decoration-thickness:2px; text-underline-offset:3px; }
-  a:focus-visible, button:focus-visible, summary:focus-visible{ outline:3px solid currentColor; outline-offset:3px; }
-  ::selection{ background:var(--ink); color:var(--bg); }
-  sup{ font-size:0.65em; line-height:0; }
-  img{ max-width:100%; height:auto; display:block; }
-  .g12{ display:grid; grid-template-columns:repeat(12, minmax(0,1fr)); column-gap:var(--gap); }
-  .lead{ font-size:var(--s-lead); line-height:1.3; font-weight:500; letter-spacing:-0.01em; }
-  .mega{ font-size:var(--s-mega); line-height:0.88; letter-spacing:-0.05em; }
-  .head{ font-size:var(--s-head); }
-  .small{ font-size:var(--s-small); }
+  a{ color:inherit; text-decoration-thickness:1.5px; text-underline-offset:3px; }
+  a:focus-visible, button:focus-visible, summary:focus-visible{ outline:2px solid var(--ink); outline-offset:3px; }
+  img{ display:block; max-width:100%; height:auto; }
+  sup{ font-size:.65em; line-height:0; }
+  .lead{ font-family:var(--serif); font-size:var(--s-lead); line-height:1.15; letter-spacing:-0.01em; }
+  .muted{ color:var(--muted); }
+  .wrap{ padding:0 var(--m); }
+  section{ padding:clamp(96px, 12vw, 200px) var(--m) 0; }
+  .dot{ display:inline-block; width:.62em; height:.62em; border-radius:50%; margin-right:.4em; vertical-align:.04em; background:var(--ink); }
+  .dot.a{ background:var(--a); } .dot.b{ background:var(--b); } .dot.c{ background:var(--c); }
+  .dot.w, .dot.k{ background:transparent; border:2px solid var(--ink); }
+  /* the drawings: inverted to ink and multiplied into the paper, so their navy ground vanishes */
+  .im{ background:var(--bg); overflow:hidden; }
+  .im img{ width:100%; filter:invert(1) grayscale(1) brightness(1.12) contrast(1.15); mix-blend-mode:multiply; transition:transform .6s var(--ease); }
 
-  /* ---------- bar ---------- */
-  .bar{
-    position:sticky; top:0; z-index:40; background:var(--bg); color:var(--ink);
-    display:flex; align-items:center; gap:clamp(12px,2vw,28px); padding:10px var(--m); min-height:60px;
-  }
-  .mark{ display:flex; align-items:center; gap:10px; font-weight:600; font-size:var(--s-body); letter-spacing:-0.03em; text-decoration:none; }
-  .mark img{ width:28px; height:28px; }
-  .bar nav{ display:flex; gap:clamp(10px,1.6vw,24px); margin-left:auto; }
-  .bar nav a{ text-decoration:none; font-weight:500; padding:6px 2px; }
+  /* bar */
+  .bar{ position:sticky; top:0; z-index:30; background:var(--bg); display:flex; align-items:center; gap:clamp(14px,2vw,32px); padding:12px var(--m); }
+  .mark{ font-family:var(--serif); font-size:1.75rem; text-decoration:none; line-height:1; display:flex; align-items:center; gap:8px; }
+  .mark img{ width:24px; height:24px; }
+  .bar nav{ margin-left:auto; display:flex; gap:clamp(12px,1.8vw,28px); }
+  .bar nav a{ text-decoration:none; padding:6px 0; }
   .bar nav a:hover{ text-decoration:underline; }
-  .bar nav .lt{ display:none; }
-  .btn{
-    display:inline-flex; align-items:center; gap:10px; background:var(--accent); color:var(--accent-ink);
-    font:600 1rem/1 "Bricolage Grotesque", sans-serif; text-decoration:none; padding:14px 18px; border:0; cursor:pointer;
-    transition:transform .2s var(--ease), background-color .2s;
-  }
-  .btn:hover{ background:var(--ink); color:var(--bg); }
+  .btn{ display:inline-flex; align-items:center; gap:10px; background:var(--ink); color:var(--bg); text-decoration:none; font:600 1rem/1 var(--sans); padding:15px 20px; border:0; cursor:pointer; transition:transform .2s var(--ease), background-color .2s; }
+  .btn:hover{ background:var(--b); }
   .btn:active{ transform:scale(.97); }
-  .btn svg{ width:18px; height:18px; flex:0 0 auto; }
+  .btn.ghost{ background:transparent; color:var(--ink); border:2px solid var(--ink); padding:13px 18px; }
+  .btn.ghost:hover{ background:var(--ink); color:var(--bg); }
+  .btn svg{ width:16px; height:16px; }
 
-  /* ---------- hero: waterline ---------- */
-  .hero{ position:relative; height:calc(100svh - 60px); min-height:560px; background:var(--bg); overflow:hidden; }
-  .hero::after{ content:""; position:absolute; left:0; right:0; bottom:0; height:50%; background:var(--a); }
-  .wl{ position:absolute; inset:0; z-index:1; font-size:clamp(4.5rem, 1rem + 13vw, 13.5rem); }
-  .wl h1{
-    position:absolute; left:0; right:0; top:calc(50% - 1.39em); margin:0; color:var(--a);
-    text-align:center; font-size:1em; line-height:0.9; letter-spacing:-0.055em; font-weight:600;
-  }
-  .wl .ln:nth-child(2) > span{
-    background:linear-gradient(var(--a) 50%, var(--navy) 50%); -webkit-background-clip:text; background-clip:text; color:transparent; /* taste-skill-ignore: hard two-colour waterline split, not a blend */
-  }
-  .wl .ln{ display:block; overflow:hidden; padding-bottom:0.04em; }
-  .wl .ln > span{ display:block; }
-  .hero-foot{
-    position:absolute; z-index:2; left:var(--m); right:var(--m); bottom:clamp(24px,5vh,48px);
-    display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:20px; color:var(--a-ink);
-  }
-  .hero-foot p{ font-size:var(--s-lead); line-height:1.3; max-width:34ch; font-weight:500; }
-  .hero-cta{
-    background:var(--a-ink); color:var(--a); font-size:var(--s-lead); padding:20px 26px;
-    animation:nudge 1.6s var(--ease) infinite;
-  }
-  .hero-cta:hover{ background:var(--navy); color:#fff; }
-  .hero-cta small{ display:block; font-size:0.875rem; font-weight:500; margin-top:4px; opacity:.85; }
-  @keyframes nudge{ 0%,60%,100%{ transform:scale(1); } 30%{ transform:scale(1.04); } }
+  /* hero */
+  .hero{ padding:clamp(24px,4vw,56px) var(--m) 0; display:grid; grid-template-columns:5fr 7fr; gap:var(--gap); align-items:end; min-height:calc(100svh - 72px); padding-bottom:clamp(32px,5vw,64px); }
+  .hero h1{ font-size:var(--s-display); line-height:0.86; letter-spacing:-0.035em; }
+  .hero .lead{ margin-top:28px; max-width:22ch; }
+  .hero .acts{ display:flex; flex-wrap:wrap; gap:12px; margin-top:32px; }
+  .hero .today{ margin-top:28px; font-size:var(--s-body); }
+  .hero .today b{ font-weight:600; }
+  .hero figure{ margin:0; }
+  .hero figure .im img{ animation:breathe 9s ease-in-out infinite alternate; }
+  @keyframes breathe{ from{ transform:scale(1); } to{ transform:scale(1.04); } }
+  .hero figcaption{ display:flex; justify-content:space-between; gap:16px; margin-top:10px; font-size:var(--s-small); color:var(--muted); }
 
-  /* ---------- chapters ---------- */
-  .ch{ padding:clamp(88px, 11vw, 168px) var(--m); background:var(--f, var(--bg)); color:var(--fi, var(--ink)); position:relative; }
-  .ch.a{ --f:var(--a); --fi:var(--a-ink); }
-  .ch.b{ --f:var(--b); --fi:var(--b-ink); }
-  .ch.c{ --f:var(--c); --fi:var(--c-ink); }
-  .ch.k{ --f:var(--black); --fi:var(--black-ink); }
-  .ch.n{ --f:var(--navy); --fi:var(--navy-ink); }
-  .ch.s{ --f:var(--surface); --fi:var(--ink); }
-  .ch .muted{ color:color-mix(in srgb, var(--fi, var(--ink)) 72%, var(--f, var(--bg))); }
+  /* principles: an index of five ideas */
+  .principles{ display:grid; grid-template-columns:4fr 8fr; gap:var(--gap); }
+  .principles h2, .sh h2{ font-size:var(--s-head); }
+  .principles .side p{ margin-top:20px; max-width:30ch; }
+  .principles ul{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:40px var(--gap); }
+  .principles li h3{ font-size:var(--s-lead); line-height:1.05; margin-bottom:10px; }
+  .principles li:last-child{ grid-column:1 / -1; max-width:50%; }
 
-  /* intro tiles */
-  .intro{ padding:8px; background:var(--bg); }
-  .board{ display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); grid-template-rows:38svh 38svh; gap:8px; }
-  .tile{ position:relative; overflow:hidden; padding:20px; display:flex; flex-direction:column; justify-content:flex-end; }
-  .t-slogan{ grid-column:1 / 9; grid-row:1 / 3; background:var(--black); color:#fff; padding:clamp(20px,2.4vw,36px); }
-  .t-slogan h2{ font-size:var(--s-mega); line-height:0.88; letter-spacing:-0.05em; }
-  .t-word{ grid-column:9 / 13; grid-row:1; background:var(--surface); }
-  .t-word strong{ font-size:var(--s-mega); line-height:0.85; letter-spacing:-0.06em; font-weight:600; }
-  .t-word span{ font-weight:500; margin-top:8px; }
-  .t-pic{ grid-column:9 / 13; grid-row:2; background:var(--photo); padding:0; }
-  .t-pic img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; animation:drift 18s ease-in-out infinite alternate; }
-  @keyframes drift{ from{ transform:scale(1.02); } to{ transform:scale(1.12) translateX(-2%); } }
-  .t-text{ grid-column:1 / 13; grid-row:3; background:var(--bg); display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); gap:var(--gap); padding:clamp(40px,6vw,96px) calc(var(--m) - 8px); }
-  .t-text .kit{ grid-column:1 / 6; font-size:var(--s-lead); line-height:1.3; font-weight:500; }
-  .t-text .kit ul{ list-style:none; margin:14px 0 0; padding:0; }
-  .t-text .kit li{ font-size:var(--s-head); font-weight:600; letter-spacing:-0.035em; line-height:1.05; }
-  .t-text .kit-h{ font-size:var(--s-lead); }
-  .t-text > p{ grid-column:7 / 13; font-size:var(--s-lead); line-height:1.38; align-self:end; }
+  /* week */
+  .week-h{ display:grid; grid-template-columns:4fr 8fr; gap:var(--gap); align-items:end; margin-bottom:40px; }
+  .week-h p{ max-width:60ch; }
+  .week{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(7, minmax(0,1fr)); gap:8px; }
+  .week li a, .week li > span{ display:flex; flex-direction:column; justify-content:space-between; min-height:200px; padding:16px; background:var(--surface); text-decoration:none; transition:background-color .2s, transform .2s var(--ease); }
+  .week li a:hover{ transform:translateY(-4px); }
+  .week .dn{ font-family:var(--serif); font-size:clamp(1.75rem, 1rem + 1.4vw, 2.5rem); line-height:1; }
+  .week .dd{ font-size:var(--s-small); line-height:1.35; }
+  .week .dd b{ display:block; font-family:var(--serif); font-weight:400; font-size:clamp(3rem, 2rem + 2.4vw, 4.75rem); line-height:.9; margin-bottom:6px; }
+  .week li.a b{ color:var(--a); } .week li.b b{ color:var(--b); } .week li.c b{ color:var(--c); }
+  .week li.today a, .week li.today > span{ background:var(--ink); color:var(--bg); }
+  .week li.today.a b{ color:#8fb4ee; } .week li.today.b b{ color:#ff8a6e; } .week li.today.c b{ color:#7fd0a6; }
+  .week .hoy{ display:none; font-weight:600; }
+  .week li.today .hoy{ display:block; margin-top:6px; }
 
-  /* principles */
-  .principles .g12{ row-gap:48px; }
-  .p-head{ grid-column:1 / 5; align-self:start; position:sticky; top:96px; }
-  .p-head p{ margin-top:20px; }
-  .p-list{ grid-column:6 / 13; list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:clamp(36px,4vw,56px); }
-  .p-list h3{ font-size:var(--s-lead); line-height:1.15; letter-spacing:-0.02em; margin-bottom:10px; }
-  .p-list p{ max-width:56ch; }
-
-  /* week poster */
-  .week-head{ display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap:20px; margin-bottom:clamp(40px,5vw,72px); }
-  .week-head p{ max-width:52ch; }
-  .poster{ list-style:none; margin:0 calc(-1 * var(--m)); padding:0; }
-  .poster li{ display:flex; align-items:baseline; justify-content:space-between; gap:20px; padding:0 var(--m); transition:background-color .25s; }
-  .poster .dn{ font-size:var(--s-mega); font-weight:600; letter-spacing:-0.055em; line-height:0.98; }
-  .poster .dd{ font-size:var(--s-lead); font-weight:500; text-align:right; }
-  .poster a{ text-decoration:none; }
-  .poster li:hover{ color:var(--hov, var(--fi)); }
-  .poster li.a{ --hov:#8e9bff; } .poster li.b{ --hov:var(--b); } .poster li.c{ --hov:#3fd18a; }
-  .poster li.rest .dn{ color:color-mix(in srgb, #fff 45%, var(--black)); }
-  .poster li.today{ background:var(--t); color:var(--ti); }
-  .poster li.today:hover{ color:var(--ti); }
-  .poster li.a.today{ --t:var(--a); --ti:var(--a-ink); }
-  .poster li.b.today{ --t:var(--b); --ti:var(--b-ink); }
-  .poster li.c.today{ --t:var(--c); --ti:var(--c-ink); }
-  .poster li.rest.today{ --t:#fff; --ti:var(--ink); }
-  .poster li.rest.today .dn{ color:var(--ink); }
-  .poster .hoy{ display:none; font-weight:600; }
-  .poster li.today .hoy{ display:inline; }
-
-  /* exercise lists (warm-up, days, cool-down) */
-  .exlist{ display:flex; flex-direction:column; gap:6px; }
-  details.ex{ background:color-mix(in srgb, var(--f, var(--bg)) 86%, var(--rowmix, #000)); }
-  .ch.s details.ex, .ch:not([class*=" a"]):not(.b):not(.c):not(.k):not(.n) details.ex{ --rowmix:#000; }
-  .ch.b details.ex{ background:color-mix(in srgb, var(--b) 84%, #fff); }
-  details.ex > summary{
-    cursor:pointer; list-style:none; display:flex; align-items:center; gap:14px; padding:12px 16px;
-    font-weight:600; font-size:var(--s-body); line-height:1.25; transition:background-color .2s;
-  }
-  details.ex > summary:hover{ background:color-mix(in srgb, currentColor 10%, transparent); }
-  details.ex > summary::-webkit-details-marker{ display:none; }
-  details.ex > summary .chev{ margin-left:auto; font-size:0.9rem; transition:transform .25s var(--ease); }
-  details.ex[open] > summary .chev{ transform:rotate(90deg); }
-  .exbody{ padding:4px 16px 20px; }
-  .exbody p{ margin:0 0 12px; max-width:64ch; }
-  .exbody strong{ font-weight:600; }
-  .ex-photo-wrap{ background:var(--photo); margin:0 0 16px; max-width:520px; }
-  .ex-photo{ width:100%; }
-  .mistake{ background:color-mix(in srgb, currentColor 12%, transparent); padding:12px 14px; margin-top:12px; max-width:64ch; }
-  .mistake b{ font-weight:600; }
-  .ex-icon{ width:44px; height:44px; flex:0 0 auto; color:inherit; }
-  .ex-icon svg{ width:100%; height:100%; display:block; overflow:visible; }
-  @keyframes sway        { 0%,100%{ transform: rotate(-16deg); } 50%{ transform: rotate(16deg); } }
-  @keyframes swayWide    { 0%,100%{ transform: rotate(-28deg); } 50%{ transform: rotate(28deg); } }
-  @keyframes spin        { from{ transform: rotate(0deg); } to{ transform: rotate(360deg); } }
-  @keyframes bobY        { 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(9px); } }
-  @keyframes bobYup      { 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-11px); } }
-  @keyframes pulse       { 0%,100%{ transform: scale(1); } 50%{ transform: scale(1.08); } }
-  @keyframes curl        { 0%,100%{ transform: rotate(0deg); } 50%{ transform: rotate(-60deg); } }
-  @keyframes extend      { 0%,100%{ transform: rotate(0deg); } 50%{ transform: rotate(45deg); } }
-  @keyframes reach       { 0%,100%{ transform: scale(.7); opacity:.55; } 50%{ transform: scale(1); opacity:1; } }
-  @keyframes shiftX      { 0%,100%{ transform: translateX(0); } 50%{ transform: translateX(9px); } }
-  @keyframes stepY       { 0%,100%{ transform: translateY(0) rotate(0deg); } 50%{ transform: translateY(-3px) rotate(-7deg); } }
-  @keyframes thrusterLegs{ 0%{ transform: translateY(0); } 35%{ transform: translateY(9px); } 55%{ transform: translateY(9px); } 100%{ transform: translateY(0); } }
-  @keyframes thrusterArm { 0%{ transform: translateY(0); } 45%{ transform: translateY(0); } 70%{ transform: translateY(-14px); } 100%{ transform: translateY(0); } }
-
-  /* warm-up / cool-down */
-  .split{ row-gap:40px; }
-  .split .sh{ grid-column:1 / 6; }
-  .split .sh p{ margin-top:20px; max-width:40ch; }
-  .split .exlist{ grid-column:6 / 13; }
-
-  /* day chapters */
-  .day-head{ row-gap:32px; align-items:end; margin-bottom:clamp(56px,7vw,112px); }
-  .day-title{ grid-column:1 / 8; }
-  .day-title .lead{ margin-top:18px; font-size:var(--s-head); font-weight:600; letter-spacing:-0.035em; line-height:1; }
-  .day-pic{ grid-column:8 / 13; grid-row:1 / 3; margin:0; background:var(--photo); align-self:stretch; display:flex; align-items:center; }
-  .day-dek{ grid-column:1 / 7; font-size:var(--s-lead); line-height:1.35; }
-  .day-body{ row-gap:56px; align-items:start; }
-  .plan{ grid-column:1 / 6; position:sticky; top:84px; }
-  .howto{ grid-column:7 / 13; }
-  .howto-h{ font-size:var(--s-lead); letter-spacing:-0.02em; margin-bottom:20px; }
-  .block-label{ font-weight:600; font-size:var(--s-body); margin:36px 0 10px; }
+  /* sessions */
+  .s-head{ display:grid; grid-template-columns:7fr 5fr; gap:var(--gap); align-items:end; margin-bottom:clamp(40px,5vw,72px); }
+  .s-head h2{ font-size:var(--s-head); }
+  .s-dek{ max-width:52ch; }
+  .s-head h2 .dot{ width:.42em; height:.42em; vertical-align:.12em; }
+  .s-body{ display:grid; grid-template-columns:7fr 5fr; gap:calc(var(--gap) * 2); align-items:start; }
+  .block-label{ font-family:var(--serif); font-size:var(--s-lead); line-height:1.1; margin:44px 0 12px; }
   .block-label:first-child{ margin-top:0; }
   .plan table{ width:100%; border-collapse:collapse; }
-  .plan th{ text-align:left; font-weight:500; font-size:var(--s-small); padding:0 10px 8px 0; opacity:.85; }
-  .plan td{ padding:10px 10px 10px 0; border-top:1.5px solid color-mix(in srgb, currentColor 35%, transparent); vertical-align:top; line-height:1.3; }
-  .plan td.num{ min-width:6.5em; }
+  .plan th{ text-align:left; font-weight:500; font-size:var(--s-small); color:var(--muted); padding:0 12px 8px 0; }
+  .plan td{ padding:12px 12px 12px 0; border-top:1px solid color-mix(in srgb, var(--ink) 22%, transparent); vertical-align:top; line-height:1.35; }
   .plan td:first-child{ font-weight:600; }
-  .plan .note{ font-size:var(--s-small); margin-top:12px; max-width:52ch; line-height:1.45; }
+  .plan td.num{ min-width:6.5em; }
+  .plan .note{ font-size:var(--s-small); color:var(--muted); margin-top:12px; max-width:58ch; }
+  .s-strip{ }
+  .s-strip h3{ font-size:var(--s-lead); margin-bottom:16px; }
+  .thumbs{ list-style:none; margin:0 0 24px; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:4px 16px; }
+  .thumbs a{ display:flex; align-items:center; gap:10px; text-decoration:none; padding:4px 0; }
+  .thumbs a:hover span{ text-decoration:underline; }
+  .thumbs img{ width:96px; flex:0 0 auto; filter:invert(1) grayscale(1) brightness(1.12) contrast(1.15); mix-blend-mode:multiply; }
+  .thumbs span{ font-size:var(--s-small); line-height:1.25; font-weight:500; }
 
-  /* progression: tiles that grow */
-  .grow{ position:relative; display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); column-gap:10px; row-gap:20px; align-items:end; }
-  .grow-head{ grid-column:1 / 6; grid-row:1; align-self:start; }
-  .grow-head p{ margin-top:18px; max-width:44ch; }
-  .stage{ grid-row:1; display:flex; flex-direction:column; }
-  .stage .tl{ display:flex; align-items:center; justify-content:center; background:var(--sf); }
-  .stage .tl img{ width:var(--iw); }
-  .stage h3{ font-size:var(--s-lead); letter-spacing:-0.02em; margin:16px 0 8px; }
-  .stage p{ font-size:var(--s-body); max-width:40ch; }
-  .st1{ grid-column:1 / 3; --sf:var(--a); --iw:78%; } .st1 .tl{ height:26vh; }
-  .st2{ grid-column:3 / 6; --sf:var(--b); --iw:72%; } .st2 .tl{ height:36vh; }
-  .st3{ grid-column:6 / 9; --sf:var(--c); --iw:82%; } .st3 .tl{ height:48vh; }
-  .st4{ grid-column:9 / 13; --sf:var(--black); --iw:88%; } .st4 .tl{ height:62vh; }
-  .grow .stage{ align-self:end; }
-  .grow-row{ display:contents; }
+  /* catalogue */
+  .cat-h{ display:grid; grid-template-columns:7fr 5fr; gap:var(--gap); align-items:end; }
+  .cat-h h2{ font-size:var(--s-head); }
+  .filters{ display:flex; flex-wrap:wrap; gap:8px; margin:40px 0 48px; }
+  .filters button{ font:500 1rem/1 var(--sans); padding:12px 16px; background:var(--surface); color:var(--ink); border:0; cursor:pointer; transition:background-color .2s, color .2s, transform .15s var(--ease); }
+  .filters button:hover{ background:color-mix(in srgb, var(--ink) 14%, var(--surface)); }
+  .filters button:active{ transform:scale(.96); }
+  .filters button[aria-pressed="true"]{ background:var(--ink); color:var(--bg); }
+  .filters .n{ opacity:.6; margin-left:6px; }
+  .plates{ display:grid; grid-auto-flow:row dense; grid-template-columns:repeat(12, minmax(0,1fr)); gap:clamp(40px,5vw,72px) var(--gap); }
+  .plate{ grid-column:span 4; scroll-margin-top:96px; }
+  .plate.lead-plate{ grid-column:span 8; grid-row:span 2; }
+  .plate[hidden]{ display:none; }
+  .plate:hover .im img{ transform:scale(1.04); }
+  .plate h3{ font-size:var(--s-lead); margin:14px 0 12px; }
+  .plate.lead-plate h3{ font-size:var(--s-head); }
+  .plate dl{ display:grid; grid-template-columns:auto 1fr; gap:4px 16px; margin:0; font-size:var(--s-small); }
+  .plate dt{ color:var(--muted); }
+  .plate dd{ margin:0; }
+  .plate:target h3{ text-decoration:underline; text-decoration-thickness:2px; }
+  details.how{ margin-top:14px; }
+  details.how summary{ cursor:pointer; list-style:none; font-weight:600; display:inline-flex; align-items:center; gap:8px; padding:6px 0; }
+  details.how summary::-webkit-details-marker{ display:none; }
+  details.how summary::after{ content:"+"; font-weight:400; font-size:1.3em; line-height:1; transition:transform .25s var(--ease); }
+  details.how[open] summary::after{ transform:rotate(45deg); }
+  details.how .body{ padding-top:8px; }
+  details.how p{ margin:0 0 12px; max-width:62ch; }
+  details.how strong{ font-weight:600; }
+  .mistake{ background:var(--surface); padding:12px 14px; margin-top:12px; max-width:62ch; }
 
-  /* nutrition: stepped figure tiles */
-  .steps{ display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); grid-template-rows:auto auto auto; gap:8px; }
-  .fig{ display:flex; flex-direction:column; justify-content:space-between; padding:clamp(20px,2vw,28px); min-height:0; }
-  .fig .n{ font-size:var(--s-head); font-weight:600; letter-spacing:-0.05em; line-height:0.92; }
-  .fig .u{ font-size:var(--s-lead); font-weight:600; margin-top:6px; }
-  .fig p{ max-width:40ch; margin-top:24px; }
-  .f1{ grid-column:1 / 7; grid-row:1 / 4; background:var(--a); color:var(--a-ink); min-height:76vh; }
-  .nutri-head{ grid-column:7 / 13; grid-row:1; padding:0 0 clamp(24px,4vw,56px) clamp(8px,1vw,16px); align-self:end; }
-  .nutri-head p{ margin-top:16px; max-width:46ch; }
-  .f2{ grid-column:7 / 13; grid-row:2; background:var(--black); color:#fff; }
-  .f3{ grid-column:7 / 11; grid-row:3; background:var(--b); color:var(--b-ink); }
-  .f4{ grid-column:11 / 13; grid-row:3; background:var(--c); color:var(--c-ink); }
+  /* progression */
+  .prog{ display:grid; grid-template-columns:4fr 8fr; gap:var(--gap); }
+  .prog ol{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:48px var(--gap); }
+  .prog li h3{ font-size:var(--s-head); line-height:.9; margin-bottom:14px; }
+  .prog li h3 small{ display:block; font-size:var(--s-lead); margin-top:6px; color:var(--muted); }
+
+  /* nutrition */
+  .nutri-h{ display:grid; grid-template-columns:7fr 5fr; gap:var(--gap); align-items:end; margin-bottom:48px; }
+  .figs{ display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:8px; }
+  .fig{ background:var(--surface); padding:clamp(18px,2vw,28px); display:flex; flex-direction:column; justify-content:space-between; min-height:360px; }
+  .fig .n{ font-family:var(--serif); font-size:clamp(2.75rem, 1.4rem + 3vw, 4.75rem); line-height:.92; letter-spacing:-0.02em; }
+  .fig .u{ font-weight:600; margin-top:8px; }
+  .fig p{ font-size:var(--s-small); margin-top:24px; }
+  .fig:first-child{ background:var(--ink); color:var(--bg); }
 
   /* tracker */
-  .track{ row-gap:40px; }
-  .track .sh{ grid-column:1 / 5; }
-  .track .sh p{ margin-top:20px; }
-  .track .tw{ grid-column:6 / 13; }
+  .track{ display:grid; grid-template-columns:4fr 8fr; gap:var(--gap); align-items:start; }
   table.tracker{ width:100%; border-collapse:collapse; }
-  table.tracker th{ font-weight:600; font-size:var(--s-lead); padding:0 0 14px; text-align:center; }
+  table.tracker th{ font-family:var(--serif); font-weight:400; font-size:var(--s-lead); padding:0 0 12px; text-align:center; }
   table.tracker th:first-child, table.tracker td:first-child{ text-align:left; }
-  table.tracker th.a{ color:#8e9bff; } table.tracker th.b{ color:var(--b); } table.tracker th.c{ color:#3fd18a; }
-  table.tracker td{ padding:6px 0; text-align:center; font-weight:500; }
-  .check{
-    width:44px; height:44px; border:0; cursor:pointer; background:color-mix(in srgb, #fff 12%, var(--navy));
-    color:transparent; display:inline-flex; align-items:center; justify-content:center; padding:0; transition:transform .15s var(--ease), background-color .15s;
-  }
+  table.tracker th.a{ color:var(--a); } table.tracker th.b{ color:var(--b); } table.tracker th.c{ color:var(--c); }
+  table.tracker td{ padding:5px 0; text-align:center; }
+  .check{ width:44px; height:44px; border:0; padding:0; cursor:pointer; background:var(--surface); color:transparent; display:inline-flex; align-items:center; justify-content:center; transition:transform .15s var(--ease), background-color .15s; }
   .check svg{ width:60%; height:60%; }
-  .check:hover{ background:color-mix(in srgb, #fff 22%, var(--navy)); }
+  .check:hover{ background:color-mix(in srgb, var(--ink) 14%, var(--surface)); }
   .check:active{ transform:scale(.9); }
-  .check[aria-checked="true"]{ color:var(--cki); background:var(--ck); }
-  .check.a{ --ck:var(--a); --cki:#fff; } .check.b{ --ck:var(--b); --cki:var(--ink); } .check.c{ --ck:#3fd18a; --cki:var(--ink); }
-  .tracker-foot{ display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:16px; margin-top:24px; }
-  .tracker-reset{ background:none; color:inherit; border:0; padding:10px 0; font:500 1rem/1 "Bricolage Grotesque", sans-serif; text-decoration:underline; text-underline-offset:3px; cursor:pointer; }
+  .check[aria-checked="true"]{ color:#fff; background:var(--ck); }
+  .check.a{ --ck:var(--a); } .check.b{ --ck:var(--b); } .check.c{ --ck:var(--c); }
+  .tracker-foot{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:16px; align-items:center; margin-top:20px; }
+  .tracker-reset{ background:none; border:0; padding:10px 0; font:500 1rem/1 var(--sans); color:inherit; text-decoration:underline; text-underline-offset:3px; cursor:pointer; }
 
-  /* safety bands */
-  .bands{ padding:0; }
-  .band{ padding:56px var(--m); background:var(--bf); color:var(--bi); }
-  .band .g12{ row-gap:16px; }
-  .band .q{ grid-column:1 / 6; font-size:var(--s-lead); line-height:1.2; letter-spacing:-0.02em; font-weight:600; }
-  .band .ans{ grid-column:7 / 13; }
-  .band .ans p + p{ margin-top:14px; }
-  .band:nth-child(odd){ --bf:var(--bg); --bi:var(--ink); }
-  .band:nth-child(even){ --bf:var(--surface); --bi:var(--ink); }
-  .band.lead-band{ --bf:var(--b); --bi:var(--b-ink); min-height:40svh; display:flex; align-items:flex-end; padding-top:clamp(88px,10vw,140px); }
-  .band.lead-band h2{ font-size:var(--s-mega); letter-spacing:-0.055em; line-height:0.9; }
-  .band.myth{ --bf:var(--black); --bi:#fff; }
-  .band.myth .q{ font-size:var(--s-head); line-height:1; letter-spacing:-0.035em; }
+  /* safety */
+  .myth{ display:grid; grid-template-columns:5fr 7fr; gap:var(--gap); background:var(--ink); color:var(--bg); padding:clamp(32px,5vw,72px); margin-top:48px; }
+  .myth h3{ font-size:var(--s-head); }
+  .myth p + p{ margin-top:14px; }
+  .rules{ list-style:none; margin:8px 0 0; padding:0; }
+  .rules li{ display:grid; grid-template-columns:5fr 7fr; gap:var(--gap); padding:32px 0; }
+  .rules h3{ font-size:var(--s-lead); line-height:1.05; }
 
-  /* footer tiles */
-  footer.foot{ padding:8px; background:var(--bg); }
-  .fboard{ display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); gap:8px; }
-  .fboard > *{ padding:clamp(20px,2vw,28px); background:var(--surface); }
-  .f-src{ grid-column:1 / 7; }
-  .f-src h2, .f-nav h2, .f-note h2{ font-size:var(--s-lead); letter-spacing:-0.02em; margin-bottom:14px; }
-  .f-src ol{ margin:0; padding-left:1.2em; font-size:var(--s-small); line-height:1.5; }
-  .f-src li{ margin-bottom:8px; }
-  .f-nav{ grid-column:7 / 10; }
-  .f-nav ul{ list-style:none; margin:0; padding:0; display:grid; gap:6px; }
-  .f-nav a{ text-decoration:none; } .f-nav a:hover{ text-decoration:underline; }
-  .f-note{ grid-column:10 / 13; font-size:var(--s-small); }
-  .f-word{ grid-column:1 / 9; background:var(--black); color:#fff; min-height:320px; display:flex; align-items:center; justify-content:center; gap:0.2em; font-size:clamp(3rem, 1rem + 8vw, 9rem); font-weight:600; letter-spacing:-0.055em; line-height:1; }
-  .f-word img{ width:0.8em; height:0.8em; }
-  a.f-go{ grid-column:9 / 13; background:var(--a); color:#fff; text-decoration:none; display:flex; flex-direction:column; justify-content:space-between; min-height:320px; font-size:var(--s-head); font-weight:600; letter-spacing:-0.035em; line-height:1; transition:background-color .2s; }
-  a.f-go:hover{ background:var(--navy); }
-  a.f-go .arr{ width:clamp(56px,6vw,88px); height:auto; align-self:flex-end; transition:transform .3s var(--ease); }
-  a.f-go:hover .arr{ transform:translateX(8px); }
+  /* footer */
+  footer{ margin-top:clamp(96px,12vw,200px); padding:clamp(48px,6vw,80px) var(--m) 24px; background:var(--ink); color:var(--bg); }
+  .f-grid{ display:grid; grid-template-columns:6fr 3fr 3fr; gap:var(--gap); }
+  footer h2{ font-size:var(--s-lead); margin-bottom:14px; }
+  footer ol{ margin:0; padding-left:1.2em; font-size:var(--s-small); }
+  footer li{ margin-bottom:8px; }
+  footer ul{ list-style:none; margin:0; padding:0; display:grid; gap:6px; }
+  footer ul a{ text-decoration:none; } footer ul a:hover{ text-decoration:underline; }
+  footer .note{ font-size:var(--s-small); }
+  .f-word{ font-family:var(--serif); font-size:clamp(5rem, 1rem + 15vw, 17rem); line-height:.8; letter-spacing:-0.04em; margin-top:clamp(48px,6vw,96px); display:flex; justify-content:space-between; align-items:flex-end; gap:24px; }
+  .f-word a{ font-family:var(--sans); font-size:1rem; background:var(--bg); color:var(--ink); padding:16px 20px; text-decoration:none; letter-spacing:0; line-height:1; white-space:nowrap; transition:background-color .2s; }
+  .f-word a:hover{ background:var(--b); color:#fff; }
 
-  /* entrance motion */
-  .js .rv{ opacity:0; transform:translateY(24px); transition:opacity .7s var(--ease), transform .7s var(--ease); transition-delay:var(--d, 0ms); }
+  /* motion */
+  .js .rv{ opacity:0; transform:translateY(24px); transition:opacity .7s var(--ease), transform .7s var(--ease); transition-delay:var(--d,0ms); }
   .js .rv.in{ opacity:1; transform:none; }
-  .js .wl .ln > span{ transform:translateY(105%); animation:rise .9s var(--ease) forwards; }
-  .js .wl .ln:nth-child(2) > span{ animation-delay:.11s; }
-  .js .hero-foot{ opacity:0; animation:fadeup .7s var(--ease) .6s forwards; }
+  .js .hero h1 .ln{ display:block; overflow:hidden; padding-bottom:.06em; }
+  .js .hero h1 .ln > span{ display:block; transform:translateY(105%); animation:rise .9s var(--ease) forwards; }
+  .js .hero h1 .ln:nth-child(2) > span{ animation-delay:.11s; }
   @keyframes rise{ to{ transform:none; } }
-  @keyframes fadeup{ from{ opacity:0; transform:translateY(12px); } to{ opacity:1; transform:none; } }
   @media (prefers-reduced-motion: reduce){
-    .js .rv, .js .wl .ln > span, .js .hero-foot{ opacity:1; transform:none; animation:none; transition:none; }
-    .hero-cta, .t-pic img{ animation:none; }
-    .ex-icon svg *{ animation:none !important; }
+    .js .rv, .js .hero h1 .ln > span{ opacity:1; transform:none; transition:none; animation:none; }
+    .hero figure .im img{ animation:none; }
     html{ scroll-behavior:auto; }
   }
 
-  /* ---------- tablet ---------- */
   @media (max-width: 1023px){
-    .day-title{ grid-column:1 / 13; }
-    .day-pic{ grid-column:1 / 13; grid-row:auto; }
-    .day-dek{ grid-column:1 / 13; }
-    .plan{ grid-column:1 / 13; position:static; }
-    .howto{ grid-column:1 / 13; }
-    .split .sh, .split .exlist, .track .sh, .track .tw{ grid-column:1 / 13; }
-    .p-head{ grid-column:1 / 13; position:static; }
-    .p-list{ grid-column:1 / 13; }
-    .grow-head{ grid-column:1 / 13; grid-row:auto; }
-    .stage{ grid-row:auto; }
-    .st1, .st2{ grid-column:span 6; } .st3, .st4{ grid-column:span 6; }
-    .st1 .tl, .st2 .tl, .st3 .tl, .st4 .tl{ height:auto; aspect-ratio:var(--ar); }
-    .st1{ --ar:4/3; } .st2{ --ar:4/3.4; } .st3{ --ar:4/3.8; } .st4{ --ar:4/4.2; }
-    .grow{ align-items:end; }
-    .f-src{ grid-column:1 / 13; } .f-nav{ grid-column:1 / 7; } .f-note{ grid-column:7 / 13; }
-    .f-word{ grid-column:1 / 13; min-height:200px; } a.f-go{ grid-column:1 / 13; min-height:200px; }
-    .band .q, .band .ans{ grid-column:1 / 13; }
+    .hero{ grid-template-columns:1fr; min-height:0; }
+    .principles, .week-h, .s-head, .s-body, .cat-h, .prog, .nutri-h, .track, .myth{ grid-template-columns:1fr; }
+    .s-strip{ position:static; }
+    .week{ grid-template-columns:1fr; gap:4px; }
+    .week li a, .week li > span{ flex-direction:row; align-items:center; min-height:0; gap:16px; }
+    .week .dn{ flex:1; font-size:var(--s-lead); }
+    .week .dd{ display:flex; align-items:center; gap:12px; text-align:right; font-size:var(--s-body); }
+    .week .dd b{ font-size:var(--s-lead); margin:0; order:2; width:1.2em; text-align:center; }
+    .week li.today .hoy{ margin:0; }
+    .plate{ grid-column:span 6; } .plate.lead-plate{ grid-column:span 12; grid-row:auto; }
+    .figs{ grid-template-columns:1fr 1fr; }
+    .f-grid{ grid-template-columns:1fr 1fr; } .f-grid > :first-child{ grid-column:1 / -1; }
   }
-  /* ---------- phone ---------- */
   @media (max-width: 640px){
-    .bar nav .lg{ display:none; }
-    .bar nav .lt{ display:inline; }
-    .bar nav{ gap:14px; }
-    .bar .btn{ padding:12px 14px; }
-    .bar .btn .lg{ display:none; }
-    .hero{ min-height:520px; }
-    .hero::after{ height:54%; }
-    .wl{ font-size:27vw; }
-    .wl h1{ top:calc(46% - 1.39em); }
-    .hero-foot{ flex-direction:column; align-items:stretch; }
-    .hero-foot p{ font-size:1.125rem; }
-    .hero-cta{ justify-content:center; text-align:center; }
-    .board{ grid-template-columns:1fr 1fr; grid-template-rows:auto; gap:6px; }
-    .t-slogan{ grid-column:1 / 3; grid-row:auto; min-height:46svh; }
-    .t-slogan h2{ font-size:13.5vw; }
-    .t-word{ grid-column:1; grid-row:auto; aspect-ratio:1; }
-    .t-word strong{ font-size:15vw; }
-    .t-pic{ grid-column:2; grid-row:auto; aspect-ratio:1; }
-    .t-text{ grid-column:1 / 3; grid-row:auto; padding:32px 10px; row-gap:28px; }
-    .t-text .kit, .t-text > p{ grid-column:1 / 13; }
-    .t-text > p{ font-size:1.125rem; }
-    .poster li{ flex-direction:column; align-items:flex-start; gap:4px; padding-top:6px; padding-bottom:14px; }
-    .poster .dn{ font-size:16vw; }
-    .poster .dd{ text-align:left; font-size:1.0625rem; }
-    .stage{ grid-column:1 / 13 !important; }
-    .st1 .tl{ aspect-ratio:auto; height:44vw; } .st2 .tl{ aspect-ratio:auto; height:56vw; }
-    .st3 .tl{ aspect-ratio:auto; height:68vw; } .st4 .tl{ aspect-ratio:auto; height:80vw; }
-    .steps{ grid-template-columns:1fr 1fr; gap:6px; }
-    .nutri-head{ grid-column:1 / 3; grid-row:1; padding:0 0 24px; }
-    .f1{ grid-column:1 / 3; grid-row:2; min-height:auto; }
-    .f2{ grid-column:1 / 3; grid-row:3; }
-    .f3{ grid-column:1 / 3; grid-row:4; }
-    .f4{ grid-column:1 / 3; grid-row:5; }
-    .fig .n{ font-size:13vw; }
+    .bar nav{ display:none; }
+    .bar .btn{ margin-left:auto; }
+    .hero h1{ font-size:24vw; }
+    .principles ul, .prog ol{ grid-template-columns:1fr; }
+    .principles li:last-child{ max-width:none; }
+
+    .thumbs{ grid-template-columns:1fr; }
+    .plate, .plate.lead-plate{ grid-column:span 12; }
+    .plate.lead-plate h3{ font-size:var(--s-lead); }
+    .fig{ min-height:240px; }
+    .rules li{ grid-template-columns:1fr; gap:10px; }
+    .f-grid{ grid-template-columns:1fr; }
+    .f-word{ flex-direction:column; align-items:flex-start; font-size:30vw; }
     .check{ width:38px; height:38px; }
-    table.tracker th{ font-size:1.0625rem; }
-    table.tracker td:first-child{ font-size:0.875rem; }
-    .band{ padding:36px var(--m); }
-    .fboard{ grid-template-columns:1fr 1fr; gap:6px; }
-    .f-word{ grid-column:1 / 3; grid-row:1; min-height:160px; font-size:14vw; }
-    a.f-go{ grid-column:1 / 3; grid-row:2; min-height:160px; }
-    .f-nav{ grid-column:1; } .f-note{ grid-column:2; } .f-src{ grid-column:1 / 3; }
+    table.tracker td:first-child{ font-size:var(--s-small); }
   }
 </style>
 </head>
 <body>
 
 <header class="bar">
-  <a class="mark" href="#top"><img src="tronco.svg" alt="" width="28" height="28">Troncos</a>
+  <a class="mark" href="#top"><img src="tronco.svg" alt="" width="24" height="24">Troncos</a>
   <nav aria-label="Secciones">
-    <a href="#semana"><span class="lg">Semana</span><span class="lt">Semana</span></a>
-    <a href="#dia-a"><span class="lg">Día A</span><span class="lt">A</span></a>
-    <a href="#dia-b"><span class="lg">Día B</span><span class="lt">B</span></a>
-    <a href="#dia-c"><span class="lg">Día C</span><span class="lt">C</span></a>
-    <a href="#seguimiento" class="lg">Seguimiento</a>
+    <a href="#semana">Semana</a>
+    <a href="#dia-a">Sesiones</a>
+    <a href="#catalogo">Ejercicios</a>
+    <a href="#progresion">Progresión</a>
+    <a href="#seguimiento">Seguimiento</a>
   </nav>
-  <a class="btn" href="entrenamiento.html"><svg class="play" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z" fill="currentColor"/></svg><span class="lg">Entrenar</span></a>
+  <a class="btn" href="entrenamiento.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z" fill="currentColor"/></svg>Entrenar</a>
 </header>
 
 <main id="top">
-<section class="hero" aria-labelledby="hero-h">
-  <div class="wl">
-    <h1 id="hero-h" aria-label="Protocolo Troncos 12 kg"><span class="ln"><span>Troncos</span></span><span class="ln"><span>12 kg</span></span></h1>
+<section class="hero" aria-labelledby="hero-h" style="padding-top:clamp(24px,4vw,56px)">
+  <div>
+    <h1 id="hero-h"><span class="ln"><span>Troncos</span></span><span class="ln"><span>12 kg</span></span></h1>
+    <p class="lead">Un plan de fuerza en casa: seis días, un kettlebell, una banda y 29 ejercicios ilustrados.</p>
+    <div class="acts">
+      <a class="btn" href="entrenamiento.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z" fill="currentColor"/></svg>Empezar entrenamiento</a>
+      <a class="btn ghost" href="#catalogo">Ver los 29 ejercicios</a>
+    </div>
+    <p class="today" id="today">Tres sesiones que rotan: fuerza, core y banda, una pierna.</p>
   </div>
-  <div class="hero-foot">
-    <p>Un plan de fuerza en casa: seis días a la semana con un kettlebell de 12&nbsp;kg, una banda y una esterilla.</p>
-    <a class="btn hero-cta" href="entrenamiento.html"><svg class="play" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z" fill="currentColor"/></svg><span>Empezar entrenamiento<small id="hoy-cta">Sesión guiada con cronómetro</small></span></a>
-  </div>
+  <figure>
+    <div class="im"><img src="images/kb-swing.png" alt="Swing con kettlebell: de la bisagra de cadera a los brazos extendidos" width="600" height="400"></div>
+    <figcaption><span>Lámina 1 · Swing</span><span>El mismo kettlebell de 12 kg todo el plan</span></figcaption>
+  </figure>
 </section>
 
-<section class="intro" aria-labelledby="intro-h">
-  <div class="board">
-    <div class="tile t-slogan rv"><h2 id="intro-h">Mismo peso,<br>otro patrón</h2></div>
-    <div class="tile t-word rv" style="--d:90ms"><strong>12 kg</strong><span>de principio a fin, sin subir nunca la carga</span></div>
-    <div class="tile t-pic rv" style="--d:180ms"><img src="images/kb-swing.png" alt="Swing con kettlebell: de la bisagra de cadera a los brazos extendidos" width="600" height="400"></div>
-    <div class="t-text">
-      <div class="kit rv">
-        <h3 class="kit-h">Todo lo que necesitas</h3>
-        <ul><li>Esterilla</li><li>Kettlebell de 12&nbsp;kg</li><li>Banda elástica</li></ul>
-      </div>
-      <p class="rv" style="--d:90ms">Un plan de 6 días a la semana (más 1 de descanso completo) con tres tipos de sesión que rotan — fuerza, core/banda y patrones a una pierna — todo con el mismo kettlebell de 12&nbsp;kg. Progresas variando el ejercicio y el control, no subiendo el peso.</p>
+<section aria-labelledby="p-h">
+  <div class="principles">
+    <div class="side rv">
+      <h2 id="p-h">Cinco principios</h2>
+      <p class="muted">Todo lo demás en este plan es una aplicación de estas cinco ideas.</p>
     </div>
-  </div>
-</section>
-
-<section class="ch n principles" aria-labelledby="p-h">
-  <div class="g12">
-    <div class="p-head rv">
-      <h2 id="p-h" class="head">Los cinco principios</h2>
-      <p class="lead muted">Todo lo demás en este plan es una aplicación de estas cinco ideas.</p>
-    </div>
-    <ul class="p-list">
+    <ul>
       <li class="rv"><h3>Déficit moderado</h3><p>300–500 kcal/día por debajo de tu mantenimiento. Más rápido no es mejor: pierdes músculo y rendimiento.</p></li>
-      <li class="rv"><h3>Proteína alta</h3><p>1.6–2.2 g/kg al día. Protege el músculo mientras estás en déficit — el motivo nº1 por el que la gente "se desinfla" al perder peso.</p></li>
+      <li class="rv" style="--d:80ms"><h3>Proteína alta</h3><p>1.6–2.2 g/kg al día. Protege el músculo mientras estás en déficit — el motivo nº1 por el que la gente "se desinfla" al perder peso.</p></li>
       <li class="rv"><h3>Fuerza, no sólo cardio</h3><p>La evidencia pide un mínimo de 2–3 sesiones de cuerpo completo por semana para no perder músculo en déficit<sup>4</sup>. Aquí entrenas 6 porque rotas el estímulo entre tres patrones distintos, no porque cargues más peso.</p></li>
-      <li class="rv"><h3>Progresión de carga</h3><p>Con un solo kettlebell, progresas con técnica, tempo, rango y descanso — no solo con más peso.</p></li>
+      <li class="rv" style="--d:80ms"><h3>Progresión sin más peso</h3><p>Con un solo kettlebell, progresas con técnica, tempo, rango y descanso — no solo con más peso.</p></li>
       <li class="rv"><h3>Consistencia antes que intensidad</h3><p>Un plan fácil que repites 8 semanas gana siempre a uno brutal que abandonas en dos.</p></li>
     </ul>
   </div>
 </section>
 
-<section id="semana" class="ch k" aria-labelledby="semana-h">
-  <div class="week-head rv">
-    <h2 id="semana-h" class="head">Tu semana</h2>
+<section id="semana" aria-labelledby="semana-h">
+  <div class="week-h rv">
+    <h2 id="semana-h" style="font-size:var(--s-head)">Tu semana</h2>
     <p class="muted">Seis días de entrenamiento y uno de descanso completo. El kettlebell se queda siempre en 12 kg — lo que cambia de un día a otro es el patrón de movimiento, no la carga. Ajusta los días exactos a tu horario; lo importante es no repetir el mismo tipo de sesión dos días seguidos.</p>
   </div>
-  <ol class="poster" id="poster">
-    <li class="a" data-d="1"><a class="dn" href="#dia-a">Lunes</a><a class="dd" href="#dia-a"><span class="hoy">Hoy · </span>Día A — fuerza</a></li>
-    <li class="b" data-d="2"><a class="dn" href="#dia-b">Martes</a><a class="dd" href="#dia-b"><span class="hoy">Hoy · </span>Día B — core y banda</a></li>
-    <li class="c" data-d="3"><a class="dn" href="#dia-c">Miércoles</a><a class="dd" href="#dia-c"><span class="hoy">Hoy · </span>Día C — una pierna</a></li>
-    <li class="a" data-d="4"><a class="dn" href="#dia-a">Jueves</a><a class="dd" href="#dia-a"><span class="hoy">Hoy · </span>Día A — fuerza</a></li>
-    <li class="b" data-d="5"><a class="dn" href="#dia-b">Viernes</a><a class="dd" href="#dia-b"><span class="hoy">Hoy · </span>Día B — core y banda</a></li>
-    <li class="c" data-d="6"><a class="dn" href="#dia-c">Sábado</a><a class="dd" href="#dia-c"><span class="hoy">Hoy · </span>Día C — una pierna</a></li>
-    <li class="rest" data-d="0"><span class="dn">Domingo</span><span class="dd"><span class="hoy">Hoy · </span>Descanso completo</span></li>
+  <ol class="week rv" id="week">
+    <li class="a" data-d="1"><a href="#dia-a"><span class="dn">Lunes</span><span class="dd"><b>A</b>Fuerza con kettlebell<span class="hoy">Es hoy</span></span></a></li>
+    <li class="b" data-d="2"><a href="#dia-b"><span class="dn">Martes</span><span class="dd"><b>B</b>Core y banda<span class="hoy">Es hoy</span></span></a></li>
+    <li class="c" data-d="3"><a href="#dia-c"><span class="dn">Miércoles</span><span class="dd"><b>C</b>Una pierna y rotación<span class="hoy">Es hoy</span></span></a></li>
+    <li class="a" data-d="4"><a href="#dia-a"><span class="dn">Jueves</span><span class="dd"><b>A</b>Fuerza con kettlebell<span class="hoy">Es hoy</span></span></a></li>
+    <li class="b" data-d="5"><a href="#dia-b"><span class="dn">Viernes</span><span class="dd"><b>B</b>Core y banda<span class="hoy">Es hoy</span></span></a></li>
+    <li class="c" data-d="6"><a href="#dia-c"><span class="dn">Sábado</span><span class="dd"><b>C</b>Una pierna y rotación<span class="hoy">Es hoy</span></span></a></li>
+    <li class="rest" data-d="0"><span><span class="dn">Domingo</span><span class="dd"><b>—</b>Descanso completo<span class="hoy">Es hoy</span></span></span></li>
   </ol>
+  <p class="muted rv" style="margin-top:24px; max-width:70ch">Cada sesión empieza con 6 minutos de <a href="#catalogo" data-filter="w">calentamiento</a> (no es opcional: prepara cadera y hombros para el swing y el press) y termina con 5 de <a href="#catalogo" data-filter="k">enfriamiento</a>, antes de ducharte.</p>
 </section>
 
-<section id="calentamiento" class="ch" aria-labelledby="cal-h">
-  <div class="g12 split">
-    <div class="sh rv">
-      <h2 id="cal-h" class="head">Calentamiento, 6&nbsp;minutos, siempre</h2>
-      <p class="lead">Antes de cualquiera de los tres días. No es opcional: prepara cadera y hombros para el swing y el press.</p>
-    </div>
-    <div class="exlist rv">
-      <details class="ex">
-        <summary><span class="ex-icon n"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="26" r="13" fill="currentColor" stroke="none"/><polyline points="25,33 55,54"/><g style="transform-origin:55px 54px; animation: sway 1.6s ease-in-out infinite;"><polyline points="55,54 62,78 80,80"/></g><polyline points="27,37 22,78"/><line x1="8" y1="86" x2="92" y2="86" stroke-width="3" opacity="0.35"/></svg></span>Círculos de cadera a cuatro patas — 8 por lado <span class="chev">▸</span></summary>
-        <div class="exbody"><div class="ex-photo-wrap"><img class="ex-photo" src="images/hip-circles.png" alt="Círculos de cadera a cuatro patas"></div><p>A cuatro patas, dibuja círculos amplios con una rodilla sin mover la zona lumbar. Despierta la movilidad de cadera que necesitas para la bisagra del swing y la sentadilla.</p><p><strong>De pie:</strong> apoyado en una pared o una silla si lo necesitas, levanta una rodilla al frente a la altura de la cadera, ábrela hacia el lado y bájala por detrás, dibujando un círculo amplio. Haz las repeticiones hacia fuera y luego hacia dentro. Mantén el tronco quieto: el círculo lo dibuja la rodilla, no la espalda.</p></div>
-      </details>
-      <details class="ex">
-        <summary><span class="ex-icon n"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="30" r="13" fill="currentColor" stroke="none"/><g style="transform-origin:40px 38px; animation: pulse 1.8s ease-in-out infinite;"><path d="M24,36 Q42,26 58,52"/></g><polyline points="26,40 22,78"/><polyline points="58,52 64,76 80,78"/><line x1="8" y1="86" x2="92" y2="86" stroke-width="3" opacity="0.35"/></svg></span>Gato-camello — 8 repeticiones <span class="chev">▸</span></summary>
-        <div class="exbody"><div class="ex-photo-wrap"><img class="ex-photo" src="images/cat-cow.png" alt="Gato-camello"></div><p>A cuatro patas, alterna arquear y redondear la columna con el movimiento, no de golpe. Moviliza toda la espalda antes de cargarla.</p></div>
-      </details>
-      <details class="ex">
-        <summary><span class="ex-icon n"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="66" r="13" fill="currentColor" stroke="none"/><g style="transform-origin:55px 70px; animation: bobYup 1.6s ease-in-out infinite;"><polyline points="22,68 55,52"/><polyline points="55,52 72,70 85,72"/></g><polyline points="22,68 14,80"/><line x1="8" y1="86" x2="92" y2="86" stroke-width="3" opacity="0.35"/></svg></span>Puente de glúteo — 12 repeticiones <span class="chev">▸</span></summary>
-        <div class="exbody"><div class="ex-photo-wrap"><img class="ex-photo" src="images/glute-bridge.png" alt="Puente de glúteo"></div><p>Tumbado, pies apoyados cerca de los glúteos, empuja caderas hacia el techo apretando glúteos arriba. Activa la cadena que más vas a usar en el swing.</p></div>
-      </details>
-      <details class="ex">
-        <summary><span class="ex-icon n"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"><circle cx="50" cy="20" r="13" fill="currentColor" stroke="none"/><polyline points="50,27 50,60"/><polyline points="50,60 40,85"/><polyline points="50,60 60,85"/><g style="transform-origin:50px 35px; animation: shiftX 1.4s ease-in-out infinite reverse;"><polyline points="50,35 20,35"/></g><g style="transform-origin:50px 35px; animation: shiftX 1.4s ease-in-out infinite;"><polyline points="50,35 80,35"/></g><path d="M20,35 l6,-6 l6,6 l6,-6 l6,6 l6,-6 l6,6 l6,-6 l6,6 l6,-6" stroke-width="3"/></svg></span>Band pull-apart — 15 repeticiones <span class="chev">▸</span></summary>
-        <div class="exbody"><div class="ex-photo-wrap"><img class="ex-photo" src="images/band-pull-apart.png" alt="Band pull-apart"></div><p>Banda estirada a la altura del pecho con los brazos extendidos, separa los brazos llevando los omóplatos hacia atrás y vuelve controlado. Enciende la espalda alta antes del remo y el press.</p></div>
-      </details>
-    </div>
+<section id="dia-a" class="session a" aria-labelledby="dia-a-h">
+  <div class="s-head rv">
+    <h2 id="dia-a-h"><span class="dot a"></span>Día A, fuerza con kettlebell</h2>
+    <p class="s-dek">Un formato clásico de fuerza-resistencia con kettlebell que funciona muy bien para principiantes con base deportiva.</p>
   </div>
-</section>
-
-<section id="dia-a" class="ch day a" aria-labelledby="dia-a-h">
-  <div class="day-head g12">
-    <div class="day-title rv">
-      <h2 id="dia-a-h" class="mega">Día A</h2>
-      <p class="lead">Fuerza con kettlebell</p>
-    </div>
-    <figure class="day-pic rv"><img src="images/goblet-squat.png" alt="Goblet squat con kettlebell" width="600" height="400" loading="lazy"></figure>
-    <p class="day-dek rv">Un formato clásico de fuerza-resistencia con kettlebell que funciona muy bien para principiantes con base deportiva.</p>
-  </div>
-  <div class="day-body g12">
-    <div class="plan rv">
-      <div class="block-label">Bloque 1 — 3 rondas</div>
+  <div class="s-body">
+    <div class="plan rv"><div class="block-label">Bloque 1 — 3 rondas</div>
     <div class="tbl-wrap">
       <table>
         <thead><tr><th>Ejercicio</th><th>Reps</th><th>Descanso</th></tr></thead>
@@ -516,7 +339,7 @@
         </tbody>
       </table>
     </div>
-    <p class="note">Primeras 2 semanas: haz solo 3–4 rondas del finisher. Sube a 6 según la <a href="#progresion">progresión</a>.</p>
+    <p class="note">Primeras 2 semanas: haz solo 3–4 rondas del finisher. Sube a 6 según la progresión de seis semanas, más abajo.</p>
 
     <div class="block-label">Bloque 3 — Pecho y brazos, 2–3 rondas</div>
     <div class="tbl-wrap">
@@ -528,84 +351,22 @@
         </tbody>
       </table>
     </div>
-    <p class="note">Este bloque añade trabajo directo de pecho y brazo.</p>
-    </div>
-    <div class="howto rv">
-      <h3 class="howto-h">Cómo se hace cada ejercicio</h3>
-      <div class="exlist">
-      <details class="ex">
-        <summary><span class="ex-icon a"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"><circle cx="50" cy="22" r="13" fill="currentColor" stroke="none"/><g style="transform-origin:50px 34px; animation: bobY 1.6s ease-in-out infinite;"><polyline points="50,29 50,55"/><polyline points="50,34 38,48 50,52"/><polyline points="50,34 62,48 50,52"/><circle cx="50" cy="54" r="10" fill="currentColor" stroke="none"/><path d="M45,48 q5,-8 10,0"/><polyline points="50,55 35,72 28,86"/><polyline points="50,55 65,72 72,86"/></g><line x1="8" y1="90" x2="92" y2="90" stroke-width="3" opacity="0.35"/></svg></span>Goblet squat <span class="chev">▸</span></summary>
-        <div class="exbody">
-          <div class="ex-photo-wrap"><img class="ex-photo" src="images/goblet-squat.png" alt="Goblet squat"></div>
-          <p>Sujeta el kettlebell por los "cuernos" (los lados del asa) contra el pecho. Pies algo más anchos que la cadera, puntas algo hacia afuera. Baja llevando las caderas atrás y abajo, pecho alto, hasta que los codos rocen la parte interna de las rodillas. Empuja por los talones para subir.</p>
-          <p><strong>Respiración:</strong> inhala al bajar, exhala al empujar hacia arriba.</p>
-          <div class="mistake">Error típico: las rodillas colapsan hacia dentro o los talones se levantan. Si pasa, abre un poco más los pies y pon más peso en los talones.</div>
-        </div>
-      </details>
-      <details class="ex">
-        <summary><span class="ex-icon a"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"><circle cx="48" cy="18" r="13" fill="currentColor" stroke="none"/><polyline points="50,25 50,58"/><g style="transform-origin:55px 30px; animation: bobYup 1.5s ease-in-out infinite;"><polyline points="55,30 68,12"/><circle cx="70" cy="9" r="10" fill="currentColor" stroke="none"/><path d="M65,4 q5,-6 10,0"/></g><polyline points="45,30 36,42 41,52"/><polyline points="50,58 42,86"/><polyline points="50,58 58,86"/><line x1="8" y1="90" x2="92" y2="90" stroke-width="3" opacity="0.35"/></svg></span>Clean and press <span class="chev">▸</span></summary>
-        <div class="exbody">
-          <div class="ex-photo-wrap"><img class="ex-photo" src="images/clean-press.png" alt="Clean and press"></div>
-          <p>El kettlebell empieza en el suelo entre los pies. Con un tirón corto desde la cadera —no desde el brazo— súbelo pegado al cuerpo y deja que gire sobre la muñeca hasta "aterrizar" en el antebrazo (posición de rack), sin golpearte. Eso es el <em>clean</em>. Desde el rack, empuja el kettlebell sobre la cabeza sin arquear la zona lumbar, terminando con el bíceps cerca de la oreja. Baja controlado.</p>
-          <p><strong>Para principiantes:</strong> es normal tardar 2–4 semanas en pulir el clean. Practícalo despacio y sin prisa antes de buscar fluidez; si se siente brusco en la muñeca, deja que el kettlebell vuelva al suelo entre repeticiones en vez de encadenarlas.</p>
-        </div>
-      </details>
-      <details class="ex">
-        <summary><span class="ex-icon a"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"><circle cx="22" cy="30" r="12" fill="currentColor" stroke="none"/><polyline points="28,35 58,58"/><polyline points="58,58 66,80 80,82"/><polyline points="58,58 48,78 40,82"/><g style="transform-origin:30px 38px; animation: sway 1.3s ease-in-out infinite;"><polyline points="30,38 34,55 28,62"/><circle cx="26" cy="67" r="10" fill="currentColor" stroke="none"/><path d="M21,61 q5,-7 10,0"/></g><line x1="8" y1="90" x2="92" y2="90" stroke-width="3" opacity="0.35"/></svg></span>Remo a una mano <span class="chev">▸</span></summary>
-        <div class="exbody">
-          <div class="ex-photo-wrap"><img class="ex-photo" src="images/kb-row.png" alt="Remo a una mano"></div>
-          <p>Pies al ancho de cadera, rodillas algo flexionadas, inclina el tronco hacia delante en bisagra de cadera manteniendo la espalda plana (sin redondear la zona lumbar). El kettlebell cuelga de un brazo. Tira del codo hacia atrás, pegado a las costillas, hasta que el asa toque el costado; aprieta el omóplato arriba y baja controlado.</p>
-          <div class="mistake">Error típico: rotar el tronco para "ayudar" al tirón. Mantén las caderas y los hombros cuadrados; si necesitas rotar para subir el peso, es que pesa demasiado para tu técnica actual.</div>
-        </div>
-      </details>
-      <details class="ex">
-        <summary><span class="ex-icon a"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"><circle cx="26" cy="34" r="12" fill="currentColor" stroke="none"/><polyline points="30,38 55,60"/><polyline points="55,60 50,80"/><polyline points="55,60 68,82"/><g style="transform-origin:32px 42px; animation: swayWide 1.1s ease-in-out infinite;"><polyline points="32,42 40,66"/><circle cx="42" cy="72" r="10" fill="currentColor" stroke="none"/><path d="M36,66 q6,-8 12,0"/></g><line x1="8" y1="90" x2="92" y2="90" stroke-width="3" opacity="0.35"/></svg></span>Swing <span class="chev">▸</span></summary>
-        <div class="exbody">
-          <div class="ex-photo-wrap"><img class="ex-photo" src="images/kb-swing.png" alt="Kettlebell swing"></div>
-          <p>Kettlebell unos 30 cm por delante de los pies. Con bisagra de cadera, agárralo y "hikealo" hacia atrás entre las piernas como un pase de rugby por debajo. Desde ahí, explota extendiendo caderas y apretando glúteos para proyectar el kettlebell hasta la altura del pecho — los brazos solo guían, no levantan el peso con los hombros. Deja que baje por gravedad e inicia la siguiente bisagra sin pausa.</p>
-          <div class="mistake">Error típico: hacer sentadilla en vez de bisagra, o redondear la espalda al recoger el kettlebell. Es un movimiento de cadera, no de piernas ni de brazos.</div>
-        </div>
-      </details>
-      <details class="ex">
-        <summary><span class="ex-icon a"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"><circle cx="50" cy="20" r="13" fill="currentColor" stroke="none"/><g style="transform-origin:50px 32px; animation: thrusterLegs 1.8s ease-in-out infinite;"><polyline points="50,27 50,56"/><polyline points="50,56 38,74 32,86"/><polyline points="50,56 62,74 68,86"/></g><g style="transform-origin:50px 32px; animation: thrusterArm 1.8s ease-in-out infinite;"><polyline points="50,32 50,10"/><circle cx="50" cy="8" r="10" fill="currentColor" stroke="none"/><path d="M45,3 q5,-6 10,0"/></g><line x1="8" y1="90" x2="92" y2="90" stroke-width="3" opacity="0.35"/></svg></span>Thruster <span class="chev">▸</span></summary>
-        <div class="exbody">
-          <div class="ex-photo-wrap"><img class="ex-photo" src="images/thruster.png" alt="Thruster"></div>
-          <p>Sostén el kettlebell en posición goblet contra el pecho. Baja a una sentadilla completa y, sin pausa en el fondo, aprovecha el impulso de la subida para lanzar el peso en press por encima de la cabeza en un solo movimiento continuo.</p>
-          <p><strong>Nota:</strong> es exigente para el ritmo cardíaco. Al principio prioriza completar el movimiento con buena técnica sobre hacerlo rápido.</p>
-        </div>
-      </details>
-      <details class="ex">
-        <summary><span class="ex-icon a"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"><g style="transform-origin:50px 65px; animation: bobY 1.4s ease-in-out infinite;"><circle cx="18" cy="58" r="12" fill="currentColor" stroke="none"/><polyline points="24,62 52,58 85,54"/><polyline points="24,62 18,72 26,78"/></g><line x1="8" y1="86" x2="92" y2="86" stroke-width="3" opacity="0.35"/></svg></span>Flexión de brazos (push-up) <span class="chev">▸</span></summary>
-        <div class="exbody">
-          <div class="ex-photo-wrap"><img class="ex-photo" src="images/push-up.png" alt="Push-up"></div>
-          <p>Manos un poco más anchas que los hombros, cuerpo en línea recta de cabeza a talones. Baja el pecho casi hasta tocar el suelo con los codos a unos 45° del cuerpo (ni pegados ni en cruz) y empuja de vuelta arriba sin que la cadera se hunda ni se eleve.</p>
-          <div class="mistake">Si 8 reps completas es demasiado: apoya las rodillas en el suelo, o pon las manos sobre algo firme y elevado (banco, escalón) — misma técnica, menos carga.</div>
-        </div>
-      </details>
-      <details class="ex">
-        <summary><span class="ex-icon a"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"><circle cx="50" cy="20" r="13" fill="currentColor" stroke="none"/><polyline points="50,27 50,58"/><polyline points="50,58 42,86"/><polyline points="50,58 58,86"/><rect x="55" y="82" width="8" height="6" fill="currentColor" stroke="none"/><g style="transform-origin:42px 50px; animation: curl 1.3s ease-in-out infinite;"><polyline points="44,34 42,50 48,40"/><path d="M58,82 Q50,60 46,42" stroke-dasharray="3 5" stroke-width="3"/></g><line x1="8" y1="90" x2="92" y2="90" stroke-width="3" opacity="0.35"/></svg></span>Band curl de bíceps <span class="chev">▸</span></summary>
-        <div class="exbody">
-          <div class="ex-photo-wrap"><img class="ex-photo" src="images/band-curl.png" alt="Band curl de bíceps"></div>
-          <p>De pie, pisa el centro de la banda con ambos pies y sujeta un extremo en cada mano. Codos pegados al cuerpo, flexiona solo el antebrazo llevando la mano hacia el hombro, sin que el codo se adelante ni uses el impulso de la espalda. Baja controlado hasta extender el brazo del todo.</p>
-        </div>
-      </details>
-    </div>
+    <p class="note">Este bloque añade trabajo directo de pecho y brazo.</p></div>
+    <div class="s-strip rv">
+      <h3>Las láminas de esta sesión</h3>
+      <ul class="thumbs"><li><a href="#ex-goblet-squat" data-jump="a"><img src="images/goblet-squat.png" alt="" width="600" height="400" loading="lazy"><span>Goblet squat</span></a></li><li><a href="#ex-clean-press" data-jump="a"><img src="images/clean-press.png" alt="" width="600" height="400" loading="lazy"><span>Clean and press</span></a></li><li><a href="#ex-kb-row" data-jump="a"><img src="images/kb-row.png" alt="" width="600" height="400" loading="lazy"><span>Remo a una mano</span></a></li><li><a href="#ex-kb-swing" data-jump="a"><img src="images/kb-swing.png" alt="" width="600" height="400" loading="lazy"><span>Swing</span></a></li><li><a href="#ex-thruster" data-jump="a"><img src="images/thruster.png" alt="" width="600" height="400" loading="lazy"><span>Thruster</span></a></li><li><a href="#ex-push-up" data-jump="a"><img src="images/push-up.png" alt="" width="600" height="400" loading="lazy"><span>Flexión de brazos (push-up)</span></a></li><li><a href="#ex-band-curl" data-jump="a"><img src="images/band-curl.png" alt="" width="600" height="400" loading="lazy"><span>Band curl de bíceps</span></a></li></ul>
+      <a class="btn" href="entrenamiento.html">Entrenar el Día A con cronómetro</a>
     </div>
   </div>
 </section>
 
-<section id="dia-b" class="ch day b" aria-labelledby="dia-b-h">
-  <div class="day-head g12">
-    <div class="day-title rv">
-      <h2 id="dia-b-h" class="mega">Día B</h2>
-      <p class="lead">Core y banda</p>
-    </div>
-    <figure class="day-pic rv"><img src="images/pallof-press.png" alt="Pallof press con banda elástica" width="600" height="400" loading="lazy"></figure>
-    <p class="day-dek rv">El complemento del Día A: trabajo unilateral y de estabilidad del core, pensado para dar estabilidad real al core (no para "quemar" la zona — eso depende de la <a href="#nutricion">nutrición</a>).</p>
+<section id="dia-b" class="session b" aria-labelledby="dia-b-h">
+  <div class="s-head rv">
+    <h2 id="dia-b-h"><span class="dot b"></span>Día B, core y banda</h2>
+    <p class="s-dek">El complemento del Día A: trabajo unilateral y de estabilidad del core, pensado para dar estabilidad real al core (no para "quemar" la zona — eso depende de la <a href="#nutricion">nutrición</a>).</p>
   </div>
-  <div class="day-body g12">
-    <div class="plan rv">
-      <div class="block-label">Bloque 1 — 3 rondas</div>
+  <div class="s-body">
+    <div class="plan rv"><div class="block-label">Bloque 1 — 3 rondas</div>
     <div class="tbl-wrap">
       <table>
         <thead><tr><th>Ejercicio</th><th>Reps</th><th>Descanso</th></tr></thead>
@@ -641,110 +402,22 @@
         </tbody>
       </table>
     </div>
-    <p class="note">Entre este bloque y el push-up + curl del Día A, pecho y brazo quedan cubiertos 2 veces por semana cada uno — la dosis mínima recomendada para progresar.</p>
-    </div>
-    <div class="howto rv">
-      <h3 class="howto-h">Cómo se hace cada ejercicio</h3>
-      <div class="exlist">
-      <details class="ex">
-        <summary><span class="ex-icon b"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="70" r="13" fill="currentColor" stroke="none"/><polyline points="24,70 55,70"/><polyline points="55,70 85,74"/><polyline points="55,70 50,50 42,52"/><polyline points="28,70 6,65"/><g style="transform-origin:28px 70px; animation: bobYup 1.4s ease-in-out infinite;"><polyline points="28,70 28,32"/><circle cx="28" cy="28" r="10" fill="currentColor" stroke="none"/><path d="M23,23 q5,-6 10,0"/></g></svg></span>Press de suelo a una mano <span class="chev">▸</span></summary>
-        <div class="exbody">
-          <div class="ex-photo-wrap"><img class="ex-photo" src="images/floor-press.png" alt="Press de suelo a una mano"></div>
-          <p>Túmbate boca arriba en la esterilla con las rodillas flexionadas y los pies apoyados en el suelo. Coge el kettlebell con una mano y colócalo junto al pecho: la parte de atrás del brazo apoyada en el suelo, el codo a unos 45° del cuerpo y la bola del kettlebell descansando sobre el antebrazo. El otro brazo, estirado en el suelo hacia un lado, te da estabilidad.</p>
-          <p>Empuja el kettlebell hacia el techo hasta estirar el brazo, con la muñeca recta y la pesa justo encima del hombro. Baja despacio hasta que el codo vuelva a tocar el suelo, sin dejarlo caer, y repite.</p>
-          <p>El suelo limita el rango de movimiento y protege el hombro — por eso es una buena entrada al press para alguien nuevo en kettlebell.</p>
-        </div>
-      </details>
-      <details class="ex">
-        <summary><span class="ex-icon b"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"><circle cx="65" cy="22" r="13" fill="currentColor" stroke="none"/><polyline points="65,29 65,58"/><polyline points="65,58 58,82"/><polyline points="65,58 75,84"/><rect x="2" y="30" width="6" height="16" fill="currentColor" stroke="none"/><g style="transform-origin:38px 38px; animation: shiftX 1.3s ease-in-out infinite reverse;"><polyline points="62,34 48,40 38,38"/><path d="M38,38 l-6,-6 l-6,6 l-6,-6 l-6,6 l-6,-6" stroke-width="3"/></g><line x1="8" y1="90" x2="92" y2="90" stroke-width="3" opacity="0.35"/></svg></span>Remo inclinado con banda <span class="chev">▸</span></summary>
-        <div class="exbody">
-          <div class="ex-photo-wrap"><img class="ex-photo" src="images/band-row.png" alt="Remo inclinado con banda"></div>
-          <p>De pie, pisa el centro de la banda con los dos pies separados a la anchura de las caderas y sujeta un extremo en cada mano. Flexiona un poco las rodillas e inclina el tronco hacia delante desde la cadera, con la espalda plana, hasta dejarlo a unos 45°. Los brazos cuelgan estirados bajo los hombros.</p>
-          <p>Tira de los codos hacia atrás, pegados al cuerpo, hasta que las manos lleguen a la cintura, juntando los omóplatos. Vuelve despacio hasta estirar los brazos sin perder la inclinación ni redondear la espalda.</p>
-          <div class="mistake">Error típico: erguir el tronco al tirar. Mantén la inclinación toda la serie; si no puedes, coge la banda más larga para que tenga menos tensión.</div>
-        </div>
-      </details>
-      <details class="ex">
-        <summary><span class="ex-icon b"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"><circle cx="50" cy="30" r="13" fill="currentColor" stroke="none"/><polyline points="50,37 50,60"/><polyline points="50,60 42,86"/><polyline points="50,60 58,86"/><g style="transform-origin:50px 30px; animation: spin 2.2s linear infinite;"><polyline points="54,34 64,28"/><polyline points="46,34 60,32"/><circle cx="68" cy="26" r="10" fill="currentColor" stroke="none"/><path d="M63,21 q5,-6 10,0"/></g><line x1="8" y1="90" x2="92" y2="90" stroke-width="3" opacity="0.35"/></svg></span>Kettlebell halo <span class="chev">▸</span></summary>
-        <div class="exbody">
-          <div class="ex-photo-wrap"><img class="ex-photo" src="images/kb-halo.png" alt="Kettlebell halo"></div>
-          <p>De pie, sujeta el kettlebell boca abajo por los cuernos cerca de la barbilla y llévalo en un círculo completo alrededor de la cabeza, manteniéndolo cerca del cráneo durante todo el recorrido. Cambia de dirección cada pocas repeticiones.</p>
-          <p>Trabaja la movilidad de hombro y el core de forma anti-rotación, con poco riesgo al ser un movimiento lento y controlado.</p>
-        </div>
-      </details>
-      <details class="ex">
-        <summary><span class="ex-icon b"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="55" r="12" fill="currentColor" stroke="none"/><polyline points="22,55 50,55"/><polyline points="50,55 50,35 60,35"/><polyline points="28,55 28,30"/><g style="transform-origin:50px 55px; animation: reach 1.5s ease-in-out infinite;"><polyline points="50,55 80,62" stroke-dasharray="3 5"/></g><g style="transform-origin:28px 55px; animation: reach 1.5s ease-in-out infinite;"><polyline points="28,55 5,62" stroke-dasharray="3 5"/></g></svg></span>Dead bug <span class="chev">▸</span></summary>
-        <div class="exbody">
-          <div class="ex-photo-wrap"><img class="ex-photo" src="images/dead-bug.png" alt="Dead bug"></div>
-          <p>Tumbado boca arriba, rodillas y caderas a 90°, brazos apuntando al techo. Baja brazo y pierna opuestos a la vez, casi hasta tocar el suelo, manteniendo la zona lumbar pegada a la esterilla todo el tiempo (sin que se arquee). Vuelve al centro y alterna.</p>
-          <p>Es el ejercicio base para aprender a <em>estabilizar</em> el core antes de moverlo — la habilidad detrás de todos los demás ejercicios de este bloque.</p>
-        </div>
-      </details>
-      <details class="ex">
-        <summary><span class="ex-icon b"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"><g style="transform-origin:50px 65px; animation: pulse 2s ease-in-out infinite;"><circle cx="18" cy="62" r="12" fill="currentColor" stroke="none"/><polyline points="22,68 52,60 85,53"/><polyline points="22,68 20,80"/><polyline points="20,80 18,82"/><polyline points="85,53 88,55"/></g></svg></span>Plancha lateral <span class="chev">▸</span></summary>
-        <div class="exbody">
-          <div class="ex-photo-wrap"><img class="ex-photo" src="images/side-plank.png" alt="Plancha lateral"></div>
-          <p>Apóyate sobre el antebrazo y el borde del pie, cuerpo en línea recta de cabeza a talones, cadera elevada sin caer ni subir en exceso. Respira con normalidad mientras aguantas.</p>
-          <div class="mistake">Más fácil: apoya la rodilla inferior en el suelo en vez del pie si 20 segundos es demasiado al principio.</div>
-        </div>
-      </details>
-      <details class="ex">
-        <summary><span class="ex-icon b"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"><g style="transform-origin:50px 58px; animation: stepY 1s ease-in-out infinite;"><circle cx="50" cy="20" r="13" fill="currentColor" stroke="none"/><polyline points="50,27 50,58"/><polyline points="40,32 40,55"/><circle cx="40" cy="60" r="6" fill="currentColor" stroke="none"/><path d="M35,54 q5,-7 10,0"/><polyline points="60,32 66,50"/><polyline points="50,58 40,80"/><polyline points="50,58 60,84"/></g><line x1="8" y1="90" x2="92" y2="90" stroke-width="3" opacity="0.35"/></svg></span>Suitcase hold con kettlebell <span class="chev">▸</span></summary>
-        <div class="exbody">
-          <div class="ex-photo-wrap"><img class="ex-photo" src="images/suitcase-carry.png" alt="Suitcase hold con kettlebell"></div>
-          <p>De pie, con los pies a la anchura de las caderas, sujeta el kettlebell con una mano junto al costado y el brazo estirado. La otra mano queda libre.</p>
-          <p>Aguanta el tiempo indicado con el cuerpo totalmente recto: hombros nivelados, sin inclinarte hacia el lado del kettlebell ni compensar hacia el contrario. Aprieta el abdomen y los glúteos y respira con normalidad. Después cambia el kettlebell de mano.</p>
-          <p>Es <em>anti-inclinación lateral</em>: el core trabaja para que el peso no te doble hacia un lado. Para más reto, camina despacio en línea recta (suitcase carry).</p>
-          <div class="mistake">Error típico: subir el hombro del lado de la pesa o dejar que la cadera se desplace hacia fuera. Los hombros y la cadera deben quedar a la misma altura todo el tiempo.</div>
-        </div>
-      </details>
-      <details class="ex">
-        <summary><span class="ex-icon b"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"><polyline points="40,70 60,78 75,72"/><g style="transform-origin:40px 70px; animation: sway 1.2s ease-in-out infinite;"><circle cx="58" cy="38" r="12" fill="currentColor" stroke="none"/><polyline points="55,44 40,70"/><polyline points="50,50 70,55"/><circle cx="74" cy="56" r="10" fill="currentColor" stroke="none"/><path d="M69,51 q5,-6 10,0"/></g></svg></span>Russian twist con kettlebell <span class="chev">▸</span></summary>
-        <div class="exbody">
-          <div class="ex-photo-wrap"><img class="ex-photo" src="images/russian-twist.png" alt="Russian twist con kettlebell"></div>
-          <p>Sentado con rodillas flexionadas, talones apoyados (o ligeramente elevados para más reto), inclina el torso hacia atrás unos 45° manteniendo la espalda recta, no redondeada. Sujeta el kettlebell con ambas manos y gíralo de un lado al otro de la cadera, tocando el suelo si llegas, sin perder la postura del torso.</p>
-          <p>Es un giro continuo, no un bloque de reps solo hacia un lado: cada toque a un lado cuenta como una repetición, así que automáticamente reparte el mismo trabajo en ambos lados.</p>
-        </div>
-      </details>
-      <details class="ex">
-        <summary><span class="ex-icon b"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="60" r="12" fill="currentColor" stroke="none"/><polyline points="24,62 55,60 85,56"/><polyline points="24,62 20,80"/><polyline points="55,60 80,80"/><g style="transform-origin:55px 60px; animation: reach 0.9s ease-in-out infinite;"><polyline points="55,60 40,70 35,62"/></g></svg></span>Mountain climbers <span class="chev">▸</span></summary>
-        <div class="exbody">
-          <div class="ex-photo-wrap"><img class="ex-photo" src="images/mountain-climbers.png" alt="Mountain climbers"></div>
-          <p>En plancha alta, lleva una rodilla al pecho y luego la otra, alternando a ritmo controlado, cadera baja y estable (no la subas como un techo). Es el componente cardiovascular del circuito.</p>
-        </div>
-      </details>
-      <details class="ex">
-        <summary><span class="ex-icon b"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"><circle cx="50" cy="20" r="13" fill="currentColor" stroke="none"/><polyline points="50,27 50,58"/><polyline points="50,58 42,86"/><polyline points="50,58 58,86"/><rect x="6" y="26" width="8" height="8" fill="currentColor" stroke="none"/><g style="transform-origin:50px 36px; animation: shiftX 1.3s ease-in-out infinite;"><polyline points="46,34 72,36"/><polyline points="54,34 72,40"/><path d="M72,38 Q50,8 15,32" stroke-dasharray="3 5" stroke-width="3"/></g><line x1="8" y1="90" x2="92" y2="90" stroke-width="3" opacity="0.35"/></svg></span>Band chest press <span class="chev">▸</span></summary>
-        <div class="exbody">
-          <div class="ex-photo-wrap"><img class="ex-photo" src="images/band-chest-press.png" alt="Band chest press"></div>
-          <p>Ancla la banda detrás de ti a la altura del pecho (una puerta, una barra, o alguien sujetándola). De pie, un paso por delante del anclaje para generar tensión, empuja ambas manos hacia delante como en un press de banca, extendiendo los brazos sin bloquear los codos de golpe. Vuelve controlado sin dejar que la banda te arrastre hacia atrás.</p>
-          <p><strong>Sin anclaje:</strong> pasa la banda por la espalda, a la altura de los omóplatos y por debajo de las axilas, y sujeta un extremo en cada mano junto al pecho. Empuja igual hacia delante; tu propia espalda hace de anclaje. Agarra la banda más corta para más resistencia o más larga para menos. No sirve pisarla: tiraría hacia abajo y no trabajaría el pecho.</p>
-        </div>
-      </details>
-      <details class="ex">
-        <summary><span class="ex-icon b"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"><circle cx="50" cy="20" r="13" fill="currentColor" stroke="none"/><polyline points="50,27 50,58"/><polyline points="50,58 42,86"/><polyline points="50,58 58,86"/><rect x="36" y="82" width="8" height="6" fill="currentColor" stroke="none"/><polyline points="56,30 62,18"/><g style="transform-origin:62px 18px; animation: extend 1.3s ease-in-out infinite;"><polyline points="62,18 66,30"/><path d="M40,82 Q55,55 62,32" stroke-dasharray="3 5" stroke-width="3"/></g></svg></span>Band triceps extension <span class="chev">▸</span></summary>
-        <div class="exbody">
-          <div class="ex-photo-wrap"><img class="ex-photo" src="images/band-triceps-extension.png" alt="Band triceps extension"></div>
-          <p>Ancla la banda baja, detrás o bajo un pie. Sujeta el extremo con ambas manos por detrás de la cabeza, codos apuntando al techo y pegados a las orejas. Extiende los brazos hacia arriba hasta casi estirarlos del todo, sin que los codos se abran hacia los lados, y vuelve controlado flexionando de nuevo.</p>
-        </div>
-      </details>
-    </div>
+    <p class="note">Entre este bloque y el push-up + curl del Día A, pecho y brazo quedan cubiertos 2 veces por semana cada uno — la dosis mínima recomendada para progresar.</p></div>
+    <div class="s-strip rv">
+      <h3>Las láminas de esta sesión</h3>
+      <ul class="thumbs"><li><a href="#ex-floor-press" data-jump="b"><img src="images/floor-press.png" alt="" width="600" height="400" loading="lazy"><span>Press de suelo a una mano</span></a></li><li><a href="#ex-band-row" data-jump="b"><img src="images/band-row.png" alt="" width="600" height="400" loading="lazy"><span>Remo inclinado con banda</span></a></li><li><a href="#ex-kb-halo" data-jump="b"><img src="images/kb-halo.png" alt="" width="600" height="400" loading="lazy"><span>Kettlebell halo</span></a></li><li><a href="#ex-dead-bug" data-jump="b"><img src="images/dead-bug.png" alt="" width="600" height="400" loading="lazy"><span>Dead bug</span></a></li><li><a href="#ex-side-plank" data-jump="b"><img src="images/side-plank.png" alt="" width="600" height="400" loading="lazy"><span>Plancha lateral</span></a></li><li><a href="#ex-suitcase-carry" data-jump="b"><img src="images/suitcase-carry.png" alt="" width="600" height="400" loading="lazy"><span>Suitcase hold con kettlebell</span></a></li><li><a href="#ex-russian-twist" data-jump="b"><img src="images/russian-twist.png" alt="" width="600" height="400" loading="lazy"><span>Russian twist con kettlebell</span></a></li><li><a href="#ex-mountain-climbers" data-jump="b"><img src="images/mountain-climbers.png" alt="" width="600" height="400" loading="lazy"><span>Mountain climbers</span></a></li><li><a href="#ex-band-chest-press" data-jump="b"><img src="images/band-chest-press.png" alt="" width="600" height="400" loading="lazy"><span>Band chest press</span></a></li><li><a href="#ex-band-triceps-extension" data-jump="b"><img src="images/band-triceps-extension.png" alt="" width="600" height="400" loading="lazy"><span>Band triceps extension</span></a></li></ul>
+      <a class="btn" href="entrenamiento.html">Entrenar el Día B con cronómetro</a>
     </div>
   </div>
 </section>
 
-<section id="dia-c" class="ch day c" aria-labelledby="dia-c-h">
-  <div class="day-head g12">
-    <div class="day-title rv">
-      <h2 id="dia-c-h" class="mega">Día C</h2>
-      <p class="lead">Una pierna y rotación</p>
-    </div>
-    <figure class="day-pic rv"><img src="images/single-leg-deadlift.png" alt="Peso muerto a una pierna con kettlebell" width="600" height="400" loading="lazy"></figure>
-    <p class="day-dek rv">El tercer patrón de tu semana: equilibrio, zancadas y anti-rotación. Mismo kettlebell de 12 kg que los otros dos días — aquí el reto es el control, no el peso.</p>
+<section id="dia-c" class="session c" aria-labelledby="dia-c-h">
+  <div class="s-head rv">
+    <h2 id="dia-c-h"><span class="dot c"></span>Día C, una pierna y rotación</h2>
+    <p class="s-dek">El tercer patrón de tu semana: equilibrio, zancadas y anti-rotación. Mismo kettlebell de 12 kg que los otros dos días — aquí el reto es el control, no el peso.</p>
   </div>
-  <div class="day-body g12">
-    <div class="plan rv">
-      <div class="block-label">Bloque 1 — 3 rondas</div>
+  <div class="s-body">
+    <div class="plan rv"><div class="block-label">Bloque 1 — 3 rondas</div>
     <div class="tbl-wrap">
       <table>
         <thead><tr><th>Ejercicio</th><th>Reps</th><th>Descanso</th></tr></thead>
@@ -766,245 +439,472 @@
           <tr><td>Plancha con toque de hombro</td><td class="num">16 totales</td><td class="num">90 s antes de repetir ronda</td></tr>
         </tbody>
       </table>
+    </div></div>
+    <div class="s-strip rv">
+      <h3>Las láminas de esta sesión</h3>
+      <ul class="thumbs"><li><a href="#ex-kb-halo" data-jump="c"><img src="images/kb-halo.png" alt="" width="600" height="400" loading="lazy"><span>Kettlebell halo</span></a></li><li><a href="#ex-reverse-lunge" data-jump="c"><img src="images/reverse-lunge.png" alt="" width="600" height="400" loading="lazy"><span>Reverse lunge con kettlebell</span></a></li><li><a href="#ex-single-leg-deadlift" data-jump="c"><img src="images/single-leg-deadlift.png" alt="" width="600" height="400" loading="lazy"><span>Peso muerto a una pierna</span></a></li><li><a href="#ex-band-woodchopper" data-jump="c"><img src="images/band-woodchopper.png" alt="" width="600" height="400" loading="lazy"><span>Band woodchopper</span></a></li><li><a href="#ex-renegade-row" data-jump="c"><img src="images/renegade-row.png" alt="" width="600" height="400" loading="lazy"><span>Renegade row</span></a></li><li><a href="#ex-shoulder-taps" data-jump="c"><img src="images/shoulder-taps.png" alt="" width="600" height="400" loading="lazy"><span>Plancha con toque de hombro</span></a></li></ul>
+      <a class="btn" href="entrenamiento.html">Entrenar el Día C con cronómetro</a>
     </div>
-    </div>
-    <div class="howto rv">
-      <h3 class="howto-h">Cómo se hace cada ejercicio</h3>
-      <div class="exlist">
-      <details class="ex">
-        <summary><span class="ex-icon c"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"><circle cx="50" cy="20" r="13" fill="currentColor" stroke="none"/><polyline points="50,27 50,55"/><polyline points="50,32 40,44 48,48"/><polyline points="50,32 60,44 52,48"/><circle cx="50" cy="50" r="10" fill="currentColor" stroke="none"/><path d="M45,44 q5,-8 10,0"/><g style="transform-origin:50px 55px; animation: bobY 1.6s ease-in-out infinite;"><polyline points="50,55 42,72 38,86"/><polyline points="50,55 65,78 78,84"/></g><line x1="8" y1="90" x2="92" y2="90" stroke-width="3" opacity="0.35"/></svg></span>Reverse lunge con kettlebell <span class="chev">▸</span></summary>
-        <div class="exbody">
-          <div class="ex-photo-wrap"><img class="ex-photo" src="images/reverse-lunge.png" alt="Reverse lunge con kettlebell"></div>
-          <p>Sostén el kettlebell en posición goblet contra el pecho. Da un paso atrás largo y baja la rodilla trasera casi hasta rozar el suelo, manteniendo el torso vertical. Empuja con el talón delantero para volver a la posición inicial.</p>
-          <div class="mistake">Error típico: que la rodilla delantera se adelante mucho sobre la punta del pie. Si pasa, da un paso atrás más largo.</div>
-        </div>
-      </details>
-      <details class="ex">
-        <summary><span class="ex-icon c"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"><circle cx="50" cy="30" r="13" fill="currentColor" stroke="none"/><polyline points="50,37 50,60"/><polyline points="50,60 42,86"/><polyline points="50,60 58,86"/><g style="transform-origin:50px 30px; animation: spin 2.2s linear infinite;"><polyline points="54,34 64,28"/><polyline points="46,34 60,32"/><circle cx="68" cy="26" r="10" fill="currentColor" stroke="none"/><path d="M63,21 q5,-6 10,0"/></g><line x1="8" y1="90" x2="92" y2="90" stroke-width="3" opacity="0.35"/></svg></span>Kettlebell halo <span class="chev">▸</span></summary>
-        <div class="exbody">
-          <div class="ex-photo-wrap"><img class="ex-photo" src="images/kb-halo.png" alt="Kettlebell halo"></div>
-          <p>De pie, sujeta el kettlebell boca abajo por los cuernos cerca de la barbilla y llévalo en un círculo completo alrededor de la cabeza, manteniéndolo cerca del cráneo durante todo el recorrido. Cambia de dirección cada pocas repeticiones.</p>
-          <p>Trabaja la movilidad de hombro y el core de forma anti-rotación, con poco riesgo al ser un movimiento lento y controlado — buena entrada a los gestos por encima de la cabeza si el clean and press todavía se siente brusco.</p>
-        </div>
-      </details>
-      <details class="ex">
-        <summary><span class="ex-icon c"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"><polyline points="55,56 60,82"/><polyline points="55,56 85,48" stroke-dasharray="3 5"/><g style="transform-origin:55px 56px; animation: sway 1.6s ease-in-out infinite;"><circle cx="26" cy="32" r="12" fill="currentColor" stroke="none"/><polyline points="30,36 55,56"/><polyline points="32,40 30,64"/><circle cx="28" cy="70" r="10" fill="currentColor" stroke="none"/><path d="M23,64 q5,-7 10,0"/></g></svg></span>Peso muerto a una pierna <span class="chev">▸</span></summary>
-        <div class="exbody">
-          <div class="ex-photo-wrap"><img class="ex-photo" src="images/single-leg-deadlift.png" alt="Peso muerto a una pierna con kettlebell"></div>
-          <p>En apoyo sobre una pierna, inclina el torso hacia delante mientras la pierna libre se extiende hacia atrás, manteniendo caderas y hombros cuadrados — como una "T" horizontal. El kettlebell cuelga del brazo contrario a la pierna de apoyo y baja hacia el suelo sin que el tronco rote.</p>
-          <p><strong>Para principiantes:</strong> es el ejercicio del plan que más pide equilibrio. Apóyate con la mano libre en una pared o silla las primeras semanas si lo necesitas — no resta nada al trabajo real del ejercicio.</p>
-        </div>
-      </details>
-      <details class="ex">
-        <summary><span class="ex-icon c"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"><circle cx="50" cy="20" r="13" fill="currentColor" stroke="none"/><polyline points="50,27 50,58"/><polyline points="50,58 40,84"/><polyline points="50,58 62,84"/><rect x="2" y="68" width="6" height="16" fill="currentColor" stroke="none"/><g style="transform-origin:50px 32px; animation: sway 1.3s ease-in-out infinite;"><polyline points="50,32 68,22"/><path d="M68,22 l-6,-6 l6,-6 l-6,-6 l6,-6 l-6,-6" stroke-width="3"/><path d="M30,70 Q45,45 65,25" stroke-dasharray="3 5"/></g><line x1="8" y1="90" x2="92" y2="90" stroke-width="3" opacity="0.35"/></svg></span>Band woodchopper <span class="chev">▸</span></summary>
-        <div class="exbody">
-          <div class="ex-photo-wrap"><img class="ex-photo" src="images/band-woodchopper.png" alt="Band woodchopper"></div>
-          <p>De pie, con los pies algo más abiertos que la cadera. Pisa un extremo de la banda con el pie izquierdo y sujeta el otro extremo con las dos manos juntas junto a la rodilla izquierda, con las rodillas un poco flexionadas y el torso girado hacia ese lado.</p>
+  </div>
+</section>
+
+<section id="catalogo" aria-labelledby="cat-h">
+  <div class="cat-h rv">
+    <h2 id="cat-h">Los 29 ejercicios</h2>
+    <p class="muted">Cada ejercicio del plan con su lámina, su pauta y cómo se hace. Filtra por sesión o por material.</p>
+  </div>
+  <div class="filters rv" role="group" aria-label="Filtrar ejercicios"><button type="button" data-f="todos" aria-pressed="true">Todos<span class="n">29</span></button><button type="button" data-f="a" aria-pressed="false">Día A<span class="n">7</span></button><button type="button" data-f="b" aria-pressed="false">Día B<span class="n">10</span></button><button type="button" data-f="c" aria-pressed="false">Día C<span class="n">6</span></button><button type="button" data-f="w" aria-pressed="false">Calentamiento<span class="n">4</span></button><button type="button" data-f="k" aria-pressed="false">Enfriamiento<span class="n">3</span></button><button type="button" data-f="kettlebell" aria-pressed="false">Kettlebell<span class="n">12</span></button><button type="button" data-f="banda" aria-pressed="false">Banda<span class="n">6</span></button><button type="button" data-f="suelo" aria-pressed="false">Sin material<span class="n">11</span></button></div>
+  <div class="plates" id="plates">
+    <article class="plate lead-plate rv" id="ex-kb-swing" data-tags="a kettlebell">
+      <div class="im"><img src="images/kb-swing.png" alt="Kettlebell swing" width="600" height="400" loading="lazy"></div>
+      <h3>Swing</h3>
+      <dl>
+        <dt>Sesión</dt><dd><span class="dot a"></span>Día A</dd>
+        <dt>Pauta</dt><dd>15–20 · EMOM, descansa hasta el minuto siguiente</dd>
+        <dt>Material</dt><dd>Kettlebell</dd>
+      </dl>
+      <details class="how"><summary>Cómo se hace</summary><div class="body"><p>Kettlebell unos 30 cm por delante de los pies. Con bisagra de cadera, agárralo y "hikealo" hacia atrás entre las piernas como un pase de rugby por debajo. Desde ahí, explota extendiendo caderas y apretando glúteos para proyectar el kettlebell hasta la altura del pecho — los brazos solo guían, no levantan el peso con los hombros. Deja que baje por gravedad e inicia la siguiente bisagra sin pausa.</p>
+          <div class="mistake">Error típico: hacer sentadilla en vez de bisagra, o redondear la espalda al recoger el kettlebell. Es un movimiento de cadera, no de piernas ni de brazos.</div></div></details>
+    </article>
+    <article class="plate rv" id="ex-hip-circles" data-tags="w suelo">
+      <div class="im"><img src="images/hip-circles.png" alt="Círculos de cadera a cuatro patas" width="600" height="400" loading="lazy"></div>
+      <h3>Círculos de cadera a cuatro patas</h3>
+      <dl>
+        <dt>Sesión</dt><dd><span class="dot w"></span>Calentamiento</dd>
+        <dt>Pauta</dt><dd>8 por lado</dd>
+        <dt>Material</dt><dd>Sin material</dd>
+      </dl>
+      <details class="how"><summary>Cómo se hace</summary><div class="body"><p>A cuatro patas, dibuja círculos amplios con una rodilla sin mover la zona lumbar. Despierta la movilidad de cadera que necesitas para la bisagra del swing y la sentadilla.</p><p><strong>De pie:</strong> apoyado en una pared o una silla si lo necesitas, levanta una rodilla al frente a la altura de la cadera, ábrela hacia el lado y bájala por detrás, dibujando un círculo amplio. Haz las repeticiones hacia fuera y luego hacia dentro. Mantén el tronco quieto: el círculo lo dibuja la rodilla, no la espalda.</p></div></details>
+    </article>
+    <article class="plate rv" id="ex-cat-cow" data-tags="w suelo">
+      <div class="im"><img src="images/cat-cow.png" alt="Gato-camello" width="600" height="400" loading="lazy"></div>
+      <h3>Gato-camello</h3>
+      <dl>
+        <dt>Sesión</dt><dd><span class="dot w"></span>Calentamiento</dd>
+        <dt>Pauta</dt><dd>8 repeticiones</dd>
+        <dt>Material</dt><dd>Sin material</dd>
+      </dl>
+      <details class="how"><summary>Cómo se hace</summary><div class="body"><p>A cuatro patas, alterna arquear y redondear la columna con el movimiento, no de golpe. Moviliza toda la espalda antes de cargarla.</p></div></details>
+    </article>
+    <article class="plate rv" id="ex-glute-bridge" data-tags="w suelo">
+      <div class="im"><img src="images/glute-bridge.png" alt="Puente de glúteo" width="600" height="400" loading="lazy"></div>
+      <h3>Puente de glúteo</h3>
+      <dl>
+        <dt>Sesión</dt><dd><span class="dot w"></span>Calentamiento</dd>
+        <dt>Pauta</dt><dd>12 repeticiones</dd>
+        <dt>Material</dt><dd>Sin material</dd>
+      </dl>
+      <details class="how"><summary>Cómo se hace</summary><div class="body"><p>Tumbado, pies apoyados cerca de los glúteos, empuja caderas hacia el techo apretando glúteos arriba. Activa la cadena que más vas a usar en el swing.</p></div></details>
+    </article>
+    <article class="plate rv" id="ex-band-pull-apart" data-tags="w banda">
+      <div class="im"><img src="images/band-pull-apart.png" alt="Band pull-apart" width="600" height="400" loading="lazy"></div>
+      <h3>Band pull-apart</h3>
+      <dl>
+        <dt>Sesión</dt><dd><span class="dot w"></span>Calentamiento</dd>
+        <dt>Pauta</dt><dd>15 repeticiones</dd>
+        <dt>Material</dt><dd>Banda</dd>
+      </dl>
+      <details class="how"><summary>Cómo se hace</summary><div class="body"><p>Banda estirada a la altura del pecho con los brazos extendidos, separa los brazos llevando los omóplatos hacia atrás y vuelve controlado. Enciende la espalda alta antes del remo y el press.</p></div></details>
+    </article>
+    <article class="plate rv" id="ex-goblet-squat" data-tags="a kettlebell">
+      <div class="im"><img src="images/goblet-squat.png" alt="Goblet squat" width="600" height="400" loading="lazy"></div>
+      <h3>Goblet squat</h3>
+      <dl>
+        <dt>Sesión</dt><dd><span class="dot a"></span>Día A</dd>
+        <dt>Pauta</dt><dd>8–12 · descanso 60 s</dd>
+        <dt>Material</dt><dd>Kettlebell</dd>
+      </dl>
+      <details class="how"><summary>Cómo se hace</summary><div class="body"><p>Sujeta el kettlebell por los "cuernos" (los lados del asa) contra el pecho. Pies algo más anchos que la cadera, puntas algo hacia afuera. Baja llevando las caderas atrás y abajo, pecho alto, hasta que los codos rocen la parte interna de las rodillas. Empuja por los talones para subir.</p>
+          <p><strong>Respiración:</strong> inhala al bajar, exhala al empujar hacia arriba.</p>
+          <div class="mistake">Error típico: las rodillas colapsan hacia dentro o los talones se levantan. Si pasa, abre un poco más los pies y pon más peso en los talones.</div></div></details>
+    </article>
+    <article class="plate rv" id="ex-clean-press" data-tags="a kettlebell">
+      <div class="im"><img src="images/clean-press.png" alt="Clean and press" width="600" height="400" loading="lazy"></div>
+      <h3>Clean and press</h3>
+      <dl>
+        <dt>Sesión</dt><dd><span class="dot a"></span>Día A</dd>
+        <dt>Pauta</dt><dd>6–12 / lado · descanso 60 s</dd>
+        <dt>Material</dt><dd>Kettlebell</dd>
+      </dl>
+      <details class="how"><summary>Cómo se hace</summary><div class="body"><p>El kettlebell empieza en el suelo entre los pies. Con un tirón corto desde la cadera —no desde el brazo— súbelo pegado al cuerpo y deja que gire sobre la muñeca hasta "aterrizar" en el antebrazo (posición de rack), sin golpearte. Eso es el <em>clean</em>. Desde el rack, empuja el kettlebell sobre la cabeza sin arquear la zona lumbar, terminando con el bíceps cerca de la oreja. Baja controlado.</p>
+          <p><strong>Para principiantes:</strong> es normal tardar 2–4 semanas en pulir el clean. Practícalo despacio y sin prisa antes de buscar fluidez; si se siente brusco en la muñeca, deja que el kettlebell vuelva al suelo entre repeticiones en vez de encadenarlas.</p></div></details>
+    </article>
+    <article class="plate rv" id="ex-kb-row" data-tags="a kettlebell">
+      <div class="im"><img src="images/kb-row.png" alt="Remo a una mano" width="600" height="400" loading="lazy"></div>
+      <h3>Remo a una mano</h3>
+      <dl>
+        <dt>Sesión</dt><dd><span class="dot a"></span>Día A</dd>
+        <dt>Pauta</dt><dd>10–15 / lado · descanso 90 s</dd>
+        <dt>Material</dt><dd>Kettlebell</dd>
+      </dl>
+      <details class="how"><summary>Cómo se hace</summary><div class="body"><p>Pies al ancho de cadera, rodillas algo flexionadas, inclina el tronco hacia delante en bisagra de cadera manteniendo la espalda plana (sin redondear la zona lumbar). El kettlebell cuelga de un brazo. Tira del codo hacia atrás, pegado a las costillas, hasta que el asa toque el costado; aprieta el omóplato arriba y baja controlado.</p>
+          <div class="mistake">Error típico: rotar el tronco para "ayudar" al tirón. Mantén las caderas y los hombros cuadrados; si necesitas rotar para subir el peso, es que pesa demasiado para tu técnica actual.</div></div></details>
+    </article>
+    <article class="plate rv" id="ex-thruster" data-tags="a kettlebell">
+      <div class="im"><img src="images/thruster.png" alt="Thruster" width="600" height="400" loading="lazy"></div>
+      <h3>Thruster</h3>
+      <dl>
+        <dt>Sesión</dt><dd><span class="dot a"></span>Día A</dd>
+        <dt>Pauta</dt><dd>5–8 · EMOM, descansa hasta el minuto siguiente</dd>
+        <dt>Material</dt><dd>Kettlebell</dd>
+      </dl>
+      <details class="how"><summary>Cómo se hace</summary><div class="body"><p>Sostén el kettlebell en posición goblet contra el pecho. Baja a una sentadilla completa y, sin pausa en el fondo, aprovecha el impulso de la subida para lanzar el peso en press por encima de la cabeza en un solo movimiento continuo.</p>
+          <p><strong>Nota:</strong> es exigente para el ritmo cardíaco. Al principio prioriza completar el movimiento con buena técnica sobre hacerlo rápido.</p></div></details>
+    </article>
+    <article class="plate rv" id="ex-push-up" data-tags="a suelo">
+      <div class="im"><img src="images/push-up.png" alt="Push-up" width="600" height="400" loading="lazy"></div>
+      <h3>Flexión de brazos (push-up)</h3>
+      <dl>
+        <dt>Sesión</dt><dd><span class="dot a"></span>Día A</dd>
+        <dt>Pauta</dt><dd>8–15 · descanso 60 s</dd>
+        <dt>Material</dt><dd>Sin material</dd>
+      </dl>
+      <details class="how"><summary>Cómo se hace</summary><div class="body"><p>Manos un poco más anchas que los hombros, cuerpo en línea recta de cabeza a talones. Baja el pecho casi hasta tocar el suelo con los codos a unos 45° del cuerpo (ni pegados ni en cruz) y empuja de vuelta arriba sin que la cadera se hunda ni se eleve.</p>
+          <div class="mistake">Si 8 reps completas es demasiado: apoya las rodillas en el suelo, o pon las manos sobre algo firme y elevado (banco, escalón) — misma técnica, menos carga.</div></div></details>
+    </article>
+    <article class="plate rv" id="ex-band-curl" data-tags="a banda">
+      <div class="im"><img src="images/band-curl.png" alt="Band curl de bíceps" width="600" height="400" loading="lazy"></div>
+      <h3>Band curl de bíceps</h3>
+      <dl>
+        <dt>Sesión</dt><dd><span class="dot a"></span>Día A</dd>
+        <dt>Pauta</dt><dd>12–15 · descanso 45 s</dd>
+        <dt>Material</dt><dd>Banda</dd>
+      </dl>
+      <details class="how"><summary>Cómo se hace</summary><div class="body"><p>De pie, pisa el centro de la banda con ambos pies y sujeta un extremo en cada mano. Codos pegados al cuerpo, flexiona solo el antebrazo llevando la mano hacia el hombro, sin que el codo se adelante ni uses el impulso de la espalda. Baja controlado hasta extender el brazo del todo.</p></div></details>
+    </article>
+    <article class="plate rv" id="ex-floor-press" data-tags="b kettlebell">
+      <div class="im"><img src="images/floor-press.png" alt="Press de suelo a una mano" width="600" height="400" loading="lazy"></div>
+      <h3>Press de suelo a una mano</h3>
+      <dl>
+        <dt>Sesión</dt><dd><span class="dot b"></span>Día B</dd>
+        <dt>Pauta</dt><dd>8–10 / lado · descanso 60 s</dd>
+        <dt>Material</dt><dd>Kettlebell</dd>
+      </dl>
+      <details class="how"><summary>Cómo se hace</summary><div class="body"><p>Túmbate boca arriba en la esterilla con las rodillas flexionadas y los pies apoyados en el suelo. Coge el kettlebell con una mano y colócalo junto al pecho: la parte de atrás del brazo apoyada en el suelo, el codo a unos 45° del cuerpo y la bola del kettlebell descansando sobre el antebrazo. El otro brazo, estirado en el suelo hacia un lado, te da estabilidad.</p>
+          <p>Empuja el kettlebell hacia el techo hasta estirar el brazo, con la muñeca recta y la pesa justo encima del hombro. Baja despacio hasta que el codo vuelva a tocar el suelo, sin dejarlo caer, y repite.</p>
+          <p>El suelo limita el rango de movimiento y protege el hombro — por eso es una buena entrada al press para alguien nuevo en kettlebell.</p></div></details>
+    </article>
+    <article class="plate rv" id="ex-band-row" data-tags="b banda">
+      <div class="im"><img src="images/band-row.png" alt="Remo inclinado con banda" width="600" height="400" loading="lazy"></div>
+      <h3>Remo inclinado con banda</h3>
+      <dl>
+        <dt>Sesión</dt><dd><span class="dot b"></span>Día B</dd>
+        <dt>Pauta</dt><dd>12–15 · descanso 60 s</dd>
+        <dt>Material</dt><dd>Banda</dd>
+      </dl>
+      <details class="how"><summary>Cómo se hace</summary><div class="body"><p>De pie, pisa el centro de la banda con los dos pies separados a la anchura de las caderas y sujeta un extremo en cada mano. Flexiona un poco las rodillas e inclina el tronco hacia delante desde la cadera, con la espalda plana, hasta dejarlo a unos 45°. Los brazos cuelgan estirados bajo los hombros.</p>
+          <p>Tira de los codos hacia atrás, pegados al cuerpo, hasta que las manos lleguen a la cintura, juntando los omóplatos. Vuelve despacio hasta estirar los brazos sin perder la inclinación ni redondear la espalda.</p>
+          <div class="mistake">Error típico: erguir el tronco al tirar. Mantén la inclinación toda la serie; si no puedes, coge la banda más larga para que tenga menos tensión.</div></div></details>
+    </article>
+    <article class="plate rv" id="ex-kb-halo" data-tags="b c kettlebell">
+      <div class="im"><img src="images/kb-halo.png" alt="Kettlebell halo" width="600" height="400" loading="lazy"></div>
+      <h3>Kettlebell halo</h3>
+      <dl>
+        <dt>Sesión</dt><dd><span class="dot b"></span>Día B<br><span class="dot c"></span>Día C</dd>
+        <dt>Pauta</dt><dd>8–10 vueltas · descanso 60 s</dd>
+        <dt>Material</dt><dd>Kettlebell</dd>
+      </dl>
+      <details class="how"><summary>Cómo se hace</summary><div class="body"><p>De pie, sujeta el kettlebell boca abajo por los cuernos cerca de la barbilla y llévalo en un círculo completo alrededor de la cabeza, manteniéndolo cerca del cráneo durante todo el recorrido. Cambia de dirección cada pocas repeticiones.</p>
+          <p>Trabaja la movilidad de hombro y el core de forma anti-rotación, con poco riesgo al ser un movimiento lento y controlado.</p></div></details>
+    </article>
+    <article class="plate rv" id="ex-dead-bug" data-tags="b suelo">
+      <div class="im"><img src="images/dead-bug.png" alt="Dead bug" width="600" height="400" loading="lazy"></div>
+      <h3>Dead bug</h3>
+      <dl>
+        <dt>Sesión</dt><dd><span class="dot b"></span>Día B</dd>
+        <dt>Pauta</dt><dd>8–10 / lado · descanso 30 s</dd>
+        <dt>Material</dt><dd>Sin material</dd>
+      </dl>
+      <details class="how"><summary>Cómo se hace</summary><div class="body"><p>Tumbado boca arriba, rodillas y caderas a 90°, brazos apuntando al techo. Baja brazo y pierna opuestos a la vez, casi hasta tocar el suelo, manteniendo la zona lumbar pegada a la esterilla todo el tiempo (sin que se arquee). Vuelve al centro y alterna.</p>
+          <p>Es el ejercicio base para aprender a <em>estabilizar</em> el core antes de moverlo — la habilidad detrás de todos los demás ejercicios de este bloque.</p></div></details>
+    </article>
+    <article class="plate rv" id="ex-side-plank" data-tags="b suelo">
+      <div class="im"><img src="images/side-plank.png" alt="Plancha lateral" width="600" height="400" loading="lazy"></div>
+      <h3>Plancha lateral</h3>
+      <dl>
+        <dt>Sesión</dt><dd><span class="dot b"></span>Día B</dd>
+        <dt>Pauta</dt><dd>20–30 s / lado · descanso 30 s</dd>
+        <dt>Material</dt><dd>Sin material</dd>
+      </dl>
+      <details class="how"><summary>Cómo se hace</summary><div class="body"><p>Apóyate sobre el antebrazo y el borde del pie, cuerpo en línea recta de cabeza a talones, cadera elevada sin caer ni subir en exceso. Respira con normalidad mientras aguantas.</p>
+          <div class="mistake">Más fácil: apoya la rodilla inferior en el suelo en vez del pie si 20 segundos es demasiado al principio.</div></div></details>
+    </article>
+    <article class="plate rv" id="ex-suitcase-carry" data-tags="b kettlebell">
+      <div class="im"><img src="images/suitcase-carry.png" alt="Suitcase hold con kettlebell" width="600" height="400" loading="lazy"></div>
+      <h3>Suitcase hold con kettlebell</h3>
+      <dl>
+        <dt>Sesión</dt><dd><span class="dot b"></span>Día B</dd>
+        <dt>Pauta</dt><dd>30 s / lado · descanso 30 s</dd>
+        <dt>Material</dt><dd>Kettlebell</dd>
+      </dl>
+      <details class="how"><summary>Cómo se hace</summary><div class="body"><p>De pie, con los pies a la anchura de las caderas, sujeta el kettlebell con una mano junto al costado y el brazo estirado. La otra mano queda libre.</p>
+          <p>Aguanta el tiempo indicado con el cuerpo totalmente recto: hombros nivelados, sin inclinarte hacia el lado del kettlebell ni compensar hacia el contrario. Aprieta el abdomen y los glúteos y respira con normalidad. Después cambia el kettlebell de mano.</p>
+          <p>Es <em>anti-inclinación lateral</em>: el core trabaja para que el peso no te doble hacia un lado. Para más reto, camina despacio en línea recta (suitcase carry).</p>
+          <div class="mistake">Error típico: subir el hombro del lado de la pesa o dejar que la cadera se desplace hacia fuera. Los hombros y la cadera deben quedar a la misma altura todo el tiempo.</div></div></details>
+    </article>
+    <article class="plate rv" id="ex-russian-twist" data-tags="b kettlebell">
+      <div class="im"><img src="images/russian-twist.png" alt="Russian twist con kettlebell" width="600" height="400" loading="lazy"></div>
+      <h3>Russian twist con kettlebell</h3>
+      <dl>
+        <dt>Sesión</dt><dd><span class="dot b"></span>Día B</dd>
+        <dt>Pauta</dt><dd>20–24 totales · descanso 30 s</dd>
+        <dt>Material</dt><dd>Kettlebell</dd>
+      </dl>
+      <details class="how"><summary>Cómo se hace</summary><div class="body"><p>Sentado con rodillas flexionadas, talones apoyados (o ligeramente elevados para más reto), inclina el torso hacia atrás unos 45° manteniendo la espalda recta, no redondeada. Sujeta el kettlebell con ambas manos y gíralo de un lado al otro de la cadera, tocando el suelo si llegas, sin perder la postura del torso.</p>
+          <p>Es un giro continuo, no un bloque de reps solo hacia un lado: cada toque a un lado cuenta como una repetición, así que automáticamente reparte el mismo trabajo en ambos lados.</p></div></details>
+    </article>
+    <article class="plate rv" id="ex-mountain-climbers" data-tags="b suelo">
+      <div class="im"><img src="images/mountain-climbers.png" alt="Mountain climbers" width="600" height="400" loading="lazy"></div>
+      <h3>Mountain climbers</h3>
+      <dl>
+        <dt>Sesión</dt><dd><span class="dot b"></span>Día B</dd>
+        <dt>Pauta</dt><dd>20 totales · descanso 90 s antes de repetir ronda</dd>
+        <dt>Material</dt><dd>Sin material</dd>
+      </dl>
+      <details class="how"><summary>Cómo se hace</summary><div class="body"><p>En plancha alta, lleva una rodilla al pecho y luego la otra, alternando a ritmo controlado, cadera baja y estable (no la subas como un techo). Es el componente cardiovascular del circuito.</p></div></details>
+    </article>
+    <article class="plate rv" id="ex-band-chest-press" data-tags="b banda">
+      <div class="im"><img src="images/band-chest-press.png" alt="Band chest press" width="600" height="400" loading="lazy"></div>
+      <h3>Band chest press</h3>
+      <dl>
+        <dt>Sesión</dt><dd><span class="dot b"></span>Día B</dd>
+        <dt>Pauta</dt><dd>12–15 · descanso 45 s</dd>
+        <dt>Material</dt><dd>Banda</dd>
+      </dl>
+      <details class="how"><summary>Cómo se hace</summary><div class="body"><p>Ancla la banda detrás de ti a la altura del pecho (una puerta, una barra, o alguien sujetándola). De pie, un paso por delante del anclaje para generar tensión, empuja ambas manos hacia delante como en un press de banca, extendiendo los brazos sin bloquear los codos de golpe. Vuelve controlado sin dejar que la banda te arrastre hacia atrás.</p>
+          <p><strong>Sin anclaje:</strong> pasa la banda por la espalda, a la altura de los omóplatos y por debajo de las axilas, y sujeta un extremo en cada mano junto al pecho. Empuja igual hacia delante; tu propia espalda hace de anclaje. Agarra la banda más corta para más resistencia o más larga para menos. No sirve pisarla: tiraría hacia abajo y no trabajaría el pecho.</p></div></details>
+    </article>
+    <article class="plate rv" id="ex-band-triceps-extension" data-tags="b banda">
+      <div class="im"><img src="images/band-triceps-extension.png" alt="Band triceps extension" width="600" height="400" loading="lazy"></div>
+      <h3>Band triceps extension</h3>
+      <dl>
+        <dt>Sesión</dt><dd><span class="dot b"></span>Día B</dd>
+        <dt>Pauta</dt><dd>12–15 · descanso 45 s</dd>
+        <dt>Material</dt><dd>Banda</dd>
+      </dl>
+      <details class="how"><summary>Cómo se hace</summary><div class="body"><p>Ancla la banda baja, detrás o bajo un pie. Sujeta el extremo con ambas manos por detrás de la cabeza, codos apuntando al techo y pegados a las orejas. Extiende los brazos hacia arriba hasta casi estirarlos del todo, sin que los codos se abran hacia los lados, y vuelve controlado flexionando de nuevo.</p></div></details>
+    </article>
+    <article class="plate rv" id="ex-reverse-lunge" data-tags="c kettlebell">
+      <div class="im"><img src="images/reverse-lunge.png" alt="Reverse lunge con kettlebell" width="600" height="400" loading="lazy"></div>
+      <h3>Reverse lunge con kettlebell</h3>
+      <dl>
+        <dt>Sesión</dt><dd><span class="dot c"></span>Día C</dd>
+        <dt>Pauta</dt><dd>8–10 / lado · descanso 60 s</dd>
+        <dt>Material</dt><dd>Kettlebell</dd>
+      </dl>
+      <details class="how"><summary>Cómo se hace</summary><div class="body"><p>Sostén el kettlebell en posición goblet contra el pecho. Da un paso atrás largo y baja la rodilla trasera casi hasta rozar el suelo, manteniendo el torso vertical. Empuja con el talón delantero para volver a la posición inicial.</p>
+          <div class="mistake">Error típico: que la rodilla delantera se adelante mucho sobre la punta del pie. Si pasa, da un paso atrás más largo.</div></div></details>
+    </article>
+    <article class="plate rv" id="ex-single-leg-deadlift" data-tags="c kettlebell">
+      <div class="im"><img src="images/single-leg-deadlift.png" alt="Peso muerto a una pierna con kettlebell" width="600" height="400" loading="lazy"></div>
+      <h3>Peso muerto a una pierna</h3>
+      <dl>
+        <dt>Sesión</dt><dd><span class="dot c"></span>Día C</dd>
+        <dt>Pauta</dt><dd>8–10 / lado · descanso 90 s</dd>
+        <dt>Material</dt><dd>Kettlebell</dd>
+      </dl>
+      <details class="how"><summary>Cómo se hace</summary><div class="body"><p>En apoyo sobre una pierna, inclina el torso hacia delante mientras la pierna libre se extiende hacia atrás, manteniendo caderas y hombros cuadrados — como una "T" horizontal. El kettlebell cuelga del brazo contrario a la pierna de apoyo y baja hacia el suelo sin que el tronco rote.</p>
+          <p><strong>Para principiantes:</strong> es el ejercicio del plan que más pide equilibrio. Apóyate con la mano libre en una pared o silla las primeras semanas si lo necesitas — no resta nada al trabajo real del ejercicio.</p></div></details>
+    </article>
+    <article class="plate rv" id="ex-band-woodchopper" data-tags="c banda">
+      <div class="im"><img src="images/band-woodchopper.png" alt="Band woodchopper" width="600" height="400" loading="lazy"></div>
+      <h3>Band woodchopper</h3>
+      <dl>
+        <dt>Sesión</dt><dd><span class="dot c"></span>Día C</dd>
+        <dt>Pauta</dt><dd>10–12 / lado · descanso 30 s</dd>
+        <dt>Material</dt><dd>Banda</dd>
+      </dl>
+      <details class="how"><summary>Cómo se hace</summary><div class="body"><p>De pie, con los pies algo más abiertos que la cadera. Pisa un extremo de la banda con el pie izquierdo y sujeta el otro extremo con las dos manos juntas junto a la rodilla izquierda, con las rodillas un poco flexionadas y el torso girado hacia ese lado.</p>
           <p>Tira en diagonal cruzando el cuerpo, de abajo a la izquierda hacia arriba a la derecha, hasta que las manos queden por encima del hombro derecho con los brazos casi estirados. La rotación sale del core y de las caderas —deja que gire también el pie de atrás—, no solo de los brazos. Vuelve controlado a la rodilla izquierda, resistiendo que la banda te devuelva de golpe.</p>
-          <p><strong>Importante:</strong> para el "lado derecho", pisa con el pie izquierdo y sube hacia el hombro derecho, como se describe arriba. Para el "lado izquierdo", al revés: pisa con el pie derecho y sube hacia el hombro izquierdo. Cambia de pie entre una serie y otra para no entrenar dos veces el mismo lado.</p>
-        </div>
-      </details>
-      <details class="ex">
-        <summary><span class="ex-icon c"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"><polyline points="24,66 52,62 85,58"/><polyline points="24,66 30,82"/><circle cx="18" cy="62" r="12" fill="currentColor" stroke="none"/><g style="transform-origin:24px 66px; animation: bobYup 1.2s ease-in-out infinite;"><polyline points="24,66 34,55 42,50"/><circle cx="44" cy="82" r="10" fill="currentColor" stroke="none"/><path d="M39,76 q5,-7 10,0"/></g></svg></span>Renegade row <span class="chev">▸</span></summary>
-        <div class="exbody">
-          <div class="ex-photo-wrap"><img class="ex-photo" src="images/renegade-row.png" alt="Renegade row"></div>
-          <p>En posición de plancha alta, con una mano apoyada en el suelo y la otra sujetando el kettlebell, rema el kettlebell hacia la cadera manteniéndote lo más quieto posible. El reto real es que las caderas no giren hacia el lado que rema. Baja controlado y repite; cambia de mano a mitad de serie.</p>
-        </div>
-      </details>
-      <details class="ex">
-        <summary><span class="ex-icon c"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="60" r="12" fill="currentColor" stroke="none"/><polyline points="24,64 55,60 85,56"/><polyline points="24,64 22,80"/><g style="transform-origin:55px 60px; animation: reach 1s ease-in-out infinite;"><polyline points="55,60 35,48" stroke-dasharray="3 5"/></g></svg></span>Plancha con toque de hombro <span class="chev">▸</span></summary>
-        <div class="exbody">
-          <div class="ex-photo-wrap"><img class="ex-photo" src="images/shoulder-taps.png" alt="Plancha con toque de hombro"></div>
-          <p>En plancha alta con los pies algo más separados de lo habitual para más estabilidad, lleva una mano a tocar el hombro contrario y vuelve a apoyarla en el suelo, alternando lados sin que la cadera se balancee de un lado a otro.</p>
-          <p>Es anti-rotación: el core trabaja para que el tronco no gire, en posición de plancha y sin ningún equipo.</p>
-        </div>
-      </details>
-    </div>
-    </div>
+          <p><strong>Importante:</strong> para el "lado derecho", pisa con el pie izquierdo y sube hacia el hombro derecho, como se describe arriba. Para el "lado izquierdo", al revés: pisa con el pie derecho y sube hacia el hombro izquierdo. Cambia de pie entre una serie y otra para no entrenar dos veces el mismo lado.</p></div></details>
+    </article>
+    <article class="plate rv" id="ex-renegade-row" data-tags="c kettlebell">
+      <div class="im"><img src="images/renegade-row.png" alt="Renegade row" width="600" height="400" loading="lazy"></div>
+      <h3>Renegade row</h3>
+      <dl>
+        <dt>Sesión</dt><dd><span class="dot c"></span>Día C</dd>
+        <dt>Pauta</dt><dd>8–10 / lado · descanso 30 s</dd>
+        <dt>Material</dt><dd>Kettlebell</dd>
+      </dl>
+      <details class="how"><summary>Cómo se hace</summary><div class="body"><p>En posición de plancha alta, con una mano apoyada en el suelo y la otra sujetando el kettlebell, rema el kettlebell hacia la cadera manteniéndote lo más quieto posible. El reto real es que las caderas no giren hacia el lado que rema. Baja controlado y repite; cambia de mano a mitad de serie.</p></div></details>
+    </article>
+    <article class="plate rv" id="ex-shoulder-taps" data-tags="c suelo">
+      <div class="im"><img src="images/shoulder-taps.png" alt="Plancha con toque de hombro" width="600" height="400" loading="lazy"></div>
+      <h3>Plancha con toque de hombro</h3>
+      <dl>
+        <dt>Sesión</dt><dd><span class="dot c"></span>Día C</dd>
+        <dt>Pauta</dt><dd>16 totales · descanso 90 s antes de repetir ronda</dd>
+        <dt>Material</dt><dd>Sin material</dd>
+      </dl>
+      <details class="how"><summary>Cómo se hace</summary><div class="body"><p>En plancha alta con los pies algo más separados de lo habitual para más estabilidad, lleva una mano a tocar el hombro contrario y vuelve a apoyarla en el suelo, alternando lados sin que la cadera se balancee de un lado a otro.</p>
+          <p>Es anti-rotación: el core trabaja para que el tronco no gire, en posición de plancha y sin ningún equipo.</p></div></details>
+    </article>
+    <article class="plate rv" id="ex-hip-flexor-stretch" data-tags="k suelo">
+      <div class="im"><img src="images/hip-flexor-stretch.png" alt="Estiramiento de flexor de cadera" width="600" height="400" loading="lazy"></div>
+      <h3>Estiramiento de flexor de cadera</h3>
+      <dl>
+        <dt>Sesión</dt><dd><span class="dot k"></span>Enfriamiento</dd>
+        <dt>Pauta</dt><dd>30 s / lado</dd>
+        <dt>Material</dt><dd>Sin material</dd>
+      </dl>
+      <details class="how"><summary>Cómo se hace</summary><div class="body"><p>Postura de zancada baja (una rodilla en el suelo), empuja la cadera hacia delante sin arquear la espalda. Libera la tensión que acumula la cadera tras swings y squats.</p></div></details>
+    </article>
+    <article class="plate rv" id="ex-hamstring-stretch" data-tags="k suelo">
+      <div class="im"><img src="images/hamstring-stretch.png" alt="Estiramiento de isquiotibiales" width="600" height="400" loading="lazy"></div>
+      <h3>Estiramiento de isquiotibiales</h3>
+      <dl>
+        <dt>Sesión</dt><dd><span class="dot k"></span>Enfriamiento</dd>
+        <dt>Pauta</dt><dd>30 s / lado</dd>
+        <dt>Material</dt><dd>Sin material</dd>
+      </dl>
+      <details class="how"><summary>Cómo se hace</summary><div class="body"><p>Sentado o de pie, pierna extendida, inclínate hacia delante desde la cadera sin redondear en exceso la espalda baja.</p></div></details>
+    </article>
+    <article class="plate rv" id="ex-thoracic-rotation" data-tags="k suelo">
+      <div class="im"><img src="images/thoracic-rotation.png" alt="Rotaciones torácicas" width="600" height="400" loading="lazy"></div>
+      <h3>Rotaciones torácicas</h3>
+      <dl>
+        <dt>Sesión</dt><dd><span class="dot k"></span>Enfriamiento</dd>
+        <dt>Pauta</dt><dd>8 / lado</dd>
+        <dt>Material</dt><dd>Sin material</dd>
+      </dl>
+      <details class="how"><summary>Cómo se hace</summary><div class="body"><p>A cuatro patas, con las manos justo debajo de los hombros y las rodillas debajo de las caderas. Lleva una mano detrás de la cabeza, con los dedos en la nuca, y baja ese codo hacia el brazo de apoyo.</p><p>Desde ahí, gira el pecho abriéndote hacia el lado del codo libre hasta que apunte al techo, siguiéndolo con la mirada. Las caderas y la mano de apoyo no se mueven: el giro sale solo de la parte alta de la espalda. Vuelve despacio y repite.</p></div></details>
+    </article>
   </div>
 </section>
 
-<section id="enfriamiento" class="ch s" aria-labelledby="enf-h">
-  <div class="g12 split">
-    <div class="sh rv">
-      <h2 id="enf-h" class="head">Enfriamiento, 5&nbsp;minutos</h2>
-      <p class="lead">Al terminar cualquiera de los tres días, antes de ducharte.</p>
+<section id="progresion" aria-labelledby="prog-h">
+  <div class="prog">
+    <div class="rv">
+      <h2 id="prog-h" style="font-size:var(--s-head)">Seis semanas, mismo peso</h2>
+      <p class="muted" style="margin-top:20px; max-width:34ch">El kettlebell se queda en 12 kg todo el ciclo y después de él. Progresas en técnica, tempo, densidad y variedad de patrones — no en peso.</p>
     </div>
-    <div class="exlist rv">
-      <details class="ex">
-        <summary><span class="ex-icon n"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"><g style="transform-origin:50px 55px; animation: pulse 2.2s ease-in-out infinite;"><circle cx="46" cy="20" r="13" fill="currentColor" stroke="none"/><polyline points="48,27 50,55"/><polyline points="50,55 38,78 30,82"/><polyline points="50,55 65,80 78,82"/><polyline points="48,30 42,50"/></g></svg></span>Estiramiento de flexor de cadera — 30 s / lado <span class="chev">▸</span></summary>
-        <div class="exbody"><div class="ex-photo-wrap"><img class="ex-photo" src="images/hip-flexor-stretch.png" alt="Estiramiento de flexor de cadera"></div><p>Postura de zancada baja (una rodilla en el suelo), empuja la cadera hacia delante sin arquear la espalda. Libera la tensión que acumula la cadera tras swings y squats.</p></div>
-      </details>
-      <details class="ex">
-        <summary><span class="ex-icon n"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"><g style="transform-origin:45px 55px; animation: pulse 2.2s ease-in-out infinite;"><circle cx="34" cy="34" r="13" fill="currentColor" stroke="none"/><polyline points="38,38 55,58"/><polyline points="55,58 60,84"/><polyline points="55,58 30,66 18,68"/><polyline points="40,40 22,60"/></g></svg></span>Estiramiento de isquiotibiales — 30 s / lado <span class="chev">▸</span></summary>
-        <div class="exbody"><div class="ex-photo-wrap"><img class="ex-photo" src="images/hamstring-stretch.png" alt="Estiramiento de isquiotibiales"></div><p>Sentado o de pie, pierna extendida, inclínate hacia delante desde la cadera sin redondear en exceso la espalda baja.</p></div>
-      </details>
-      <details class="ex">
-        <summary><span class="ex-icon n"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"><circle cx="26" cy="44" r="13" fill="currentColor" stroke="none"/><polyline points="30,50 45,65"/><polyline points="45,65 65,70 78,66"/><g style="transform-origin:32px 52px; animation: sway 1.4s ease-in-out infinite;"><polyline points="32,52 15,58"/><path d="M32,52 Q45,35 50,25" stroke-dasharray="3 5"/></g></svg></span>Rotaciones torácicas — 8 / lado <span class="chev">▸</span></summary>
-        <div class="exbody"><div class="ex-photo-wrap"><img class="ex-photo" src="images/thoracic-rotation.png" alt="Rotaciones torácicas"></div><p>A cuatro patas, con las manos justo debajo de los hombros y las rodillas debajo de las caderas. Lleva una mano detrás de la cabeza, con los dedos en la nuca, y baja ese codo hacia el brazo de apoyo.</p><p>Desde ahí, gira el pecho abriéndote hacia el lado del codo libre hasta que apunte al techo, siguiéndolo con la mirada. Las caderas y la mano de apoyo no se mueven: el giro sale solo de la parte alta de la espalda. Vuelve despacio y repite.</p></div>
-      </details>
-    </div>
+    <ol>
+      <li class="rv"><h3>1–2<small>Semanas: aprende</small></h3><p>Aprende el patrón de cada uno de los tres días. Finisher del Día A a 3–4 rondas. La técnica manda sobre la velocidad o el número de reps.</p></li>
+      <li class="rv" style="--d:80ms"><h3>3–4<small>Semanas: sube reps</small></h3><p>Sube al rango alto de repeticiones indicado en las tablas. Finisher del Día A a 5 rondas. En el Día C, reduce cuánto te apoyas en la pared en el peso muerto a una pierna.</p></li>
+      <li class="rv"><h3>5–6<small>Semanas: densidad</small></h3><p>Finisher del Día A completo, 6 rondas. Recorta los descansos 10–15 s en el Bloque 1 de los tres días. Añade una pausa de 1–2 s en el punto más duro de cada ejercicio (el fondo del squat, el codo arriba en el remo) — más control, mismo peso.</p></li>
+      <li class="rv" style="--d:80ms"><h3>Después<small>Vuelve a empezar</small></h3><p>Repite el ciclo cambiando el orden de los ejercicios dentro de cada bloque, recorta algo más los descansos, o añade una ronda extra al finisher. Con un solo kettlebell de 12 kg hay años de progresión combinando técnica, tempo, densidad y variedad de patrones antes de que el peso sea el límite.</p></li>
+    </ol>
   </div>
 </section>
 
-<section id="progresion" class="ch" aria-labelledby="prog-h">
-  <div class="grow">
-    <div class="grow-head rv">
-      <h2 id="prog-h" class="head">Seis semanas, mismo peso</h2>
-      <p class="muted">El kettlebell se queda en 12 kg todo el ciclo y después de él. Progresas en técnica, tempo, densidad y variedad de patrones — no en peso.</p>
-    </div>
-    <div class="stage st1 rv"><div class="tl"><img src="images/goblet-squat.png" alt="Goblet squat" width="600" height="400" loading="lazy"></div>
-      <h3>Semanas 1–2: aprende</h3><p>Aprende el patrón de cada uno de los tres días. Finisher del Día A a 3–4 rondas. La técnica manda sobre la velocidad o el número de reps.</p></div>
-    <div class="stage st2 rv" style="--d:80ms"><div class="tl"><img src="images/kb-swing.png" alt="Kettlebell swing" width="600" height="400" loading="lazy"></div>
-      <h3>Semanas 3–4: sube reps</h3><p>Sube al rango alto de repeticiones indicado en las tablas. Finisher del Día A a 5 rondas. En el Día C, reduce cuánto te apoyas en la pared en el peso muerto a una pierna.</p></div>
-    <div class="stage st3 rv" style="--d:160ms"><div class="tl"><img src="images/thruster.png" alt="Thruster con kettlebell" width="600" height="400" loading="lazy"></div>
-      <h3>Semanas 5–6: densidad</h3><p>Finisher del Día A completo, 6 rondas. Recorta los descansos 10–15 s en el Bloque 1 de los tres días. Añade una pausa de 1–2 s en el punto más duro de cada ejercicio (el fondo del squat, el codo arriba en el remo) — más control, mismo peso.</p></div>
-    <div class="stage st4 rv" style="--d:240ms"><div class="tl"><img src="images/clean-press.png" alt="Clean and press" width="600" height="400" loading="lazy"></div>
-      <h3>Después: vuelve a empezar</h3><p>Repite el ciclo cambiando el orden de los ejercicios dentro de cada bloque, recorta algo más los descansos, o añade una ronda extra al finisher. Con un solo kettlebell de 12 kg hay años de progresión combinando técnica, tempo, densidad y variedad de patrones antes de que el peso sea el límite.</p></div>
+<section id="nutricion" aria-labelledby="nut-h">
+  <div class="nutri-h rv">
+    <h2 id="nut-h" style="font-size:var(--s-head)">Lo que mueve la grasa</h2>
+    <p class="muted">El entrenamiento de este plan construye fuerza y preserva músculo. La pérdida de grasa la decide el balance calórico. Cifras orientativas:</p>
+  </div>
+  <div class="figs">
+    <div class="fig rv"><div><div class="n">300–500</div><div class="u">kcal/día de déficit</div></div><p>Suficiente para perder grasa de forma sostenida sin sacrificar rendimiento en los entrenamientos ni masa muscular.</p></div>
+    <div class="fig rv" style="--d:70ms"><div><div class="n">1.6–2.2</div><div class="u">g/kg de proteína al día</div></div><p>Repartida en 4–5 tomas de 30–40 g<sup>5</sup>. Es el factor nº1 para no perder músculo en déficit.</p></div>
+    <div class="fig rv" style="--d:140ms"><div><div class="n">8–10 mil</div><div class="u">pasos / día (8.000–10.000)</div></div><p>Cardio de baja fatiga que suma al déficit sin interferir con la recuperación de los días de fuerza.</p></div>
+    <div class="fig rv" style="--d:210ms"><div><div class="n">7–9 h</div><div class="u">sueño / noche</div></div><p>Es cuando se repara el tejido entrenado y se regulan las hormonas del apetito — tan importante como el gimnasio.</p></div>
   </div>
 </section>
 
-<section id="nutricion" class="ch" aria-labelledby="nut-h" style="padding-top:0">
-  <div class="steps">
-    <div class="fig f1 rv"><div><div class="n">300–500</div><div class="u">kcal/día de déficit</div></div><p>Suficiente para perder grasa de forma sostenida sin sacrificar rendimiento en los entrenamientos ni masa muscular.</p></div>
-    <div class="nutri-head rv">
-      <h2 id="nut-h" class="head">Nutrición: lo que mueve la grasa</h2>
-      <p class="muted">El entrenamiento de este plan construye fuerza y preserva músculo. La pérdida de grasa —también la abdominal— la decide el balance calórico. Cifras orientativas:</p>
+<section id="seguimiento" aria-labelledby="seg-h">
+  <div class="track">
+    <div class="rv">
+      <h2 id="seg-h" style="font-size:var(--s-head)">Seguimiento</h2>
+      <p class="muted" style="margin-top:20px; max-width:34ch">Marca cada sesión completada durante las 6 semanas. Se guarda en este dispositivo y navegador, así que puedes volver cada semana.</p>
     </div>
-    <div class="fig f2 rv"><div><div class="n">1.6–2.2 g/kg</div><div class="u">proteína / día</div></div><p>Repartida en 4–5 tomas de 30–40 g<sup>5</sup>. Es el factor nº1 para no perder músculo en déficit.</p></div>
-    <div class="fig f3 rv"><div><div class="n">8.000–10.000</div><div class="u">pasos / día</div></div><p>Cardio de baja fatiga que suma al déficit sin interferir con la recuperación de los días de fuerza.</p></div>
-    <div class="fig f4 rv" style="--d:80ms"><div><div class="n">7–9 h</div><div class="u">sueño / noche</div></div><p>Es cuando se repara el tejido entrenado y se regulan las hormonas del apetito.</p></div>
-  </div>
-</section>
-
-<section id="seguimiento" class="ch n" aria-labelledby="seg-h">
-  <div class="g12 track">
-    <div class="sh rv">
-      <h2 id="seg-h" class="head">Seguimiento de 6 semanas</h2>
-      <p class="lead muted">Marca cada sesión completada. Se guarda en este dispositivo y navegador, así que puedes volver cada semana.</p>
-    </div>
-    <div class="tw rv">
+    <div class="rv">
       <table class="tracker" id="tracker-table">
         <thead><tr><th>Semana</th><th class="a">A</th><th class="b">B</th><th class="c">C</th><th class="a">A</th><th class="b">B</th><th class="c">C</th></tr></thead>
         <tbody id="tracker-body"></tbody>
       </table>
       <div class="tracker-foot">
-        <p class="small muted">A = fuerza con kettlebell · B = core y banda · C = una pierna y rotación. El domingo de descanso no lleva casilla.</p>
+        <p class="muted" style="font-size:var(--s-small)">A = fuerza con kettlebell · B = core y banda · C = una pierna y rotación. El domingo de descanso no lleva casilla.</p>
         <button class="tracker-reset" id="tracker-reset" type="button">Reiniciar seguimiento</button>
       </div>
     </div>
   </div>
 </section>
 
-<section id="seguridad" class="bands" aria-labelledby="seg2-h">
-  <div class="band lead-band"><h2 id="seg2-h" class="rv">Seguridad</h2></div>
-  <div class="band myth" id="resumen"><div class="g12">
-    <h3 class="q rv">No existe la quema localizada</h3>
-    <div class="ans rv" style="--d:80ms">
+<section id="seguridad" aria-labelledby="sec-h">
+  <h2 id="sec-h" class="rv" style="font-size:var(--s-head)">Seguridad</h2>
+  <div class="myth rv" id="resumen">
+    <h3>No existe la quema localizada</h3>
+    <div>
       <p><strong>La grasa abdominal no se “quema” haciendo abdominales.</strong> Es lo más importante de todo el plan: ningún ejercicio localizado reduce la grasa de la zona que trabaja. Un metaanálisis de 2022 con más de 1.000 participantes y una revisión de 2021 con 13 estudios (1.158 personas) no encontraron diferencias en la pérdida de grasa localizada entre el lado entrenado y el no entrenado, sin importar el ejercicio usado<sup>1,2</sup>. Un ensayo controlado de 12 semanas tampoco halló más reducción de grasa abdominal en el grupo que además de dieta hacía ejercicios de core, frente al grupo que solo hacía dieta<sup>3</sup>.</p>
       <p><strong>¿Qué funciona entonces?</strong> Tu cuerpo decide dónde tirar de las reservas de grasa según genética y hormonas, no según qué músculo mueves<sup>1</sup>. Lo que sí reduce la grasa en general —incluida la abdominal— es un <strong>déficit calórico sostenido</strong> combinado con <strong>entrenamiento de fuerza de cuerpo completo</strong> para no perder músculo mientras pierdes grasa. El trabajo de core de este plan está aquí para darte un abdomen fuerte y estable, no para "quemarlo" directamente — eso lo hace la dieta.</p>
     </div>
-  </div></div>
-  <div class="band"><div class="g12"><h3 class="q rv">Domina la bisagra de cadera antes del swing con velocidad</h3><p class="ans rv">Practica primero el peso muerto con kettlebell despacio; el swing es esa misma bisagra con potencia.</p></div></div>
-  <div class="band"><div class="g12"><h3 class="q rv">Con 12 kg todavía tienes mucho margen de progreso sin más peso</h3><p class="ans rv">Técnica, rango completo, tempo y menos descanso son formas válidas de progresar.</p></div></div>
-  <div class="band"><div class="g12"><h3 class="q rv">El domingo de descanso no es negociable, aunque te sientas bien</h3><p class="ans rv">Es tan parte del plan como cualquiera de los seis días de entreno.</p></div></div>
-  <div class="band"><div class="g12"><h3 class="q rv">Dolor agudo o que se irradia no es lo mismo que fatiga muscular</h3><p class="ans rv">Si aparece, detén el ejercicio y, si hace falta, salta una sesión aunque no sea domingo — revisa la técnica antes de continuar.</p></div></div>
-  <div class="band"><div class="g12"><h3 class="q rv">Calienta siempre, 6 minutos mínimo</h3><p class="ans rv">Incluso los días con prisa. Es lo que separa un swing seguro de una lumbalgia.</p></div></div>
+  </div>
+  <ul class="rules">
+    <li class="rv"><h3>Domina la bisagra de cadera antes del swing con velocidad</h3><p>Practica primero el peso muerto con kettlebell despacio; el swing es esa misma bisagra con potencia.</p></li>
+    <li class="rv"><h3>Con 12 kg tienes margen de sobra</h3><p>Con 12 kg todavía tienes mucho margen de progreso sin más peso. Técnica, rango completo, tempo y menos descanso son formas válidas de progresar.</p></li>
+    <li class="rv"><h3>El domingo de descanso no es negociable</h3><p>Aunque te sientas bien. Es tan parte del plan como cualquiera de los seis días de entreno.</p></li>
+    <li class="rv"><h3>Dolor agudo no es fatiga muscular</h3><p>Dolor agudo o que se irradia no es lo mismo que fatiga muscular. Si aparece, detén el ejercicio y, si hace falta, salta una sesión aunque no sea domingo — revisa la técnica antes de continuar.</p></li>
+    <li class="rv"><h3>Calienta siempre, 6 minutos mínimo</h3><p>Incluso los días con prisa. Es lo que separa un swing seguro de una lumbalgia.</p></li>
+  </ul>
 </section>
 </main>
 
-<footer class="foot" id="fuentes">
-  <div class="fboard">
-    <div class="f-src">
-      <h2>Fuentes</h2>
-      <ol>
+<footer id="fuentes">
+  <div class="f-grid">
+    <div><h2>Fuentes</h2><ol>
       <li>The Conversation — <a href="https://theconversation.com/spot-reduction-why-exercise-probably-cant-help-you-target-fatty-areas-of-the-body-194283" target="_blank" rel="noopener">"Spot reduction: why exercise probably can't help you target fatty areas of the body"</a>.</li>
       <li>Revisión sistemática y metaanálisis sobre reducción localizada de grasa, resumida en <a href="https://www.discoverstrength.com/learning-center/ab-exercises-spot-reduction-myth" target="_blank" rel="noopener">DiscoverStrength</a>.</li>
       <li>Ensayo controlado de 12 semanas sobre ejercicios de core y grasa abdominal, citado en <a href="https://theconversation.com/can-i-actually-target-areas-to-lose-fat-like-my-belly-205203" target="_blank" rel="noopener">The Conversation</a>.</li>
       <li>Dosis mínima de entrenamiento de fuerza para preservar músculo en déficit — <a href="https://www.premierfitnesscamp.com/blog/guide/muscle-preservation-fat-loss/" target="_blank" rel="noopener">Premier Fitness Camp</a>.</li>
       <li>Rango de proteína recomendado para pérdida de grasa preservando músculo — <a href="https://macrofactor.com/wp-content/uploads/2025/11/MacroFactor-Fat-Loss-Handbook.pdf" target="_blank" rel="noopener">MacroFactor Fat Loss Handbook</a>.</li>
-    </ol>
-    </div>
-    <nav class="f-nav" aria-label="Pie">
-      <h2>En este plan</h2>
-      <ul>
-        <li><a href="#semana">Tu semana</a></li>
-        <li><a href="#calentamiento">Calentamiento</a></li>
-        <li><a href="#dia-a">Día A</a> · <a href="#dia-b">Día B</a> · <a href="#dia-c">Día C</a></li>
-        <li><a href="#progresion">Progresión</a></li>
-        <li><a href="#nutricion">Nutrición</a></li>
-        <li><a href="#seguimiento">Seguimiento</a></li>
-        <li><a href="#seguridad">Seguridad</a></li>
-      </ul>
-    </nav>
-    <div class="f-note">
-      <h2>Aviso</h2>
-      <p>Este documento es orientativo y no sustituye la valoración de un médico o fisioterapeuta, especialmente si tienes alguna lesión previa de espalda, cadera u hombro.</p>
-    </div>
-    <div class="f-word" aria-hidden="true">Troncos<img src="tronco.svg" alt=""></div>
-    <a class="f-go" href="entrenamiento.html"><span>Entrenar hoy</span><svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/></svg></a>
+    </ol></div>
+    <nav aria-label="Pie"><h2>En este plan</h2><ul>
+      <li><a href="#semana">Tu semana</a></li><li><a href="#dia-a">Día A</a></li><li><a href="#dia-b">Día B</a></li><li><a href="#dia-c">Día C</a></li>
+      <li><a href="#catalogo">Ejercicios</a></li><li><a href="#progresion">Progresión</a></li><li><a href="#nutricion">Nutrición</a></li><li><a href="#seguimiento">Seguimiento</a></li><li><a href="#seguridad">Seguridad</a></li></ul></nav>
+    <div><h2>Aviso</h2><p class="note">Este documento es orientativo y no sustituye la valoración de un médico o fisioterapeuta, especialmente si tienes alguna lesión previa de espalda, cadera u hombro.</p></div>
   </div>
+  <div class="f-word"><span aria-hidden="true">Troncos</span><a href="entrenamiento.html">Entrenar hoy →</a></div>
 </footer>
 
 <script>
 (function(){
-  /* today: highlight the day in the week poster and name it on the button */
+  /* today: mark the week and name today's session under the hero */
   var d = new Date().getDay();
-  var li = document.querySelector('#poster li[data-d="' + d + '"]');
+  var li = document.querySelector('#week li[data-d="' + d + '"]');
   if(li) li.classList.add("today");
-  var names = { a:"Hoy toca Día A — fuerza", b:"Hoy toca Día B — core y banda", c:"Hoy toca Día C — una pierna" };
-  var cta = document.getElementById("hoy-cta");
-  if(li && cta){
-    var k = li.classList.contains("a") ? "a" : li.classList.contains("b") ? "b" : li.classList.contains("c") ? "c" : null;
-    cta.textContent = k ? names[k] : "Hoy toca descanso";
-  }
+  var names = { a:"Día A, fuerza con kettlebell", b:"Día B, core y banda", c:"Día C, una pierna y rotación" };
+  var k = li && (li.classList.contains("a") ? "a" : li.classList.contains("b") ? "b" : li.classList.contains("c") ? "c" : null);
+  var t = document.getElementById("today");
+  if(t && li) t.innerHTML = k ? 'Hoy toca <b>' + names[k] + '</b>. <a href="#dia-' + k + '">Ver la sesión</a>' : "Hoy toca <b>descanso completo</b>. Mañana, Día A.";
 
-  /* section entrances */
-  var els = document.querySelectorAll(".rv");
-  if("IntersectionObserver" in window){
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
-    }, { rootMargin:"0px 0px -8% 0px" });
-    els.forEach(function(el){ io.observe(el); });
-  } else {
-    els.forEach(function(el){ el.classList.add("in"); });
+  /* entrances */
+  var io = "IntersectionObserver" in window ? new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
+  }, { rootMargin:"0px 0px -8% 0px" }) : null;
+  document.querySelectorAll(".rv").forEach(function(el){ io ? io.observe(el) : el.classList.add("in"); });
+
+  /* catalogue filters */
+  var btns = document.querySelectorAll(".filters button");
+  var plates = document.querySelectorAll(".plate");
+  function filter(f){
+    btns.forEach(function(b){ b.setAttribute("aria-pressed", b.dataset.f === f ? "true" : "false"); });
+    plates.forEach(function(p){
+      var show = f === "todos" || p.dataset.tags.split(" ").indexOf(f) > -1;
+      p.hidden = !show;
+      if(show) p.classList.add("in");
+    });
   }
+  btns.forEach(function(b){ b.addEventListener("click", function(){ filter(b.dataset.f); }); });
+  document.querySelectorAll("[data-filter]").forEach(function(a){ a.addEventListener("click", function(){ filter(a.dataset.filter); }); });
+  /* a jump from a session to a plate always lands on a visible plate */
+  document.querySelectorAll("[data-jump]").forEach(function(a){ a.addEventListener("click", function(){ filter("todos"); }); });
 
   /* 6-week tracker */
-  var WEEKS = 6;
-  var KEY = "protocolo12kg_tracker_v2";
-  var body = document.getElementById("tracker-body");
-  var state = {};
-  try{
-    var raw = localStorage.getItem(KEY);
-    if(raw) state = JSON.parse(raw) || {};
-  }catch(e){ state = {}; }
-
-  function save(){
-    try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
-  }
-
+  var WEEKS = 6, KEY = "protocolo12kg_tracker_v2";
+  var body = document.getElementById("tracker-body"), state = {};
+  try{ var raw = localStorage.getItem(KEY); if(raw) state = JSON.parse(raw) || {}; }catch(e){ state = {}; }
+  function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
   function makeCheck(id, cls, label){
     var btn = document.createElement("button");
-    btn.className = "check " + cls;
-    btn.type = "button";
-    btn.setAttribute("role", "checkbox");
-    btn.setAttribute("aria-label", label);
+    btn.className = "check " + cls; btn.type = "button";
+    btn.setAttribute("role", "checkbox"); btn.setAttribute("aria-label", label);
     btn.setAttribute("aria-checked", state[id] ? "true" : "false");
     btn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"/></svg>';
-    btn.addEventListener("click", function(){
-      state[id] = !state[id];
-      btn.setAttribute("aria-checked", state[id] ? "true" : "false");
-      save();
-    });
+    btn.addEventListener("click", function(){ state[id] = !state[id]; btn.setAttribute("aria-checked", state[id] ? "true" : "false"); save(); });
     return btn;
   }
-
   for(var w=1; w<=WEEKS; w++){
-    var tr = document.createElement("tr");
-    var tdWeek = document.createElement("td");
-    tdWeek.textContent = "Semana " + w;
-    tr.appendChild(tdWeek);
+    var tr = document.createElement("tr"), td0 = document.createElement("td");
+    td0.textContent = "Semana " + w; tr.appendChild(td0);
     ["a1","b1","c1","a2","b2","c2"].forEach(function(slot){
       var td = document.createElement("td");
       td.appendChild(makeCheck("w" + w + "_" + slot, slot[0], "Semana " + w + ", Día " + slot[0].toUpperCase()));
@@ -1012,13 +912,9 @@
     });
     body.appendChild(tr);
   }
-
   document.getElementById("tracker-reset").addEventListener("click", function(){
-    state = {};
-    save();
-    Array.prototype.forEach.call(document.querySelectorAll(".check"), function(c){
-      c.setAttribute("aria-checked","false");
-    });
+    state = {}; save();
+    document.querySelectorAll(".check").forEach(function(c){ c.setAttribute("aria-checked","false"); });
   });
 })();
 </script>

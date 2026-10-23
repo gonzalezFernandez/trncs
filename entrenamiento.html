@@ -4,21 +4,21 @@
 <meta charset="utf-8">
 <link rel="icon" type="image/svg+xml" href="tronco.svg">
 <meta name="color-scheme" content="dark">
-<meta name="theme-color" content="#0a0a0a">
+<meta name="theme-color" content="#10151b">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Cronómetro Troncos 12kg</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..600&family=Instrument+Serif&display=swap" rel="stylesheet">
 <style>
   .title-emoji{ height:0.85em; width:auto; vertical-align:-0.06em; margin-left:0.12em; }
-  /* same system as the plan page, on a dark ground for the gym */
+  /* same type and day colours as the plan, on the drawings own navy ground so their box disappears */
   :root{
-    --bg:#0a0a0a; --surface:#18181a; --surface-2:#242427;
-    --ink:#ffffff; --ink-soft:#b4b4ba; --line:#2e2e32;
-    --accent:#4a5bff; --accent-ink:#ffffff; --accent-soft:#161b4d;
-    --accent2:#ff4a2e; --accent2-ink:#0a0a0a; --accent2-soft:#40160e;
-    --good:#1fae66; --good-ink:#0a0a0a; --good-soft:#0c2e1e;
+    --bg:#10151b; --surface:#171d24; --surface-2:#1e2630;
+    --ink:#f4f2ee; --ink-soft:#a9b6c0; --line:#2a333c;
+    --accent:#6aa3ee; --accent-ink:#10151b; --accent-soft:#1e3250;
+    --accent2:#ff7a5c; --accent2-ink:#10151b; --accent2-soft:#3a1f18;
+    --good:#5fbe8d; --good-ink:#10151b; --good-soft:#163227;
     --shadow:none;
   }
   *{box-sizing:border-box;}
@@ -272,7 +272,10 @@
 
   /* ---- chapter colours: day cards and buttons are filled with their day ---- */
   body{ font-variant-numeric:tabular-nums; }
-  .start h1{ font-size:clamp(2.2rem, 9vw, 3rem); line-height:0.95; }
+  h1, h2.ex-name{ font-family:"Instrument Serif", Georgia, serif; font-weight:400; letter-spacing:-0.02em; }
+  .start h1{ font-size:clamp(2.6rem, 11vw, 3.6rem); line-height:0.92; }
+  .day-card .letter{ font-family:"Instrument Serif", Georgia, serif; font-weight:400; }
+  #screen-player .ex-name{ font-size:clamp(1.7rem, 7.5vw, 2.2rem); }
   .start p.sub{ color:var(--ink); font-size:1.0625rem; }
   .day-card{ border:0; padding:18px 18px; gap:16px; transition:transform .15s ease, filter .15s ease; }
   .day-card:hover{ filter:brightness(1.08); }
@@ -303,6 +306,7 @@
   .stat{ border:0; }
   .stat .l{ font-size:0.8125rem; letter-spacing:0; }
   .done .check{ background:var(--good); color:var(--good-ink); }
+  .big-photo{ background:transparent; }
   @media (prefers-reduced-motion: reduce){ .day-card, .cta{ transition:none; } }
 </style>
 </head>
