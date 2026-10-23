@@ -325,7 +325,7 @@
     flex:1 1 0; min-height:96px; width:100%; max-width:none; max-height:none; aspect-ratio:auto; margin:0;
     position:relative; container-type:size; padding-bottom:16px;
   }
-  #screen-player .water .ring-wrap svg{ position:absolute; left:0; right:0; bottom:0; width:100%; height:8px; transform:none; }
+  #screen-player .water .ring-wrap > svg{ position:absolute; left:0; right:0; bottom:0; width:100%; height:8px; transform:none; }
   .water .ring-bg{ stroke:rgba(255,255,255,0.28); stroke-width:8; }
   .water .ring-fg{ stroke:#fff !important; stroke-width:8; stroke-linecap:butt; }
   #screen-player .water .ring-num{
@@ -343,7 +343,7 @@
     font-family:"Instrument Serif", Georgia, serif; font-weight:400; text-transform:none; text-align:left;
     font-size:min(30cqh, 15cqw); line-height:0.95; max-width:none; letter-spacing:-0.02em;
   }
-  #screen-player .water .ring-wrap.intro svg{ display:none; }
+  #screen-player .water .ring-wrap.intro > svg{ display:none; }
   .water .phase-note{ color:#fff; max-width:none; font-size:0.9375rem; }
   #screen-player .water .cta{ max-width:none; }
   #screen-player .water .cta:not(.secondary):not(.ghost){ background:#fff; color:var(--ink); }
@@ -378,6 +378,25 @@
     animation:breathe 4s ease-in-out infinite;
   }
   #screen-player .resting .water .ring-num{ z-index:1; }
+  /* ---- block gate: a big round play button; with AUTO it fills like a clock before starting ---- */
+  .gate{ display:none; }
+  #screen-player .water .ring-wrap.intro{ animation:none; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; padding-bottom:0; }
+  #screen-player .water .ring-wrap.intro .gate{
+    display:block; position:relative; flex:0 1 auto; height:min(62cqh, 64cqw); aspect-ratio:1; border-radius:50%;
+    animation:gateHalo 1.6s ease-out infinite;
+  }
+  #screen-player .ring-wrap .gate svg{ width:100%; height:100%; display:block; position:static; transform:none; }
+  .gate-bg{ fill:#fff; }
+  .gate-fill{ fill:none; stroke:#fff; stroke-width:50; stroke-dasharray:157.08; stroke-dashoffset:0; }
+  .gate-play{ fill:var(--day-ink, #151515); }
+  .ring-wrap.filling .gate-bg{ fill:rgba(255,255,255,0.3); }
+  .ring-wrap.filling .gate-fill{ animation:gateFill var(--gate-ms, 5000ms) linear forwards; }
+  #screen-player .water .ring-wrap.intro.filling .gate{ animation:none; }
+  @keyframes gateFill{ from{ stroke-dashoffset:157.08; } to{ stroke-dashoffset:0; } }
+  @keyframes gateHalo{ 0%{ box-shadow:0 0 0 0 rgba(255,255,255,.55); } 70%{ box-shadow:0 0 0 22px rgba(255,255,255,0); } 100%{ box-shadow:0 0 0 0 rgba(255,255,255,0); } }
+  #screen-player .water .ring-wrap.intro .ring-num{ position:static; inset:auto; align-items:center; justify-content:flex-start; flex:0 0 auto; }
+  #screen-player .water .ring-wrap.intro .ring-val{ white-space:normal; text-align:center; font-size:min(13cqh, 9cqw); line-height:1; }
+  @media (prefers-reduced-motion: reduce){ #screen-player .water .ring-wrap.intro .gate{ animation:none; } }
   @keyframes breathe{ 0%,100%{ transform:scale(.72); } 50%{ transform:scale(1); } }
   #screen-player .resting .water .cta.secondary{ background:rgba(0,0,0,0.08); color:var(--day-ink); }
   #screen-player .resting .water .cta.ghost{ color:var(--day-ink); box-shadow:inset 0 0 0 2px var(--day-ink); }
@@ -432,6 +451,11 @@
             <line class="ring-bg" x1="0" y1="4" x2="263.9" y2="4"></line>
             <line class="ring-fg" id="ring-fg" x1="0" y1="4" x2="263.9" y2="4"></line>
           </svg>
+          <span class="gate" aria-hidden="true"><svg viewBox="0 0 100 100">
+            <circle class="gate-bg" cx="50" cy="50" r="50"></circle>
+            <circle class="gate-fill" cx="50" cy="50" r="25" transform="rotate(-90 50 50)"></circle>
+            <path class="gate-play" d="M41 32v36l30-18z"></path>
+          </svg></span>
           <div class="ring-num"><span class="ring-val" id="ring-num">0</span><span class="ring-label" id="ring-label"></span></div>
         </div>
 
@@ -1087,6 +1111,10 @@
       if(!screenPlayer.hidden) action();
     }, delay);
     if(drainRing){
+      ringWrap.style.setProperty("--gate-ms", delay + "ms");
+      ringWrap.classList.remove("filling");
+      void ringWrap.offsetWidth;
+      ringWrap.classList.add("filling");
       state.ringDraining = true;
       // snap to a full ring first, whatever the ring showed before (e.g. an empty rest ring)
       ringFg.style.transition = "none";
@@ -1099,6 +1127,7 @@
   }
   function clearAuto(){
     if(state.autoTimer){ clearTimeout(state.autoTimer); state.autoTimer = null; }
+    ringWrap.classList.remove("filling");
     if(state.ringDraining){
       state.ringDraining = false;
       ringFg.style.transition = "";
